@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
+      [0, 20, 5, 25, 10, 30, 15, 40, 40],
     ];
     this.data = this.datasets[0];
 
@@ -44,17 +44,33 @@ export class DashboardComponent implements OnInit {
 
     var chartSales = document.getElementById('chart-sales');
 
+    chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
+
     this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
+      type: 'line',
+      options: chartExample1.options,
+      data: chartExample1.data
+    });
+
+    this.updateOptions();
+
   }
 
 
   public updateOptions() {
+    console.log(this.data);
     this.salesChart.data.datasets[0].data = this.data;
     this.salesChart.update();
+  }
+
+  public ShowDataYTD(): void {
+    chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
+    this.updateOptions();
+  }
+
+  public ShowDataMTD(): void {
+    chartExample1.data.labels = ['May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    this.updateOptions();
   }
 
 }

@@ -37,22 +37,34 @@
           <!-- <div class="text-center text-muted mb-4">
             <small>Or sign in with credentials</small>
           </div> -->
-          <form role="form">
+          <form role="form" [formGroup]="LoginForm" (ngSubmit)="OnSubmit()">
             <div class="form-group mb-3">
               <div class="input-group input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                 </div>
-                <input class="form-control" placeholder="Email" type="email" #email>
+                <input class="form-control" placeholder="Email" type="email" #email formControlName="email">
               </div>
+              
+              <div *ngIf="Submitted && LoginForm.get('email').invalid" class="alert alert-danger mt-2">
+                <span *ngIf="LoginForm.get('email').errors.required">Email is required</span>
+                <span *ngIf="LoginForm.get('email').errors.email">Email is invalid</span>
+              </div>
+
             </div>
             <div class="form-group">
               <div class="input-group input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input class="form-control" placeholder="Password" type="password" #password>
+                <input class="form-control" placeholder="Password" type="password" #password formControlName="password">
               </div>
+
+              <div *ngIf="Submitted && LoginForm.get('password').invalid" class="alert alert-danger mt-2">
+                <span *ngIf="LoginForm.get('password').errors.required">Password is required</span>
+                <span *ngIf="LoginForm.get('password').errors.minlength">Minimum Length is 5</span>
+            </div>
+
             </div>
             <div class="custom-control custom-control-alternative custom-checkbox">
               <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
@@ -61,7 +73,7 @@
               </label>
             </div>
             <div class="text-center">
-              <button type="button" class="btn btn-primary my-4" (click)="Login(email.value, password.value)">Sign in</button>
+              <button type="submit" class="btn btn-primary my-4">Sign in</button>
             </div>
           </form>
         </div>
