@@ -11,11 +11,22 @@ export class ReportsComponent implements OnInit {
   public IsCallExecuted: boolean = false;
   public IsMSS: boolean = false;
 
+  public KarachiSelected: boolean = true;
+  public RawalpindiSelected: boolean = false;
+
+  public SelectedCity: string = "Karachi";
+
+  public MIOBorder: string;
+  public CallsBorder: string;
+  public MMSBorder: string;
+
   constructor() { }
 
   ngOnInit(): void {
-
     this.IsMioReports = true;
+    this.MIOBorder = "5px solid lightgray";
+    this.CallsBorder = "none";
+    this.MMSBorder = "none";
   }
 
   public OnClickMIOReports(): void
@@ -23,6 +34,10 @@ export class ReportsComponent implements OnInit {
     this.IsMioReports = true;
     this.IsCallExecuted = false;
     this.IsMSS = false;
+
+    this.MIOBorder = "5px solid lightgray";
+    this.CallsBorder = "none";
+    this.MMSBorder = "none";
   }
 
   public OnClickCallExecuted(): void
@@ -30,6 +45,10 @@ export class ReportsComponent implements OnInit {
     this.IsCallExecuted = true;
     this.IsMioReports = false;
     this.IsMSS = false;
+
+    this.MIOBorder = "none";
+    this.CallsBorder = "5px solid lightgray";
+    this.MMSBorder = "none";
   }
 
   public OnClickMSS(): void
@@ -37,6 +56,24 @@ export class ReportsComponent implements OnInit {
     this.IsMSS = true;
     this.IsMioReports = false;
     this.IsCallExecuted = false;
+
+    this.MIOBorder = "none";
+    this.CallsBorder = "none";
+    this.MMSBorder = "5px solid lightgray";
+  }
+
+  public SelectKarachi(): void
+  {
+    this.SelectedCity = "Karachi";
+    this.KarachiSelected = true;
+    this.RawalpindiSelected = false;
+  }
+
+  public SelectRawalpindi(): void
+  {
+    this.SelectedCity = "Rawalpindi";
+    this.KarachiSelected = false;
+    this.RawalpindiSelected = true;
   }
 
 }

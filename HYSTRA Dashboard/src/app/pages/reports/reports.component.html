@@ -9,6 +9,7 @@
               class="btn btn-light"
               style="background-color: currentColor; border: none"
               (click)="OnClickMIOReports()"
+              [ngStyle]="{ 'border': MIOBorder }"
             >
               <div class="card-body">
                 <div class="row">
@@ -30,6 +31,7 @@
               style="background-color: currentColor; border: none"
               type="button"
               (click)="OnClickCallExecuted()"
+              [ngStyle]="{ 'border': CallsBorder }"
             >
               <div class="card-body">
                 <div class="row">
@@ -50,6 +52,7 @@
               class="btn btn-light"
               style="background-color: currentColor; border: none"
               (click)="OnClickMSS()"
+              [ngStyle]="{ 'border': MMSBorder }"
             >
               <div class="card-body">
                 <div class="row">
@@ -76,7 +79,27 @@
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
-            <div class="col-6"><h3 class="mb-0">MIO Reports</h3></div>
+            <div class="col-3">
+              <h3 class="mb-0">MIO Reports</h3>
+            </div>
+            <div class="col-3">
+              <div ngbDropdown class="btn-group dropdown">
+                <button
+                  type="button"
+                  ngbDropdownToggle
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {{SelectedCity}} <i class="ni ni-bold-down"></i>
+                </button>
+                <div ngbDropdownMenu class="dropdown-menu">
+                  <a ngbDropdownItem class="dropdown-item" (click)="SelectKarachi()">Karachi</a>
+                  <a ngbDropdownItem class="dropdown-item" (click)="SelectRawalpindi()">Rawalpindi</a>
+                </div>
+              </div>
+            </div>
             <div class="col-3">
               <label for="from" class="mr-1">From:</label>
               <input
@@ -113,7 +136,7 @@
             </thead>
             <tbody>
               <!-- Karachi -->
-              <tr>
+              <tr *ngIf="KarachiSelected">
                 <td>Z04002105</td>
                 <td>Farhat Seema</td>
                 <td>Azhar-MIO-01</td>
@@ -123,7 +146,7 @@
                 <td>ASMA MEDICAL STORE</td>
                 <td>50</td>
               </tr>
-              <tr>
+              <tr *ngIf="KarachiSelected">
                 <td>Z04006296</td>
                 <td>ZARAFSHAH SEHAR</td>
                 <td>Azhar-MIO-01</td>
@@ -133,7 +156,7 @@
                 <td>Mashallah Medicos</td>
                 <td>75</td>
               </tr>
-              <tr>
+              <tr *ngIf="KarachiSelected">
                 <td>Z04003003</td>
                 <td>RIFFAT RANA</td>
                 <td>Azhar-MIO-01</td>
@@ -143,7 +166,7 @@
                 <td>Star M/S</td>
                 <td>10</td>
               </tr>
-              <tr>
+              <tr *ngIf="KarachiSelected">
                 <td>Z04002818</td>
                 <td>SHAHNAZ ANSARI</td>
                 <td>Noman-MIO-02</td>
@@ -153,28 +176,8 @@
                 <td>Dr Shahnaz Ansari pharmacy</td>
                 <td>50</td>
               </tr>
-              <tr>
-                <td>Z04006294</td>
-                <td>ABIDA ARSHAD</td>
-                <td>Noman-MIO-02</td>
-                <td>Karachi</td>
-                <td>A</td>
-                <td>16048300</td>
-                <td>Abida M/S</td>
-                <td>10</td>
-              </tr>
-              <tr class="bg-light">
-                <td>Karachi</td>
-                <td>120</td>
-                <td>2</td>
-                <td>1</td>
-                <td>3</td>
-                <td>79</td>
-                <td>120</td>
-                <td>2310</td>
-              </tr>
               <!-- Rawalpindi -->
-              <tr>
+              <tr *ngIf="RawalpindiSelected">
                 <td>Z64008208</td>
                 <td>Dr Sobia Ameer</td>
                 <td>Akhter - MIO-01</td>
@@ -184,7 +187,7 @@
                 <td>W WILSON CHEMISTS</td>
                 <td>-20</td>
               </tr>
-              <tr>
+              <tr *ngIf="RawalpindiSelected">
                 <td>Z64008214</td>
                 <td>Dr Gul Ateeq</td>
                 <td>Akhter - MIO-01</td>
@@ -194,7 +197,7 @@
                 <td>A Y NOOR PHARMACY</td>
                 <td>-5</td>
               </tr>
-              <tr>
+              <tr *ngIf="RawalpindiSelected">
                 <td>Z64008161</td>
                 <td>ZOHRA ISRAR</td>
                 <td>Shazia-MIO-02</td>
@@ -203,32 +206,6 @@
                 <td>73560191</td>
                 <td>TAJAR WELFARE FOUNDATION MEDICAL STORE</td>
                 <td>-30</td>
-              </tr>
-              <tr class="bg-light">
-                <td>Rawalpindi</td>
-                <td>120</td>
-                <td>2</td>
-                <td>1</td>
-                <td>3</td>
-                <td>73</td>
-                <td>117</td>
-                <td>2890</td>
-              </tr>
-              <!-- Total -->
-              <div class="card-header border-0">
-                <div class="row align-items-center">
-                  <h3 class="mb-0">Total:</h3>
-                </div>
-              </div>
-              <tr class="bg-primary text-light">
-                <td>240</td>
-                <td>240</td>
-                <td>4</td>
-                <td>2</td>
-                <td>3</td>
-                <td>152</td>
-                <td>237</td>
-                <td>5200</td>
               </tr>
             </tbody>
           </table>
@@ -266,7 +243,7 @@
     </div>
   </div>
 </div>
-
+<!-- ========================================================================================= -->
 <div class="container-fluid mt--7" *ngIf="IsCallExecuted">
   <!-- Table -->
   <div class="row">
@@ -274,7 +251,25 @@
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
-            <div class="col-6"><h3 class="mb-0">Call Executed</h3></div>
+            <div class="col-3"><h3 class="mb-0">Call Executed</h3></div>
+            <div class="col-3">
+              <div ngbDropdown class="btn-group dropdown">
+                <button
+                  type="button"
+                  ngbDropdownToggle
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {{SelectedCity}} <i class="ni ni-bold-down"></i>
+                </button>
+                <div ngbDropdownMenu class="dropdown-menu">
+                  <a ngbDropdownItem class="dropdown-item" (click)="SelectKarachi()">Karachi</a>
+                  <a ngbDropdownItem class="dropdown-item" (click)="SelectRawalpindi()">Rawalpindi</a>
+                </div>
+              </div>
+            </div>
             <div class="col-3">
               <label for="from" class="mr-1">From:</label>
               <input
@@ -325,7 +320,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngIf="KarachiSelected">
                 <td>Karachi</td>
                 <td>Jan-23</td>
                 <td>Azhar Ayub (KHI-MIO-01)</td>
@@ -343,7 +338,7 @@
                 <td>83%</td>
                 <td>17%</td>
               </tr>
-              <tr>
+              <tr *ngIf="RawalpindiSelected">
                 <td>Rawalpindi</td>
                 <td>Jan-23</td>
                 <td>Akhtar (RWP-MIO-01)</td>
@@ -360,22 +355,6 @@
                 <td>166</td>
                 <td>87%</td>
                 <td>13%</td>
-              </tr>
-              <tr class="bg-light">
-                <td colspan="3" class="bg-lighter">Grand Total</td>
-                <td>725</td>
-                <td>618</td>
-                <td>42</td>
-                <td>660</td>
-                <td>65</td>
-                <td>85%</td>
-                <td>6%</td>
-                <td>91%</td>
-                <td>561</td>
-                <td>100</td>
-                <td>661</td>
-                <td>85%</td>
-                <td>15%</td>
               </tr>
             </tbody>
           </table>
@@ -413,7 +392,7 @@
     </div>
   </div>
 </div>
-
+<!-- ===================================================================================================== -->
 <div class="container-fluid mt--7" *ngIf="IsMSS">
   <!-- Table -->
   <div class="row">
@@ -421,8 +400,26 @@
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
-            <div class="col-6">
+            <div class="col-3">
               <h3 class="mb-0">MIO - M&P Monthly Sales</h3>
+            </div>
+            <div class="col-3">
+              <div ngbDropdown class="btn-group dropdown">
+                <button
+                  type="button"
+                  ngbDropdownToggle
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {{SelectedCity}} <i class="ni ni-bold-down"></i>
+                </button>
+                <div ngbDropdownMenu class="dropdown-menu">
+                  <a ngbDropdownItem class="dropdown-item" (click)="SelectMIOKarachi()">Karachi</a>
+                  <a ngbDropdownItem class="dropdown-item" (click)="SelectMIORawalpindi()">Rawalpindi</a>
+                </div>
+              </div>
             </div>
             <div class="col-3">
               <label for="from" class="mr-1">From:</label>
@@ -472,13 +469,6 @@
                 <td>20</td>
                 <td>33%</td>
                 <td>730</td>
-              </tr>
-              <tr class="bg-light">
-                <td colspan="2" class="bg-lighter">Grand Total</td>
-                <td>240</td>
-                <td>87</td>
-                <td>36%</td>
-                <td>5200</td>
               </tr>
             </tbody>
           </table>
