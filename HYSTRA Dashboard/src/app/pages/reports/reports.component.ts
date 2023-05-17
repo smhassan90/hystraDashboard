@@ -48,7 +48,7 @@ export class ReportsComponent implements OnInit {
     this.IsMSS = false;
 
     this.MIOBorder = "none";
-    this.CallsBorder = "6px solid #ff000075";
+    this.CallsBorder = "6px solid #f3603994";
     this.MMSBorder = "none";
   }
 
