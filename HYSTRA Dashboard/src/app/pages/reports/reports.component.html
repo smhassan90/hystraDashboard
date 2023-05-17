@@ -9,7 +9,7 @@
               class="btn btn-light"
               style="background-color: currentColor; border: none"
               (click)="OnClickMIOReports()"
-              [ngStyle]="{ 'border': MIOBorder }"
+              [ngStyle]="{ border: MIOBorder }"
             >
               <div class="card-body">
                 <div class="row">
@@ -31,7 +31,7 @@
               style="background-color: currentColor; border: none"
               type="button"
               (click)="OnClickCallExecuted()"
-              [ngStyle]="{ 'border': CallsBorder }"
+              [ngStyle]="{ border: CallsBorder }"
             >
               <div class="card-body">
                 <div class="row">
@@ -52,7 +52,7 @@
               class="btn btn-light"
               style="background-color: currentColor; border: none"
               (click)="OnClickMSS()"
-              [ngStyle]="{ 'border': MMSBorder }"
+              [ngStyle]="{ border: MMSBorder }"
             >
               <div class="card-body">
                 <div class="row">
@@ -92,11 +92,21 @@
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  {{SelectedCity}} <i class="ni ni-bold-down"></i>
+                  {{ SelectedCity }} <i class="ni ni-bold-down"></i>
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu">
-                  <a ngbDropdownItem class="dropdown-item" (click)="SelectKarachi()">Karachi</a>
-                  <a ngbDropdownItem class="dropdown-item" (click)="SelectRawalpindi()">Rawalpindi</a>
+                  <a
+                    ngbDropdownItem
+                    class="dropdown-item"
+                    (click)="SelectKarachi()"
+                    >Karachi</a
+                  >
+                  <a
+                    ngbDropdownItem
+                    class="dropdown-item"
+                    (click)="SelectRawalpindi()"
+                    >Rawalpindi</a
+                  >
                 </div>
               </div>
             </div>
@@ -262,11 +272,21 @@
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  {{SelectedCity}} <i class="ni ni-bold-down"></i>
+                  {{ SelectedCity }} <i class="ni ni-bold-down"></i>
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu">
-                  <a ngbDropdownItem class="dropdown-item" (click)="SelectKarachi()">Karachi</a>
-                  <a ngbDropdownItem class="dropdown-item" (click)="SelectRawalpindi()">Rawalpindi</a>
+                  <a
+                    ngbDropdownItem
+                    class="dropdown-item"
+                    (click)="SelectKarachi()"
+                    >Karachi</a
+                  >
+                  <a
+                    ngbDropdownItem
+                    class="dropdown-item"
+                    (click)="SelectRawalpindi()"
+                    >Rawalpindi</a
+                  >
                 </div>
               </div>
             </div>
@@ -413,11 +433,21 @@
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  {{SelectedCity}} <i class="ni ni-bold-down"></i>
+                  {{ SelectedCity }} <i class="ni ni-bold-down"></i>
                 </button>
                 <div ngbDropdownMenu class="dropdown-menu">
-                  <a ngbDropdownItem class="dropdown-item" (click)="SelectMIOKarachi()">Karachi</a>
-                  <a ngbDropdownItem class="dropdown-item" (click)="SelectMIORawalpindi()">Rawalpindi</a>
+                  <a
+                    ngbDropdownItem
+                    class="dropdown-item"
+                    (click)="SelectKarachi()"
+                    >Karachi</a
+                  >
+                  <a
+                    ngbDropdownItem
+                    class="dropdown-item"
+                    (click)="SelectIslamabad()"
+                    >Islamabad</a
+                  >
                 </div>
               </div>
             </div>
@@ -454,7 +484,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngIf="KarachiSelected">
                 <td>KHI01-HYST-MIO-01</td>
                 <td>Azhar</td>
                 <td>60</td>
@@ -462,13 +492,29 @@
                 <td>28%</td>
                 <td>1580</td>
               </tr>
-              <tr>
+              <tr *ngIf="KarachiSelected">
                 <td>KHI01-HYST-MIO-02</td>
                 <td>Noman</td>
                 <td>60</td>
                 <td>20</td>
                 <td>33%</td>
                 <td>730</td>
+              </tr>
+              <tr *ngIf="IslamabadSelected">
+                <td>ISB01-HYST-MIO-01</td>
+                <td>Akhter</td>
+                <td>60</td>
+                <td>16</td>
+                <td>27%</td>
+                <td>70</td>
+              </tr>
+              <tr *ngIf="IslamabadSelected">
+                <td>ISB01-HYST-MIO-02</td>
+                <td>Shazia</td>
+                <td>60</td>
+                <td>16</td>
+                <td>27%</td>
+                <td>70</td>
               </tr>
             </tbody>
           </table>

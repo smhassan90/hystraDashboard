@@ -13,6 +13,7 @@ export class ReportsComponent implements OnInit {
 
   public KarachiSelected: boolean = true;
   public RawalpindiSelected: boolean = false;
+  public IslamabadSelected: boolean = false;
 
   public SelectedCity: string = "Karachi";
 
@@ -67,6 +68,7 @@ export class ReportsComponent implements OnInit {
     this.SelectedCity = "Karachi";
     this.KarachiSelected = true;
     this.RawalpindiSelected = false;
+    this.IslamabadSelected = false;
   }
 
   public SelectRawalpindi(): void
@@ -74,6 +76,13 @@ export class ReportsComponent implements OnInit {
     this.SelectedCity = "Rawalpindi";
     this.KarachiSelected = false;
     this.RawalpindiSelected = true;
+  }
+
+  public SelectIslamabad(): void
+  {
+    this.SelectedCity = "Islamabad";
+    this.KarachiSelected = false;
+    this.IslamabadSelected = true;
   }
 
 }
