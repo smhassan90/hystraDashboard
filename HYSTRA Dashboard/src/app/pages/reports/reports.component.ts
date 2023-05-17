@@ -60,7 +60,7 @@ export class ReportsComponent implements OnInit {
 
     this.MIOBorder = "none";
     this.CallsBorder = "none";
-    this.MMSBorder = "5px solid #f3603994";
+    this.MMSBorder = "6px solid #f3603994";
   }
 
   public SelectKarachi(): void
