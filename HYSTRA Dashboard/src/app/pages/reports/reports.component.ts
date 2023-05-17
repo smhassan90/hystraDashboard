@@ -25,7 +25,7 @@ export class ReportsComponent implements OnInit {
 
   ngOnInit(): void {
     this.IsMioReports = true;
-    this.MIOBorder = "5px solid lightgray";
+    this.MIOBorder = "6px solid #f3603994";
     this.CallsBorder = "none";
     this.MMSBorder = "none";
   }
@@ -36,7 +36,7 @@ export class ReportsComponent implements OnInit {
     this.IsCallExecuted = false;
     this.IsMSS = false;
 
-    this.MIOBorder = "5px solid lightgray";
+    this.MIOBorder = "6px solid #f3603994";
     this.CallsBorder = "none";
     this.MMSBorder = "none";
   }
@@ -48,7 +48,7 @@ export class ReportsComponent implements OnInit {
     this.IsMSS = false;
 
     this.MIOBorder = "none";
-    this.CallsBorder = "5px solid lightgray";
+    this.CallsBorder = "6px solid #ff000075";
     this.MMSBorder = "none";
   }
 
@@ -60,7 +60,7 @@ export class ReportsComponent implements OnInit {
 
     this.MIOBorder = "none";
     this.CallsBorder = "none";
-    this.MMSBorder = "5px solid lightgray";
+    this.MMSBorder = "5px solid #f3603994";
   }
 
   public SelectKarachi(): void
