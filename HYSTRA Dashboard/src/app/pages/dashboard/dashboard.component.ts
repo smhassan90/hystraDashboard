@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
 
   public datasets: any;
   public data: any;
-  public salesChart;
+  public salesLineChartMIO;
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
@@ -30,27 +30,53 @@ export class DashboardComponent implements OnInit {
     ];
     this.data = this.datasets[0];
 
-
-    var chartOrders = document.getElementById('chart-orders');
+    // MIO Wise Sales Bar Chart
+    var salesBarChartMIO = document.getElementById('MIO-WiseSales');
 
     parseOptions(Chart, chartOptions());
 
-
-    var ordersChart = new Chart(chartOrders, {
+    var salesChart = new Chart(salesBarChartMIO, {
       type: 'bar',
       options: chartExample2.options,
       data: chartExample2.data
     });
+    // --------------------------
 
-    var chartSales = document.getElementById('chart-sales');
+    // Sales MIO Line Chart
+    var lineChartSalesMIO = document.getElementById('chart-sales-MIO');
 
     chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
 
-    this.salesChart = new Chart(chartSales, {
+    this.salesLineChartMIO = new Chart(lineChartSalesMIO, {
       type: 'line',
       options: chartExample1.options,
       data: chartExample1.data
     });
+    // --------------------------
+
+    // MIO Wise Sales Bar Chart
+    var salesBarChartMIO = document.getElementById('CHO-WiseSales');
+
+    parseOptions(Chart, chartOptions());
+
+    var salesChart = new Chart(salesBarChartMIO, {
+      type: 'bar',
+      options: chartExample2.options,
+      data: chartExample2.data
+    });
+    // --------------------------
+
+    // Sales MIO Line Chart
+    var lineChartSalesMIO = document.getElementById('chart-sales-CHO');
+
+    chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
+
+    this.salesLineChartMIO = new Chart(lineChartSalesMIO, {
+      type: 'line',
+      options: chartExample1.options,
+      data: chartExample1.data
+    });
+    // --------------------------
 
     this.updateOptions();
 
@@ -59,8 +85,8 @@ export class DashboardComponent implements OnInit {
 
   public updateOptions() {
     console.log(this.data);
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
+    this.salesLineChartMIO.data.datasets[0].data = this.data;
+    this.salesLineChartMIO.update();
   }
 
   public ShowDataYTD(): void {

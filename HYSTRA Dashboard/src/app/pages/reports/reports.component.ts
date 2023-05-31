@@ -13,9 +13,14 @@ export class ReportsComponent implements OnInit {
 
   public KarachiSelected: boolean = true;
   public RawalpindiSelected: boolean = false;
-  public IslamabadSelected: boolean = false;
+  public AllDistrictsSelected: boolean = false;
+
+  public MIOSelected: boolean = true;
+  public CHOSelected: boolean = false;
+  public AllTypesSelected: boolean = false;
 
   public SelectedCity: string = "Karachi";
+  public SelectedType: string = "MIO";
 
   public MIOBorder: string;
   public CallsBorder: string;
@@ -23,7 +28,8 @@ export class ReportsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.IsMioReports = true;
     this.MIOBorder = "6px solid #f3603994";
     this.CallsBorder = "none";
@@ -68,21 +74,44 @@ export class ReportsComponent implements OnInit {
     this.SelectedCity = "Karachi";
     this.KarachiSelected = true;
     this.RawalpindiSelected = false;
-    this.IslamabadSelected = false;
+    this.AllDistrictsSelected = false;
   }
 
   public SelectRawalpindi(): void
   {
     this.SelectedCity = "Rawalpindi";
-    this.KarachiSelected = false;
     this.RawalpindiSelected = true;
+    this.KarachiSelected = false;
+    this.AllDistrictsSelected = false;
   }
 
-  public SelectIslamabad(): void
+  public SelectAllDistricts(): void
   {
-    this.SelectedCity = "Islamabad";
-    this.KarachiSelected = false;
-    this.IslamabadSelected = true;
+    this.SelectedCity = "All Districts";
+    this.KarachiSelected = true;
+    this.RawalpindiSelected = true;
+    this.AllDistrictsSelected = true;
+  }
+
+  public SelectAllTypes(): void
+  {
+    this.SelectedType = "All";
+    this.MIOSelected = true;
+    this.CHOSelected = true;
+  }
+
+  public SelectMIO(): void
+  {
+    this.SelectedType = "MIO";
+    this.MIOSelected = true;
+    this.CHOSelected = false;
+  }
+
+  public SelectCHO(): void
+  {
+    this.SelectedType = "CHO";
+    this.MIOSelected = false;
+    this.CHOSelected = true;
   }
 
 }
