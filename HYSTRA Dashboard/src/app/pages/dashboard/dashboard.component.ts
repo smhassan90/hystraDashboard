@@ -22,6 +22,9 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
+  public SelectedCity: string = "Karachi";
+  public SelectedPeriodFilter: string = "MTD";
+
   ngOnInit() {
 
     this.datasets = [
@@ -54,7 +57,7 @@ export class DashboardComponent implements OnInit {
     });
     // --------------------------
 
-    // MIO Wise Sales Bar Chart
+    // CHO Wise Sales Bar Chart
     var salesBarChartMIO = document.getElementById('CHO-WiseSales');
 
     parseOptions(Chart, chartOptions());
@@ -66,7 +69,7 @@ export class DashboardComponent implements OnInit {
     });
     // --------------------------
 
-    // Sales MIO Line Chart
+    // Sales CHO Line Chart
     var lineChartSalesMIO = document.getElementById('chart-sales-CHO');
 
     chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
@@ -89,14 +92,54 @@ export class DashboardComponent implements OnInit {
     this.salesLineChartMIO.update();
   }
 
-  public ShowDataYTD(): void {
+  public ShowMIODataYTD(): void {
     chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
     this.updateOptions();
   }
 
-  public ShowDataMTD(): void {
+  public ShowMIODataMTD(): void {
     chartExample1.data.labels = ['May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     this.updateOptions();
+  }
+
+  public ShowCHODataYTD(): void {
+    chartExample2.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
+    this.updateOptions();
+  }
+
+  public ShowCHODataMTD(): void {
+    chartExample2.data.labels = ['May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    this.updateOptions();
+  }
+
+  public SelectKarachi(): void
+  {
+    this.SelectedCity = "Karachi";
+  }
+
+  public SelectRawalpindi(): void
+  {
+    this.SelectedCity = "Rawalpindi";
+  }
+
+  public SelectAllDistricts(): void
+  {
+    this.SelectedCity = "All Districts";
+  }
+
+  public SelectMTD(): void
+  {
+    this.SelectedPeriodFilter = "MTD";
+  }
+
+  public SelectYTI(): void
+  {
+    this.SelectedPeriodFilter = "YTI";
+  }
+
+  public SelectPTD(): void
+  {
+    this.SelectedPeriodFilter = "PTD";
   }
 
 }

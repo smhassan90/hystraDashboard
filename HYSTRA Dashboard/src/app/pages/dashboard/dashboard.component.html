@@ -4,6 +4,74 @@
 >
   <div class="container-fluid">
     <div class="header-body">
+      <div class="card mb-4" style="display: inline-block;">
+        <div ngbDropdown class="btn-group dropdown">
+          <button
+            type="button"
+            ngbDropdownToggle
+            class="btn btn-secondary dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+          {{ SelectedCity }} <i class="ni ni-bold-down"></i>
+          </button>
+          <div ngbDropdownMenu class="dropdown-menu">
+            <a
+              ngbDropdownItem
+              class="dropdown-item"
+              (click)="SelectAllDistricts()"
+              >All Districts</a
+            >
+            <a
+              ngbDropdownItem
+              class="dropdown-item"
+              (click)="SelectKarachi()"
+              >Karachi</a
+            >
+            <a
+              ngbDropdownItem
+              class="dropdown-item"
+              (click)="SelectRawalpindi()"
+              >Rawalpindi</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card mb-4 ml-4" style="display: inline-block;">
+        <div ngbDropdown class="btn-group dropdown">
+          <button
+            type="button"
+            ngbDropdownToggle
+            class="btn btn-secondary dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+          {{ SelectedPeriodFilter }} <i class="ni ni-bold-down"></i>
+          </button>
+          <div ngbDropdownMenu class="dropdown-menu">
+            <a
+              ngbDropdownItem
+              class="dropdown-item"
+              (click)="SelectMTD()"
+              >MTD</a
+            >
+            <a
+              ngbDropdownItem
+              class="dropdown-item"
+              (click)="SelectYTI()"
+              >YTI</a
+            >
+            <a
+              ngbDropdownItem
+              class="dropdown-item"
+              (click)="SelectPTD()"
+              >PTD</a
+            >
+          </div>
+        </div>
+      </div>
       <div class="card mb-4" style="width: 5rem; height: 2.5rem">
         <p
           class="card-title font-weight-bold text-mutednfo display-4 text-center"
@@ -306,6 +374,8 @@
   </div>
 </div>
 <div class="container-fluid mt--7">
+  <!-- ======================================================= -->
+
   <!-- MIO -->
   <div class="row mb-3">
     <div class="col-xl-7 mb-5 mb-xl-0">
@@ -321,7 +391,7 @@
                   class="nav-item mr-2 mr-md-0"
                   data-toggle="chart"
                   data-target="#chart-sales-MIO"
-                  (click)="data = datasets[0]; ShowDataYTD()"
+                  (click)="data = datasets[0]; ShowMIODataYTD()"
                 >
                   <a
                     href="javascript:void(0)"
@@ -338,7 +408,7 @@
                   class="nav-item"
                   data-toggle="chart"
                   data-target="#chart-sales-MIO"
-                  (click)="data = datasets[1]; ShowDataMTD()"
+                  (click)="data = datasets[1]; ShowMIODataMTD()"
                 >
                   <a
                     href="javascript:void(0)"
@@ -399,7 +469,7 @@
                   class="nav-item mr-2 mr-md-0"
                   data-toggle="chart"
                   data-target="#chart-sales-CHO"
-                  (click)="data = datasets[0]; ShowDataYTD()"
+                  (click)="data = datasets[0]; ShowCHODataYTD()"
                 >
                   <a
                     href="javascript:void(0)"
@@ -416,7 +486,7 @@
                   class="nav-item"
                   data-toggle="chart"
                   data-target="#chart-sales-CHO"
-                  (click)="data = datasets[1]; ShowDataMTD()"
+                  (click)="data = datasets[1]; ShowCHODataMTD()"
                 >
                   <a
                     href="javascript:void(0)"
