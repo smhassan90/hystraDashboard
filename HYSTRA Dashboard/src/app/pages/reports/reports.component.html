@@ -97,7 +97,7 @@
                 </button>
               </div>
             </div>
-            <div class="col-2">
+            <div class="col-2 text-center">
               <div ngbDropdown class="btn-group dropdown">
                 <button
                   type="button"
@@ -131,7 +131,17 @@
                 </div>
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-2">
+              <div class="form-group mb-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search..."
+                  [(ngModel)]="filterProviderCode"
+                />
+              </div>
+            </div>
+            <div class="col-2">
               <label for="from" class="mr-1">From:</label>
               <input
                 type="date"
@@ -140,7 +150,7 @@
                 class="rounded form-control"
               />
             </div>
-            <div class="col-3">
+            <div class="col-2">
               <label for="to" class="mr-1">To:</label>
               <input
                 type="date"
@@ -166,85 +176,33 @@
                 <th scope="col">Monthly Sales</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="KarachiSelected">
               <!-- Karachi -->
-              <tr *ngIf="KarachiSelected">
-                <td>05/02/2023</td>
-                <td>Z04002105</td>
-                <td>Farhat Seema</td>
-                <td>Azhar-MIO-01</td>
-                <td>Karachi</td>
-                <td>A</td>
-                <td>7180300</td>
-                <td>ASMA MEDICAL STORE</td>
-                <td>50</td>
+              <tr *ngFor="let item of MIOReportsKarachi | filter: filterProviderCode">
+                <td>{{item.date}}</td>
+                <td>{{item.providerCode}}</td>
+                <td>{{item.providerName}}</td>
+                <td>{{item.MIO}}</td>
+                <td>{{item.district}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.pharmacyCode}}</td>
+                <td>{{item.taggedPharmacy}}</td>
+                <td>{{item.monthlySales}}</td>
               </tr>
-              <tr *ngIf="KarachiSelected">
-                <td>05/02/2023</td>
-                <td>Z04006296</td>
-                <td>ZARAFSHAH SEHAR</td>
-                <td>Azhar-MIO-01</td>
-                <td>Karachi</td>
-                <td>A</td>
-                <td>78478400</td>
-                <td>Mashallah Medicos</td>
-                <td>75</td>
-              </tr>
-              <tr *ngIf="KarachiSelected">
-                <td>05/03/2023</td>
-                <td>Z04003003</td>
-                <td>RIFFAT RANA</td>
-                <td>Azhar-MIO-01</td>
-                <td>Karachi</td>
-                <td>A</td>
-                <td>17245909</td>
-                <td>Star M/S</td>
-                <td>10</td>
-              </tr>
-              <tr *ngIf="KarachiSelected">
-                <td>05/03/2023</td>
-                <td>Z04002818</td>
-                <td>SHAHNAZ ANSARI</td>
-                <td>Noman-MIO-02</td>
-                <td>Karachi</td>
-                <td>A</td>
-                <td>17165700</td>
-                <td>Dr Shahnaz Ansari pharmacy</td>
-                <td>50</td>
-              </tr>
+            </tbody>
+
               <!-- Rawalpindi -->
-              <tr *ngIf="RawalpindiSelected">
-                <td>05/03/2023</td>
-                <td>Z64008208</td>
-                <td>Dr Sobia Ameer</td>
-                <td>Akhter - MIO-01</td>
-                <td>Rawalpindi</td>
-                <td>A</td>
-                <td>70157300</td>
-                <td>W WILSON CHEMISTS</td>
-                <td>-20</td>
-              </tr>
-              <tr *ngIf="RawalpindiSelected">
-                <td>05/04/2023</td>
-                <td>Z64008214</td>
-                <td>Dr Gul Ateeq</td>
-                <td>Akhter - MIO-01</td>
-                <td>Rawalpindi</td>
-                <td>C</td>
-                <td>73579863</td>
-                <td>A Y NOOR PHARMACY</td>
-                <td>-5</td>
-              </tr>
-              <tr *ngIf="RawalpindiSelected">
-                <td>05/04/2023</td>
-                <td>Z64008161</td>
-                <td>ZOHRA ISRAR</td>
-                <td>Shazia-MIO-02</td>
-                <td>Rawalpindi</td>
-                <td>A</td>
-                <td>73560191</td>
-                <td>TAJAR WELFARE FOUNDATION MEDICAL STORE</td>
-                <td>-30</td>
+            <tbody *ngIf="RawalpindiSelected">
+              <tr *ngFor="let item of MIOReportsRawalpindi | filter: filterProviderCode">
+                <td>{{item.date}}</td>
+                <td>{{item.providerCode}}</td>
+                <td>{{item.providerName}}</td>
+                <td>{{item.MIO}}</td>
+                <td>{{item.district}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.pharmacyCode}}</td>
+                <td>{{item.taggedPharmacy}}</td>
+                <td>{{item.monthlySales}}</td>
               </tr>
             </tbody>
           </table>
@@ -504,7 +462,7 @@
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
-            <div class="col-2">
+            <div class="col-3">
               <h3 class="mb-0">MIO - M&P Monthly Sales</h3>
             </div>
             <div class="col-2">
@@ -556,7 +514,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-2">
               <label for="from" class="mr-1">From:</label>
               <input
                 type="date"
@@ -565,7 +523,7 @@
                 class="rounded form-control"
               />
             </div>
-            <div class="col-3">
+            <div class="col-2">
               <label for="to" class="mr-1">To:</label>
               <input
                 type="date"

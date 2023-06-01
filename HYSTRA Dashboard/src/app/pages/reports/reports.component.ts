@@ -26,6 +26,89 @@ export class ReportsComponent implements OnInit {
   public CallsBorder: string;
   public MMSBorder: string;
 
+  public MIOReportsRawalpindi = [
+    {
+      date: "05/02/2023",
+      providerCode: 'Z64008208',
+      providerName: 'Dr Sobia Ameer',
+      MIO: 'Akhter - MIO-01',
+      district: 'Rawalpindi',
+      category: 'A',
+      pharmacyCode: '70157300',
+      taggedPharmacy: 'W WILSON CHEMISTS',
+      monthlySales: '-20',
+    },
+    {
+      date: "05/04/2023",
+      providerCode: 'Z64008214',
+      providerName: 'Dr Gul Ateeq',
+      MIO: 'Akhter - MIO-01',
+      district: 'Rawalpindi',
+      category: 'C',
+      pharmacyCode: '73579863',
+      taggedPharmacy: 'A Y NOOR PHARMACY',
+      monthlySales: '-5',
+    },
+    {
+      date: "05/04/2023",
+      providerCode: 'Z64008161',
+      providerName: 'ZOHRA ISRAR',
+      MIO: 'Shazia-MIO-02',
+      district: 'Rawalpindi',
+      category: 'A',
+      pharmacyCode: '73560191',
+      taggedPharmacy: 'TAJAR WELFARE FOUNDATION MEDICAL STORE',
+      monthlySales: '-30',
+    },
+  ];
+
+  public MIOReportsKarachi = [
+    {
+      date: "05/02/2023",
+      providerCode: 'Z04002105',
+      providerName: 'Farhat Seema',
+      MIO: 'Azhar-MIO-01',
+      district: 'Karachi',
+      category: 'A',
+      pharmacyCode: '7180300',
+      taggedPharmacy: 'ASMA MEDICAL STORE',
+      monthlySales: '50',
+    },
+    {
+      date: "05/02/2023",
+      providerCode: 'Z04006296',
+      providerName: 'ZARAFSHAH SEHAR',
+      MIO: 'Azhar-MIO-01',
+      district: 'Karachi',
+      category: 'A',
+      pharmacyCode: '78478400',
+      taggedPharmacy: 'Mashallah Medicos',
+      monthlySales: '75',
+    },
+    {
+      date: "05/03/2023",
+      providerCode: 'Z04003003',
+      providerName: 'RIFFAT RANA',
+      MIO: 'Azhar-MIO-01',
+      district: 'Karachi',
+      category: 'A',
+      pharmacyCode: '17245909',
+      taggedPharmacy: 'Star M/S',
+      monthlySales: '10',
+    },
+    {
+      date: "05/03/2023",
+      providerCode: 'Z04002818',
+      providerName: 'SHAHNAZ ANSARI',
+      MIO: 'Noman-MIO-02',
+      district: 'Karachi',
+      category: 'A',
+      pharmacyCode: '17165700',
+      taggedPharmacy: 'Dr Shahnaz Ansari pharmacy',
+      monthlySales: '50',
+    },
+  ];
+
   constructor() { }
 
   ngOnInit(): void
