@@ -3,7 +3,76 @@
     <!-- Brand -->
     <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" routerLinkActive="active" [routerLink]="['/dashboard']">{{getTitle()}}</a>
     <div *ngIf="getTitle() == 'Dashboard'">
-      Dashboard
+      <div class="row">
+        <div class="col-4">
+          <div ngbDropdown class="btn-group dropdown">
+            <button
+              type="button"
+              ngbDropdownToggle
+              class="btn btn-secondary dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {{ SelectedPeriodFilter }} <i class="ni ni-bold-down"></i>
+            </button>
+            <div ngbDropdownMenu class="dropdown-menu">
+              <a
+                ngbDropdownItem
+                class="dropdown-item"
+                (click)="SelectMTD()"
+                >MTD</a
+              >
+              <a
+                ngbDropdownItem
+                class="dropdown-item"
+                (click)="SelectYTD()"
+                >YTD</a
+              >
+              <a
+                ngbDropdownItem
+                class="dropdown-item"
+                (click)="SelectPTD()"
+                >PTD</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-4 ml-3">
+          <div ngbDropdown class="btn-group dropdown">
+            <button
+              type="button"
+              ngbDropdownToggle
+              class="btn btn-secondary dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {{ SelectedCity }} <i class="ni ni-bold-down"></i>
+            </button>
+            <div ngbDropdownMenu class="dropdown-menu">
+              <a
+                ngbDropdownItem
+                class="dropdown-item"
+                (click)="SelectAllDistricts()"
+                >All Districts</a
+              >
+              <a
+                ngbDropdownItem
+                class="dropdown-item"
+                (click)="SelectKarachi()"
+                >Karachi</a
+              >
+              <a
+                ngbDropdownItem
+                class="dropdown-item"
+                (click)="SelectRawalpindi()"
+                >Rawalpindi</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- Form -->
     <!-- <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
