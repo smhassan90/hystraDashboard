@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
   public datasets: any;
   public data: any;
   public salesLineChartMIO;
+  public salesLineChartCHO;
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
@@ -70,23 +71,30 @@ export class DashboardComponent implements OnInit {
     // --------------------------
 
     // Sales CHO Line Chart
-    var lineChartSalesMIO = document.getElementById('chart-sales-CHO');
+    var lineChartSalesCHO = document.getElementById('chart-sales-CHO');
 
     chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
 
-    this.salesLineChartMIO = new Chart(lineChartSalesMIO, {
+    this.salesLineChartCHO = new Chart(lineChartSalesCHO, {
       type: 'line',
       options: chartExample1.options,
       data: chartExample1.data
     });
     // --------------------------
 
-    this.updateOptions();
+    this.updateOptionsMIO();
+    this.updateOptionsCHO();
 
   }
 
 
-  public updateOptions() {
+  public updateOptionsMIO() {
+    console.log(this.data);
+    this.salesLineChartMIO.data.datasets[0].data = this.data;
+    this.salesLineChartMIO.update();
+  }
+
+  public updateOptionsCHO() {
     console.log(this.data);
     this.salesLineChartMIO.data.datasets[0].data = this.data;
     this.salesLineChartMIO.update();
@@ -94,22 +102,22 @@ export class DashboardComponent implements OnInit {
 
   public ShowMIODataYTD(): void {
     chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
-    this.updateOptions();
+    this.updateOptionsMIO();
   }
 
   public ShowMIODataMTD(): void {
     chartExample1.data.labels = ['May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    this.updateOptions();
+    this.updateOptionsMIO();
   }
 
   public ShowCHODataYTD(): void {
     chartExample2.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
-    this.updateOptions();
+    this.updateOptionsCHO();
   }
 
   public ShowCHODataMTD(): void {
     chartExample2.data.labels = ['May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    this.updateOptions();
+    this.updateOptionsCHO();
   }
 
   public SelectKarachi(): void
