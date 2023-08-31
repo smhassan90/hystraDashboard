@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
+import { SalesService } from '../../Services/Sales/sales.service';
+import { BusinessService } from '../../Services/Business/business.service';
 
 // core components
 import {
@@ -8,6 +10,7 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { importExpr } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +28,8 @@ export class DashboardComponent implements OnInit {
 
   public SelectedCity: string = "Karachi";
   public SelectedPeriodFilter: string = "MTD";
+
+  constructor(private sales: SalesService, private bsuinessService: BusinessService) {}
 
   ngOnInit() {
 
@@ -84,7 +89,16 @@ export class DashboardComponent implements OnInit {
 
     this.updateOptionsMIO();
     this.updateOptionsCHO();
+    
+    // APIS Callback
+    
+    this.sales.GetSalesTarget("Karachi", 1, "MIO").subscribe((result) => {
+      console.log("Sales Target API: ", result);
+    });
 
+    this.bsuinessService.GetBusinessData("2022", "02").subscribe((result) => {
+      console.log("Business API: ", result);
+    });
   }
 
 
