@@ -1,0 +1,24 @@
+.my-pagination ::ng-deep .ngx-pagination .current {
+  background: rgb(94, 114, 228);
+  padding: 8px 16px;
+}
+
+.my-pagination ::ng-deep .ngx-pagination li a {
+  padding: 8px 16px;
+}
+
+.my-pagination ::ng-deep .ngx-pagination li {
+  border-radius: 100%;
+  border: 1px solid rgb(225, 228, 232);
+  margin: 0px 3px;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .pagination-previous {
+  border: none;
+}
+.my-pagination ::ng-deep .ngx-pagination .pagination-next {
+  border: none;
+}
+.my-pagination ::ng-deep .ngx-pagination li :hover {
+  border-radius: 100%;
+}

@@ -26,10 +26,12 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
+  public BusinessAPIData : any = [];
+
   public SelectedCity: string = "Karachi";
   public SelectedPeriodFilter: string = "MTD";
 
-  constructor(private sales: SalesService, private bsuinessService: BusinessService) {}
+  constructor(private sales: SalesService, private businessService: BusinessService) {}
 
   ngOnInit() {
 
@@ -89,15 +91,16 @@ export class DashboardComponent implements OnInit {
 
     this.updateOptionsMIO();
     this.updateOptionsCHO();
-    
+
     // APIS Callback
-    
+
     this.sales.GetSalesTarget("Karachi", 1, "MIO").subscribe((result) => {
       console.log("Sales Target API: ", result);
     });
 
-    this.bsuinessService.GetBusinessData("2022", "02").subscribe((result) => {
-      console.log("Business API: ", result);
+    this.businessService.GetBusinessData("2022", "02").subscribe((result) => {
+      this.BusinessAPIData = result;
+      console.log("Business API: ", this.BusinessAPIData);
     });
   }
 
