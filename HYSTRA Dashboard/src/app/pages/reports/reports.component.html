@@ -383,7 +383,8 @@
               </tr>
             </thead>
             <tbody *ngFor="let data of CallsExecutedData | paginate: { itemsPerPage: count, currentPage: p }; let i = index">
-              <tr *ngIf="KarachiSelected">
+              <!-- <tr *ngIf="KarachiSelected"> -->
+              <tr>
                 <td>{{i}}</td>
                 <td>----</td>
                 <td>{{data.Month}}</td>
@@ -401,9 +402,9 @@
                 <td>----</td>
                 <td>----</td>
                 <td>----</td>
-              </tr>
-              <tr *ngIf="RawalpindiSelected">
-                <td>Rawalpindi</td>
+              <!-- </tr>
+              <tr *ngIf="RawalpindiSelected"> -->
+                <!-- <td>Rawalpindi</td>
                 <td>Jan-23</td>
                 <td>Akhtar (RWP-MIO-01)</td>
                 <td>181</td>
@@ -418,7 +419,7 @@
                 <td>22</td>
                 <td>166</td>
                 <td>87%</td>
-                <td>13%</td>
+                <td>13%</td> -->
               </tr>
             </tbody>
           </table>
