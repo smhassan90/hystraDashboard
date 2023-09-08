@@ -178,31 +178,39 @@
             </thead>
             <tbody *ngIf="KarachiSelected">
               <!-- Karachi -->
-              <tr *ngFor="let item of MIOReportsKarachi | filter: filterProviderCode">
-                <td>{{item.date}}</td>
-                <td>{{item.providerCode}}</td>
-                <td>{{item.providerName}}</td>
-                <td>{{item.MIO}}</td>
-                <td>{{item.district}}</td>
-                <td>{{item.category}}</td>
-                <td>{{item.pharmacyCode}}</td>
-                <td>{{item.taggedPharmacy}}</td>
-                <td>{{item.monthlySales}}</td>
+              <tr
+                *ngFor="
+                  let item of MIOReportsKarachi | filter : filterProviderCode
+                "
+              >
+                <td>{{ item.date }}</td>
+                <td>{{ item.providerCode }}</td>
+                <td>{{ item.providerName }}</td>
+                <td>{{ item.MIO }}</td>
+                <td>{{ item.district }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.pharmacyCode }}</td>
+                <td>{{ item.taggedPharmacy }}</td>
+                <td>{{ item.monthlySales }}</td>
               </tr>
             </tbody>
 
-              <!-- Rawalpindi -->
+            <!-- Rawalpindi -->
             <tbody *ngIf="RawalpindiSelected">
-              <tr *ngFor="let item of MIOReportsRawalpindi | filter: filterProviderCode">
-                <td>{{item.date}}</td>
-                <td>{{item.providerCode}}</td>
-                <td>{{item.providerName}}</td>
-                <td>{{item.MIO}}</td>
-                <td>{{item.district}}</td>
-                <td>{{item.category}}</td>
-                <td>{{item.pharmacyCode}}</td>
-                <td>{{item.taggedPharmacy}}</td>
-                <td>{{item.monthlySales}}</td>
+              <tr
+                *ngFor="
+                  let item of MIOReportsRawalpindi | filter : filterProviderCode
+                "
+              >
+                <td>{{ item.date }}</td>
+                <td>{{ item.providerCode }}</td>
+                <td>{{ item.providerName }}</td>
+                <td>{{ item.MIO }}</td>
+                <td>{{ item.district }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.pharmacyCode }}</td>
+                <td>{{ item.taggedPharmacy }}</td>
+                <td>{{ item.monthlySales }}</td>
               </tr>
             </tbody>
           </table>
@@ -317,22 +325,16 @@
                     (click)="SelectAllTypes()"
                     >All</a
                   >
-                  <a
-                    ngbDropdownItem
-                    class="dropdown-item"
-                    (click)="SelectCHO()"
+                  <a ngbDropdownItem class="dropdown-item" (click)="SelectCHO()"
                     >CHO</a
                   >
-                  <a
-                    ngbDropdownItem
-                    class="dropdown-item"
-                    (click)="SelectMIO()"
+                  <a ngbDropdownItem class="dropdown-item" (click)="SelectMIO()"
                     >MIO</a
                   >
                 </div>
               </div>
             </div>
-            <div class="col-2">
+            <!-- <div class="col-2">
               <label for="from" class="mr-1">From:</label>
               <input
                 type="date"
@@ -349,6 +351,49 @@
                 name="to"
                 class="rounded form-control"
               />
+            </div> -->
+            <div _ngcontent-crs-c122="" class="col-2">
+              <div _ngcontent-crs-c122="" class="form-group mb-0">
+                <label
+                  _ngcontent-crs-c122=""
+                  for="input-username"
+                  class="form-control-label"
+                  >Select Year: </label
+                ><input
+                  _ngcontent-crs-c122=""
+                  type="text"
+                  class="form-control form-control-alternative"
+                  (change)="SelectYear($event.target.value, i)"
+                />
+              </div>
+            </div>
+            <div _ngcontent-crs-c122="" class="col-2">
+              <label
+                _ngcontent-crs-c122=""
+                for="input-username"
+                class="form-control-label"
+                >Select Month:
+              </label>
+              <div class="input-group">
+                <select
+                  class="custom-select"
+                  id="inputGroupSelect01"
+                  (change)="SelectMonth($event.target.value, i)"
+                >
+                  <option value="January">January</option>
+                  <option value="February">February</option>
+                  <option value="March">March</option>
+                  <option value="April">April</option>
+                  <option value="May">May</option>
+                  <option value="June">June</option>
+                  <option value="July">July</option>
+                  <option value="August">August</option>
+                  <option value="September">September</option>
+                  <option value="October">October</option>
+                  <option value="November">November</option>
+                  <option value="December">December</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -382,27 +427,33 @@
                 <th scope="col">% Out Range</th>
               </tr>
             </thead>
-            <tbody *ngFor="let data of CallsExecutedData | paginate: { itemsPerPage: count, currentPage: p }; let i = index">
+            <tbody
+              *ngFor="
+                let data of CallsExecutedData
+                  | paginate : { itemsPerPage: count, currentPage: p };
+                let i = index
+              "
+            >
               <!-- <tr *ngIf="KarachiSelected"> -->
               <tr>
-                <td>{{i}}</td>
+                <td>{{ i }}</td>
                 <td>----</td>
-                <td>{{data.Month}}</td>
+                <td>{{ data.Month }}</td>
                 <td>----</td>
-                <td>{{data.CallsPlanned}}</td>
-                <td>{{data.Planned}}</td>
-                <td>{{data.CallsUnplanned}}</td>
-                <td>{{data.ActuallyVisited}}</td>
-                <td>{{data.NotVisited}}</td>
-                <td>{{data.PlannedPercentage}}</td>
-                <td>{{data.UnplannedPercentage}}</td>
-                <td>----</td>
-                <td>----</td>
+                <td>{{ data.CallsPlanned }}</td>
+                <td>{{ data.Planned }}</td>
+                <td>{{ data.CallsUnplanned }}</td>
+                <td>{{ data.ActuallyVisited }}</td>
+                <td>{{ data.NotVisited }}</td>
+                <td>{{ data.PlannedPercentage }}</td>
+                <td>{{ data.UnplannedPercentage }}</td>
                 <td>----</td>
                 <td>----</td>
                 <td>----</td>
                 <td>----</td>
-              <!-- </tr>
+                <td>----</td>
+                <td>----</td>
+                <!-- </tr>
               <tr *ngIf="RawalpindiSelected"> -->
                 <!-- <td>Rawalpindi</td>
                 <td>Jan-23</td>
@@ -435,8 +486,9 @@
           <nav aria-label="...">
             <ul class="pagination justify-content-end mb-0">
               <pagination-controls
-              class="my-pagination"
-              (pageChange)="p = $event">
+                class="my-pagination"
+                (pageChange)="p = $event"
+              >
               </pagination-controls>
             </ul>
           </nav>
