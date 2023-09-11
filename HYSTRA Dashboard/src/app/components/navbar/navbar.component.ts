@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { BusinessService } from '../../Services/Business/business.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   public KarachiSelected: boolean = true;
-  public RawalpindiSelected: boolean = false;
+  public IslamabadSelected: boolean = false;
   public AllDistrictsSelected: boolean = false;
 
   public MTDSelected: boolean = true;
@@ -24,7 +25,7 @@ export class NavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
   public location: Location;
-  constructor(location: Location,  private element: ElementRef, private router: Router) {
+  constructor(location: Location, private element: ElementRef, private router: Router, private businessService: BusinessService) {
     this.location = location;
   }
 
@@ -49,23 +50,27 @@ export class NavbarComponent implements OnInit {
   {
     this.SelectedCity = "Karachi";
     this.KarachiSelected = true;
-    this.RawalpindiSelected = false;
+    this.IslamabadSelected = false;
     this.AllDistrictsSelected = false;
+
+    this.businessService.SetCity(this.SelectedCity);
   }
 
-  public SelectRawalpindi(): void
+  public SelectIslamabad(): void
   {
-    this.SelectedCity = "Rawalpindi";
-    this.RawalpindiSelected = true;
+    this.SelectedCity = "Islamabad";
+    this.IslamabadSelected = true;
     this.KarachiSelected = false;
     this.AllDistrictsSelected = false;
+
+    this.businessService.SetCity(this.SelectedCity);
   }
 
   public SelectAllDistricts(): void
   {
     this.SelectedCity = "All Districts";
     this.KarachiSelected = true;
-    this.RawalpindiSelected = true;
+    this.IslamabadSelected = true;
     this.AllDistrictsSelected = true;
   }
 
