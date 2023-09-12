@@ -124,6 +124,11 @@ export class ReportsComponent implements OnInit {
   public NotVisited : any = [];
   public PlannedPercentage : any = [];
   public UnplannedPercentage : any = [];
+  public InRange : any = [];
+  public OutRange : any = [];
+  public GrandTotal : any = [];
+  public InRangePercent : any = [];
+  public OutRangePercent : any = [];
 
   public year: any = "2022";
   public monthId: any = "04";
@@ -280,7 +285,6 @@ export class ReportsComponent implements OnInit {
       this.monthId = "12"
     }
     this.monthName = value + " " + this.year;
-    console.log(this.monthName);
 
     for(let i = 0; i < this.BusinessAPIData.length; i++)
     {
@@ -288,12 +292,14 @@ export class ReportsComponent implements OnInit {
       this.BusinessAPIData[i].month = this.monthId;
       this.CallsExecutedData[i].Month = this.monthName;
     }
+    this.GetBusinessAPIData(this.year, this.monthId, this.monthName);
   }
 
   public GetBusinessAPIData(year: any, monthid: any, monthname: any): void
   {
     this.businessService.GetBusinessData(year, monthid).subscribe((result) => {
       this.BusinessAPIData = result;
+      this.CallsExecutedData = [];
       console.log("Business API: ", result);
 
       for(let i = 0; i < this.BusinessAPIData.length; i++)
@@ -305,6 +311,11 @@ export class ReportsComponent implements OnInit {
         this.NotVisited[i] = this.BusinessAPIData[i].doctors - this.BusinessAPIData[i].covered;
         this.PlannedPercentage[i] = (this.BusinessAPIData[i].pcalls / this.BusinessAPIData[i].calls) * 100;
         this.UnplannedPercentage[i] = 100 - this.Planned[i];
+        this.InRange[i] = this.BusinessAPIData[i].green;
+        this.OutRange[i] = this.BusinessAPIData[i].red;
+        this.GrandTotal[i] = this.InRange[i] + this.OutRange[i];
+        this.InRangePercent[i] = this.InRange[i] / this.GrandTotal[i] * 100;
+        this.OutRangePercent[i] = this.OutRange[i] / this.GrandTotal[i] * 100;
 
         this.CallsExecutedData.push({
           Month: monthname,
@@ -314,7 +325,12 @@ export class ReportsComponent implements OnInit {
           ActuallyVisited: this.ActuallyVisited[i],
           NotVisited: this.NotVisited[i],
           PlannedPercentage: this.PlannedPercentage[i],
-          UnplannedPercentage: this.UnplannedPercentage[i]
+          UnplannedPercentage: this.UnplannedPercentage[i],
+          InRange: this.InRange[i],
+          OutRange: this.OutRange[i],
+          GrandTotal: this.GrandTotal[i],
+          InRangePercent: this.InRangePercent[i],
+          OutRangePercent: this.OutRangePercent[i],
         });
       }
       console.log("CallsExecutedData: ", this.CallsExecutedData);

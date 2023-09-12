@@ -72,6 +72,8 @@ export class NavbarComponent implements OnInit {
     this.KarachiSelected = true;
     this.IslamabadSelected = true;
     this.AllDistrictsSelected = true;
+
+    this.businessService.SetCity(this.SelectedCity);
   }
 
   public SelectMTD(): void
