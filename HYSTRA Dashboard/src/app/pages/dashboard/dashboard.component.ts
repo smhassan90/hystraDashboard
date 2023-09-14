@@ -124,150 +124,76 @@ export class DashboardComponent implements OnInit {
     this.updateOptionsCHO();
 
     // APIS Callback
-    // khi = karachi
-    // isb = islamabad
-    this.sales.GetSalesTarget("Karachi", 1, "MIO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.KHISalesTargetMIOValue = value[1];
-    });
-    this.sales.GetSalesTarget("Karachi", 1, "CHO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.KHISalesTargetCHOValue = value[1];
-    });
-    // -------------------------------------------------------------------
-    this.sales.GetSalesTarget("Islamabad", 1, "MIO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.ISBSalesTargetMIOValue = value[1];
-    });
-    this.sales.GetSalesTarget("Islamabad", 1, "CHO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.ISBSalesTargetCHOValue = value[1];
-    });
-    // ====================================================================
-    this.sales.GetSalesTarget("Karachi", 2, "MIO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.KHIAchievementMIOValue = value[1];
-    });
-    this.sales.GetSalesTarget("Karachi", 2, "CHO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.KHIAchievementCHOValue = value[1];
-    });
-    // -------------------------------------------------------------------
-    this.sales.GetSalesTarget("Islamabad", 2, "MIO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.ISBAchievementMIOValue = value[1];
-    });
-    this.sales.GetSalesTarget("Islamabad", 2, "CHO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.ISBAchievementCHOValue = value[1];
-    });
-    // ====================================================================
-    this.sales.GetSalesTarget("Karachi", 3, "MIO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.KHITotalProvidersMIOValue = value[1];
-    });
-    this.sales.GetSalesTarget("Karachi", 3, "CHO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.KHITotalProvidersCHOValue = value[1];
-    });
-    // -------------------------------------------------------------------
-    this.sales.GetSalesTarget("Islamabad", 3, "MIO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.ISBTotalProvidersMIOValue = value[1];
-    });
-    this.sales.GetSalesTarget("Islamabad", 3, "CHO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.ISBTotalProvidersCHOValue = value[1];
-    });
-    // ====================================================================
-    this.sales.GetSalesTarget("Karachi", 4, "MIO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.KHIActiveProvidersMIOValue = value[1];
-    });
-    this.sales.GetSalesTarget("Karachi", 4, "CHO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.KHIActiveProvidersCHOValue = value[1];
-    });
-    // -------------------------------------------------------------------
-    this.sales.GetSalesTarget("Islamabad", 4, "MIO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.ISBActiveProvidersMIOValue = value[1];
-    });
-    this.sales.GetSalesTarget("Islamabad", 4, "CHO", "MTD").subscribe((result) => {
-      var split = result.data.split(",", 4);
-      var value = split[1].split(":", 2);
-      this.ISBActiveProvidersCHOValue = value[1];
-    });
-    // ====================================================================
 
-
-    this.sales.getCity.subscribe((result) => {
+    this.sales.getCity.subscribe((result) =>
+    {
       this.SelectedCity = result;
 
-      if(this.SelectedCity == "Karachi")
+      this.sales.getPeriod.subscribe((response) =>
       {
-        this.SalesTargetMIOValue = this.KHISalesTargetMIOValue;
-        this.AchievementMIOValue = this.KHIAchievementMIOValue;
-        this.TotalProvidersMIOValue = this.KHITotalProvidersMIOValue;
-        this.ActiveProvidersMIOValue = this.KHIActiveProvidersMIOValue;
+        this.SelectedPeriodFilter = response;
 
-        this.SalesTargetCHOValue = this.KHISalesTargetCHOValue;
-        this.AchievementCHOValue = this.KHIAchievementCHOValue;
-        this.TotalProvidersCHOValue = this.KHITotalProvidersCHOValue;
-        this.ActiveProvidersCHOValue = this.KHIActiveProvidersCHOValue;
-      }
+        for(let i = 1; i <= 4; i++)
+        {
+          this.sales.GetSalesTarget(this.SelectedCity, i, "MIO", this.SelectedPeriodFilter).subscribe((result) =>
+          {
+            console.log(result);
+            if(i == 1)
+            {
+              var split = result.data.split(",", 4);
+              var value = split[1].split(":", 2);
+              this.SalesTargetMIOValue = value[1];
+            }
+            else if(i == 2)
+            {
+              var split = result.data.split(",", 4);
+              var value = split[1].split(":", 2);
+              this.AchievementMIOValue = value[1];
+            }
+            else if(i == 3)
+            {
+              var split = result.data.split(",", 4);
+              var value = split[1].split(":", 2);
+              this.TotalProvidersMIOValue = value[1];
+            }
+            else if(i == 4)
+            {
+              var split = result.data.split(",", 4);
+              var value = split[1].split(":", 2);
+              this.ActiveProvidersMIOValue = value[1];
+            }
+          });
 
-      else if(this.SelectedCity == "Islamabad")
-      {
-        this.SalesTargetMIOValue = this.ISBSalesTargetMIOValue;
-        this.AchievementMIOValue = this.ISBAchievementMIOValue;
-        this.TotalProvidersMIOValue = this.ISBTotalProvidersMIOValue;
-        this.ActiveProvidersMIOValue = this.ISBActiveProvidersMIOValue;
-
-        this.SalesTargetCHOValue = this.ISBSalesTargetCHOValue;
-        this.AchievementCHOValue = this.ISBAchievementCHOValue;
-        this.TotalProvidersCHOValue = this.ISBTotalProvidersCHOValue;
-        this.ActiveProvidersCHOValue = this.ISBActiveProvidersCHOValue;
-      }
-
-      else if(this.SelectedCity == "All Districts")
-      {
-        this.SalesTargetMIOValue = 0;
-        this.SalesTargetCHOValue = 0;
-        this.SalesTargetMIOValue = parseInt(this.KHISalesTargetMIOValue) + parseInt(this.ISBSalesTargetMIOValue);
-        this.SalesTargetCHOValue = parseInt(this.KHISalesTargetCHOValue) + parseInt(this.ISBSalesTargetCHOValue);
-        // ----------------------------------------------
-        this.AchievementMIOValue = 0;
-        this.AchievementCHOValue = 0;
-        this.AchievementMIOValue = parseInt(this.KHIAchievementMIOValue) + parseInt(this.ISBAchievementMIOValue);
-        this.AchievementCHOValue = parseInt(this.KHIAchievementCHOValue) + parseInt(this.ISBAchievementCHOValue);
-        // ----------------------------------------------
-        this.TotalProvidersMIOValue = 0;
-        this.TotalProvidersCHOValue = 0;
-        this.TotalProvidersMIOValue = parseInt(this.KHITotalProvidersMIOValue) + parseInt(this.ISBTotalProvidersMIOValue);
-        this.TotalProvidersCHOValue = parseInt(this.KHITotalProvidersCHOValue) + parseInt(this.ISBTotalProvidersCHOValue);
-        // ----------------------------------------------
-        this.ActiveProvidersMIOValue = 0;
-        this.ActiveProvidersCHOValue = 0;
-        this.ActiveProvidersMIOValue = parseInt(this.KHIActiveProvidersMIOValue) + parseInt(this.ISBActiveProvidersMIOValue);
-        this.ActiveProvidersCHOValue = parseInt(this.KHIActiveProvidersCHOValue) + parseInt(this.ISBTotalProvidersCHOValue);
-        // ----------------------------------------------
-      }
+          this.sales.GetSalesTarget(this.SelectedCity, i, "CHO", this.SelectedPeriodFilter).subscribe((result) =>
+          {
+            console.log(result);
+            if(i == 1)
+            {
+              var split = result.data.split(",", 4);
+              var value = split[1].split(":", 2);
+              this.SalesTargetCHOValue = value[1];
+            }
+            else if(i == 2)
+            {
+              var split = result.data.split(",", 4);
+              var value = split[1].split(":", 2);
+              this.AchievementCHOValue = value[1];
+            }
+            else if(i == 3)
+            {
+              var split = result.data.split(",", 4);
+              var value = split[1].split(":", 2);
+              this.TotalProvidersCHOValue = value[1];
+            }
+            else if(i == 4)
+            {
+              var split = result.data.split(",", 4);
+              var value = split[1].split(":", 2);
+              this.ActiveProvidersCHOValue = value[1];
+            }
+          });
+        }
+      });
     });
 
     this.businessService.GetBusinessData("2022", "01").subscribe((result) => {

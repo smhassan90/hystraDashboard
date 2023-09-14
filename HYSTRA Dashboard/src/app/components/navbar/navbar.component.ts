@@ -73,7 +73,7 @@ export class NavbarComponent implements OnInit {
     this.IslamabadSelected = true;
     this.AllDistrictsSelected = true;
 
-    this.sales.SetCity(this.SelectedCity);
+    this.sales.SetCity("ALL");
   }
 
   public SelectMTD(): void
