@@ -93,7 +93,8 @@ export class ReportsComponent implements OnInit {
   ];
 
   p: Number = 1;
-  count: Number = 10;
+  // Number of rows per page
+  count: Number = 20;
 
   public IsMioReports: boolean = false;
   public IsCallExecuted: boolean = false;
