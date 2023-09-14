@@ -363,6 +363,7 @@
                   _ngcontent-crs-c122=""
                   type="text"
                   class="form-control form-control-alternative"
+                  placeholder="Enter Year"
                   (change)="SelectYear($event.target.value, i)"
                 />
               </div>
@@ -380,6 +381,7 @@
                   id="inputGroupSelect01"
                   (change)="SelectMonth($event.target.value, i)"
                 >
+                  <option>Select Month</option>
                   <option value="January">January</option>
                   <option value="February">February</option>
                   <option value="March">March</option>

@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
-import { BusinessService } from '../../Services/Business/business.service';
+import { SalesService } from '../../Services/Sales/sales.service';
 
 @Component({
   selector: 'app-navbar',
@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
   public location: Location;
-  constructor(location: Location, private element: ElementRef, private router: Router, private businessService: BusinessService) {
+  constructor(location: Location, private element: ElementRef, private router: Router, private sales: SalesService) {
     this.location = location;
   }
 
@@ -53,7 +53,7 @@ export class NavbarComponent implements OnInit {
     this.IslamabadSelected = false;
     this.AllDistrictsSelected = false;
 
-    this.businessService.SetCity(this.SelectedCity);
+    this.sales.SetCity(this.SelectedCity);
   }
 
   public SelectIslamabad(): void
@@ -63,7 +63,7 @@ export class NavbarComponent implements OnInit {
     this.KarachiSelected = false;
     this.AllDistrictsSelected = false;
 
-    this.businessService.SetCity(this.SelectedCity);
+    this.sales.SetCity(this.SelectedCity);
   }
 
   public SelectAllDistricts(): void
@@ -73,7 +73,7 @@ export class NavbarComponent implements OnInit {
     this.IslamabadSelected = true;
     this.AllDistrictsSelected = true;
 
-    this.businessService.SetCity(this.SelectedCity);
+    this.sales.SetCity(this.SelectedCity);
   }
 
   public SelectMTD(): void
@@ -82,6 +82,8 @@ export class NavbarComponent implements OnInit {
     this.MTDSelected = true;
     this.YTDSelected = false;
     this.PTDSelected = false;
+
+    this.sales.SetPeriod(this.SelectedPeriodFilter);
   }
 
   public SelectYTD(): void
@@ -90,6 +92,8 @@ export class NavbarComponent implements OnInit {
     this.YTDSelected = true;
     this.PTDSelected = false;
     this.MTDSelected = false;
+
+    this.sales.SetPeriod(this.SelectedPeriodFilter);
   }
 
   public SelectPTD(): void
@@ -98,6 +102,8 @@ export class NavbarComponent implements OnInit {
     this.PTDSelected = true;
     this.MTDSelected = false;
     this.YTDSelected = false;
+
+    this.sales.SetPeriod(this.SelectedPeriodFilter);
   }
 
 }

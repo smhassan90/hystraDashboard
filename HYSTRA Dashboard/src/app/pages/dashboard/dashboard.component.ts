@@ -126,89 +126,89 @@ export class DashboardComponent implements OnInit {
     // APIS Callback
     // khi = karachi
     // isb = islamabad
-    this.sales.GetSalesTarget("Karachi", 1, "MIO").subscribe((result) => {
+    this.sales.GetSalesTarget("Karachi", 1, "MIO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.KHISalesTargetMIOValue = value[1];
     });
-    this.sales.GetSalesTarget("Karachi", 1, "CHO").subscribe((result) => {
+    this.sales.GetSalesTarget("Karachi", 1, "CHO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.KHISalesTargetCHOValue = value[1];
     });
     // -------------------------------------------------------------------
-    this.sales.GetSalesTarget("Islamabad", 1, "MIO").subscribe((result) => {
+    this.sales.GetSalesTarget("Islamabad", 1, "MIO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.ISBSalesTargetMIOValue = value[1];
     });
-    this.sales.GetSalesTarget("Islamabad", 1, "CHO").subscribe((result) => {
+    this.sales.GetSalesTarget("Islamabad", 1, "CHO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.ISBSalesTargetCHOValue = value[1];
     });
     // ====================================================================
-    this.sales.GetSalesTarget("Karachi", 2, "MIO").subscribe((result) => {
+    this.sales.GetSalesTarget("Karachi", 2, "MIO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.KHIAchievementMIOValue = value[1];
     });
-    this.sales.GetSalesTarget("Karachi", 2, "CHO").subscribe((result) => {
+    this.sales.GetSalesTarget("Karachi", 2, "CHO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.KHIAchievementCHOValue = value[1];
     });
     // -------------------------------------------------------------------
-    this.sales.GetSalesTarget("Islamabad", 2, "MIO").subscribe((result) => {
+    this.sales.GetSalesTarget("Islamabad", 2, "MIO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.ISBAchievementMIOValue = value[1];
     });
-    this.sales.GetSalesTarget("Islamabad", 2, "CHO").subscribe((result) => {
+    this.sales.GetSalesTarget("Islamabad", 2, "CHO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.ISBAchievementCHOValue = value[1];
     });
     // ====================================================================
-    this.sales.GetSalesTarget("Karachi", 3, "MIO").subscribe((result) => {
+    this.sales.GetSalesTarget("Karachi", 3, "MIO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.KHITotalProvidersMIOValue = value[1];
     });
-    this.sales.GetSalesTarget("Karachi", 3, "CHO").subscribe((result) => {
+    this.sales.GetSalesTarget("Karachi", 3, "CHO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.KHITotalProvidersCHOValue = value[1];
     });
     // -------------------------------------------------------------------
-    this.sales.GetSalesTarget("Islamabad", 3, "MIO").subscribe((result) => {
+    this.sales.GetSalesTarget("Islamabad", 3, "MIO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.ISBTotalProvidersMIOValue = value[1];
     });
-    this.sales.GetSalesTarget("Islamabad", 3, "CHO").subscribe((result) => {
+    this.sales.GetSalesTarget("Islamabad", 3, "CHO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.ISBTotalProvidersCHOValue = value[1];
     });
     // ====================================================================
-    this.sales.GetSalesTarget("Karachi", 4, "MIO").subscribe((result) => {
+    this.sales.GetSalesTarget("Karachi", 4, "MIO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.KHIActiveProvidersMIOValue = value[1];
     });
-    this.sales.GetSalesTarget("Karachi", 4, "CHO").subscribe((result) => {
+    this.sales.GetSalesTarget("Karachi", 4, "CHO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.KHIActiveProvidersCHOValue = value[1];
     });
     // -------------------------------------------------------------------
-    this.sales.GetSalesTarget("Islamabad", 4, "MIO").subscribe((result) => {
+    this.sales.GetSalesTarget("Islamabad", 4, "MIO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.ISBActiveProvidersMIOValue = value[1];
     });
-    this.sales.GetSalesTarget("Islamabad", 4, "CHO").subscribe((result) => {
+    this.sales.GetSalesTarget("Islamabad", 4, "CHO", "MTD").subscribe((result) => {
       var split = result.data.split(",", 4);
       var value = split[1].split(":", 2);
       this.ISBActiveProvidersCHOValue = value[1];
@@ -216,7 +216,7 @@ export class DashboardComponent implements OnInit {
     // ====================================================================
 
 
-    this.businessService.getCity.subscribe((result) => {
+    this.sales.getCity.subscribe((result) => {
       this.SelectedCity = result;
 
       if(this.SelectedCity == "Karachi")
@@ -270,7 +270,7 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    this.businessService.GetBusinessData("2022", "02").subscribe((result) => {
+    this.businessService.GetBusinessData("2022", "01").subscribe((result) => {
       this.BusinessAPIData = result;
       console.log("Business API: ", this.BusinessAPIData);
     });
