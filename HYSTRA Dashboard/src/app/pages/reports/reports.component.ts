@@ -132,7 +132,7 @@ export class ReportsComponent implements OnInit {
 
   public year: any = "2022";
   public monthId: any = "04";
-  public monthName: any = "January 2022";
+  public monthName: any = "";
 
 
   constructor(private businessService: BusinessService) { }
@@ -140,8 +140,9 @@ export class ReportsComponent implements OnInit {
   ngOnInit(): void
   {
     // monthName = this.GetMonthNameFromMonthId(monthName, monthId) + " " + year;
+    // this.GetBusinessAPIData(this.year, this.monthId, this.monthName);
 
-    this.GetBusinessAPIData(this.year, this.monthId, this.monthName);
+    this.CallsExecutedData = [];
 
     this.IsMioReports = true;
     this.MIOBorder = "6px solid #f3603994";
