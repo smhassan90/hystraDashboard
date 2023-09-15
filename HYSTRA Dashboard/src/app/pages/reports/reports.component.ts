@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BusinessService } from '../../Services/Business/business.service';
+import { SalesService } from '../../Services/Sales/sales.service';
 import { NgxPaginationModule } from "ngx-pagination";
 
 @Component({
@@ -117,6 +118,7 @@ export class ReportsComponent implements OnInit {
 
   public BusinessAPIData : any = [];
   public CallsExecutedData : any = [];
+  public SalesSummaryData : any = [];
 
   public CallsPlanned : any = [];
   public Planned : any = [];
@@ -131,12 +133,24 @@ export class ReportsComponent implements OnInit {
   public InRangePercent : any = [];
   public OutRangePercent : any = [];
 
+  public PositionCode : any = [];
+  public EmployeeName : any = [];
+  public NumberOfDoctors : any = [];
+  public NumberOfProvidersActive : any = [];
+  public ActivePercentage : any = [];
+  public MonthSales : any = [];
+
   public year: any = "2022";
   public monthId: any = "04";
   public monthName: any = "";
 
+  public StartingDate: any = "";
+  public EndingDate: any = "";
 
-  constructor(private businessService: BusinessService) { }
+  public SalesSummary: any = [];
+
+
+  constructor(private businessService: BusinessService, private sales: SalesService) { }
 
   ngOnInit(): void
   {
@@ -227,6 +241,44 @@ export class ReportsComponent implements OnInit {
     this.SelectedType = "CHO";
     this.MIOSelected = false;
     this.CHOSelected = true;
+  }
+
+  public SelectStartingDate(value: any): void
+  {
+    this.StartingDate = value;
+    console.log("StartingDate: " + value);
+  }
+
+  public SelectEndingDate(value: any): void
+  {
+    this.EndingDate = value;
+    console.log("EndingDate: " + value);
+
+    this.SalesSummaryData = [];
+
+    if(this.StartingDate != "" && this.EndingDate != "")
+    {
+      this.sales.GetSalesSummary("321", "123").subscribe((result) =>
+      {
+        var split = result.data.split(",", 5);
+        for(let i = 0; i < split.length; i++)
+        {
+          var value = split[i].split(":", 2);
+          this.SalesSummary.push(value[1]);
+        }
+        console.log(this.SalesSummary);
+        var monthSales = this.SalesSummary[4].split("}]");
+
+        this.SalesSummaryData.push({
+          PositionCode : this.SalesSummary[0],
+          EmployeeName : this.SalesSummary[1],
+          NumberOfDoctors : this.SalesSummary[2],
+          NumberOfProvidersActive : this.SalesSummary[3],
+          ActivePercentage : Math.round((this.SalesSummary[3] / this.SalesSummary[2]) * 100).toFixed(1),
+          MonthSales : monthSales[0],
+        })
+      })
+    }
   }
 
   public SelectYear(value: any): void

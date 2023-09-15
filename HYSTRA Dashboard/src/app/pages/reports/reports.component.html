@@ -566,15 +566,17 @@
                 id="from"
                 name="from"
                 class="rounded form-control"
-              />
-            </div>
-            <div class="col-2">
-              <label for="to" class="mr-1">To:</label>
-              <input
+                (change)="SelectStartingDate($event.target.value, i)"
+                />
+              </div>
+              <div class="col-2">
+                <label for="to" class="mr-1">To:</label>
+                <input
                 type="date"
                 id="to"
                 name="to"
                 class="rounded form-control"
+                (change)="SelectEndingDate($event.target.value, i)"
               />
             </div>
           </div>
@@ -592,15 +594,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngIf="KarachiSelected">
-                <td>KHI01-HYST-MIO-01</td>
-                <td>Azhar</td>
-                <td>60</td>
-                <td>17</td>
-                <td>28%</td>
-                <td>1580</td>
+              <!-- <tr *ngIf="KarachiSelected"> -->
+              <tr *ngFor="let data of SalesSummaryData">
+                <td>{{data.PositionCode}}</td>
+                <td>{{data.EmployeeName}}</td>
+                <td>{{data.NumberOfDoctors}}</td>
+                <td>{{data.NumberOfProvidersActive}}</td>
+                <td>{{data.ActivePercentage}}</td>
+                <td>{{data.MonthSales}}</td>
               </tr>
-              <tr *ngIf="KarachiSelected">
+              <!-- <tr *ngIf="KarachiSelected">
                 <td>KHI01-HYST-MIO-02</td>
                 <td>Noman</td>
                 <td>60</td>
@@ -623,7 +626,7 @@
                 <td>16</td>
                 <td>27%</td>
                 <td>70</td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>
