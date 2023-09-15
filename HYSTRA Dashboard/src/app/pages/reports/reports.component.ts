@@ -258,7 +258,7 @@ export class ReportsComponent implements OnInit {
 
     if(this.StartingDate != "" && this.EndingDate != "")
     {
-      this.sales.GetSalesSummary("321", "123").subscribe((result) =>
+      this.sales.GetSalesSummary(this.StartingDate, this.EndingDate).subscribe((result) =>
       {
         var split = result.data.split(",", 5);
         for(let i = 0; i < split.length; i++)
