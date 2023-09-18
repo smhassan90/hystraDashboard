@@ -260,23 +260,30 @@ export class ReportsComponent implements OnInit {
     {
       this.sales.GetSalesSummary(this.StartingDate, this.EndingDate).subscribe((result) =>
       {
-        var split = result.data.split(",", 5);
+        console.log(result);
+        var split = result.data.split(",");
         for(let i = 0; i < split.length; i++)
         {
           var value = split[i].split(":", 2);
           this.SalesSummary.push(value[1]);
         }
-        console.log(this.SalesSummary);
-        var monthSales = this.SalesSummary[4].split("}]");
+        console.log(split);
 
-        this.SalesSummaryData.push({
-          PositionCode : this.SalesSummary[0],
-          EmployeeName : this.SalesSummary[1],
-          NumberOfDoctors : this.SalesSummary[2],
-          NumberOfProvidersActive : this.SalesSummary[3],
-          ActivePercentage : Math.round((this.SalesSummary[3] / this.SalesSummary[2]) * 100).toFixed(1),
-          MonthSales : monthSales[0],
-        })
+        for(let i = 0; i < split.length; i+=5)
+        {
+          var monthSales = this.SalesSummary[i + 4].split("}");
+          console.log(monthSales);
+
+          this.SalesSummaryData.push({
+            PositionCode : this.SalesSummary[i + 0],
+            EmployeeName : this.SalesSummary[i + 1],
+            NumberOfDoctors : this.SalesSummary[i + 2],
+            NumberOfProvidersActive : this.SalesSummary[i + 3],
+            ActivePercentage : Math.round((this.SalesSummary[i + 3] / this.SalesSummary[i + 2]) * 100).toFixed(1),
+            MonthSales : monthSales[0],
+          })
+        }
+        console.log(this.SalesSummaryData);
       })
     }
   }
