@@ -125,81 +125,162 @@ export class DashboardComponent implements OnInit {
 
     // APIS Callback
 
-    this.sales.getCity.subscribe((result) =>
-    {
+    this.sales.getCity.subscribe((result) => {
       this.SelectedCity = result;
-
-      this.sales.getPeriod.subscribe((response) =>
-      {
-        this.SelectedPeriodFilter = response;
-
-        for(let i = 1; i <= 4; i++)
-        {
-          this.sales.GetSalesTarget(this.SelectedCity, i, "MIO", this.SelectedPeriodFilter).subscribe((result) =>
-          {
-            console.log(result);
-            if(i == 1)
-            {
-              var split = result.data.split(",", 4);
-              var value = split[1].split(":", 2);
-              this.SalesTargetMIOValue = value[1];
-            }
-            else if(i == 2)
-            {
-              var split = result.data.split(",", 4);
-              var value = split[1].split(":", 2);
-              this.AchievementMIOValue = value[1];
-            }
-            else if(i == 3)
-            {
-              var split = result.data.split(",", 4);
-              var value = split[1].split(":", 2);
-              this.TotalProvidersMIOValue = value[1];
-            }
-            else if(i == 4)
-            {
-              var split = result.data.split(",", 4);
-              var value = split[1].split(":", 2);
-              this.ActiveProvidersMIOValue = value[1];
-            }
-          });
-
-          this.sales.GetSalesTarget(this.SelectedCity, i, "CHO", this.SelectedPeriodFilter).subscribe((result) =>
-          {
-            console.log(result);
-            if(i == 1)
-            {
-              var split = result.data.split(",", 4);
-              var value = split[1].split(":", 2);
-              this.SalesTargetCHOValue = value[1];
-            }
-            else if(i == 2)
-            {
-              var split = result.data.split(",", 4);
-              var value = split[1].split(":", 2);
-              this.AchievementCHOValue = value[1];
-            }
-            else if(i == 3)
-            {
-              var split = result.data.split(",", 4);
-              var value = split[1].split(":", 2);
-              this.TotalProvidersCHOValue = value[1];
-            }
-            else if(i == 4)
-            {
-              var split = result.data.split(",", 4);
-              var value = split[1].split(":", 2);
-              this.ActiveProvidersCHOValue = value[1];
-            }
-          });
-        }
-      });
     });
+
+    this.sales.getPeriod.subscribe((result) => {
+      this.SelectedPeriodFilter = result;
+    });
+
+    this.GetDashboardDataMIO(this.SelectedCity, this.SelectedPeriodFilter);
+    this.GetDashboardDataCHO(this.SelectedCity, this.SelectedPeriodFilter);
+
+    // this.sales.getCity.subscribe((result) =>
+    // {
+    //   this.SelectedCity = result;
+
+    //   this.sales.getPeriod.subscribe((response) =>
+    //   {
+    //     this.SelectedPeriodFilter = response;
+
+    //     for(let i = 1; i <= 4; i++)
+    //     {
+    //       this.sales.GetSalesTarget(this.SelectedCity, i, "MIO", this.SelectedPeriodFilter).subscribe((result) =>
+    //       {
+    //         console.log(result);
+    //         if(i == 1)
+    //         {
+    //           var split = result.data.split(",", 4);
+    //           var value = split[1].split(":", 2);
+    //           this.SalesTargetMIOValue = value[1];
+    //         }
+    //         else if(i == 2)
+    //         {
+    //           var split = result.data.split(",", 4);
+    //           var value = split[1].split(":", 2);
+    //           this.AchievementMIOValue = value[1];
+    //         }
+    //         else if(i == 3)
+    //         {
+    //           var split = result.data.split(",", 4);
+    //           var value = split[1].split(":", 2);
+    //           this.TotalProvidersMIOValue = value[1];
+    //         }
+    //         else if(i == 4)
+    //         {
+    //           var split = result.data.split(",", 4);
+    //           var value = split[1].split(":", 2);
+    //           this.ActiveProvidersMIOValue = value[1];
+    //         }
+    //       });
+
+    //       this.sales.GetSalesTarget(this.SelectedCity, i, "CHO", this.SelectedPeriodFilter).subscribe((result) =>
+    //       {
+    //         console.log(result);
+    //         if(i == 1)
+    //         {
+    //           var split = result.data.split(",", 4);
+    //           var value = split[1].split(":", 2);
+    //           this.SalesTargetCHOValue = value[1];
+    //         }
+    //         else if(i == 2)
+    //         {
+    //           var split = result.data.split(",", 4);
+    //           var value = split[1].split(":", 2);
+    //           this.AchievementCHOValue = value[1];
+    //         }
+    //         else if(i == 3)
+    //         {
+    //           var split = result.data.split(",", 4);
+    //           var value = split[1].split(":", 2);
+    //           this.TotalProvidersCHOValue = value[1];
+    //         }
+    //         else if(i == 4)
+    //         {
+    //           var split = result.data.split(",", 4);
+    //           var value = split[1].split(":", 2);
+    //           this.ActiveProvidersCHOValue = value[1];
+    //         }
+    //       });
+    //     }
+    //   });
+    // });
 
     this.businessService.GetBusinessData("2022", "01").subscribe((result) => {
       this.BusinessAPIData = result;
       console.log("Business API: ", this.BusinessAPIData);
     });
+  }
+
+  GetDashboardDataMIO(city: any, period: any) {
+    console.log(city, period);
+    setTimeout(() => {
+
+      this.sales.GetSalesTarget(city, 1, "MIO", period).subscribe((result) => {
+        console.log(result.data);
+        var data = JSON.parse(result.data);
+        console.log(data.number);
+        this.SalesTargetMIOValue = data.number;
+      });
+
+      this.sales.GetSalesTarget(city, 2, "MIO", period).subscribe((result) => {
+        console.log(result.data);
+        var data = JSON.parse(result.data);
+        console.log(data.number);
+        this.AchievementMIOValue = data.number;
+      });
+
+      this.sales.GetSalesTarget(city, 3, "MIO", period).subscribe((result) => {
+        console.log(result.data);
+        var data = JSON.parse(result.data);
+        console.log(data.number);
+        this.TotalProvidersMIOValue = data.number;
+      });
+
+      this.sales.GetSalesTarget(city, 4, "MIO", period).subscribe((result) => {
+        console.log(result.data);
+        var data = JSON.parse(result.data);
+        console.log(data.number);
+        this.ActiveProvidersMIOValue = data.number;
+      });
+
+    }, 1000);
+  }
+
+  GetDashboardDataCHO(city: any, period: any) {
+    console.log(city, period);
+    setTimeout(() => {
+
+      this.sales.GetSalesTarget(city, 1, "CHO", period).subscribe((result) => {
+        console.log(result.data);
+        var data = JSON.parse(result.data);
+        console.log(data.number);
+        this.SalesTargetCHOValue = data.number;
+      });
+
+      this.sales.GetSalesTarget(city, 2, "CHO", period).subscribe((result) => {
+        console.log(result.data);
+        var data = JSON.parse(result.data);
+        console.log(data.number);
+        this.AchievementCHOValue = data.number;
+      });
+
+      this.sales.GetSalesTarget(city, 3, "CHO", period).subscribe((result) => {
+        console.log(result.data);
+        var data = JSON.parse(result.data);
+        console.log(data.number);
+        this.TotalProvidersCHOValue = data.number;
+      });
+
+      this.sales.GetSalesTarget(city, 4, "CHO", period).subscribe((result) => {
+        console.log(result.data);
+        var data = JSON.parse(result.data);
+        console.log(data.number);
+        this.ActiveProvidersCHOValue = data.number;
+      });
+
+    }, 1000);
   }
 
 
