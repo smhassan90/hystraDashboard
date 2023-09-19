@@ -267,8 +267,8 @@ export class ReportsComponent implements OnInit {
           var value = split[i].split(":", 2);
           this.SalesSummary.push(value[1]);
         }
-        console.log(split);
 
+        console.log(split);
         for(let i = 0; i < split.length; i+=5)
         {
           var monthSales = this.SalesSummary[i + 4].split("}");
