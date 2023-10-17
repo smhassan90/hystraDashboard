@@ -42,26 +42,6 @@ export class DashboardComponent implements OnInit {
   public TotalProvidersCHOValue: any;
   public ActiveProvidersCHOValue: any;
 
-  public KHISalesTargetMIOValue: any;
-  public KHIAchievementMIOValue: any;
-  public KHITotalProvidersMIOValue: any;
-  public KHIActiveProvidersMIOValue: any;
-
-  public KHISalesTargetCHOValue: any;
-  public KHIAchievementCHOValue: any;
-  public KHITotalProvidersCHOValue: any;
-  public KHIActiveProvidersCHOValue: any;
-
-  public ISBSalesTargetMIOValue: any;
-  public ISBAchievementMIOValue: any;
-  public ISBTotalProvidersMIOValue: any;
-  public ISBActiveProvidersMIOValue: any;
-
-  public ISBSalesTargetCHOValue: any;
-  public ISBAchievementCHOValue: any;
-  public ISBTotalProvidersCHOValue: any;
-  public ISBActiveProvidersCHOValue: any;
-
   constructor(private sales: SalesService, private businessService: BusinessService) {}
 
   ngOnInit() {

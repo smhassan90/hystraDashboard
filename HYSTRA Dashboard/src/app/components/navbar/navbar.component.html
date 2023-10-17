@@ -1,8 +1,9 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
   <div class="container-fluid">
     <!-- Brand -->
-    <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" routerLinkActive="active" [routerLink]="['/dashboard']">{{getTitle()}}</a>
-    <div *ngIf="getTitle() == 'Dashboard'">
+    <!-- <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" routerLinkActive="active" [routerLink]="['/dashboard']">{{getTitle()}}</a> -->
+    <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" routerLinkActive="active">{{getTitle()}}</a>
+    <div class="dashboardDropdowns" *ngIf="getTitle() == 'Dashboard'">
       <div class="row">
         <div class="col-4">
           <div ngbDropdown class="btn-group dropdown">
@@ -87,7 +88,7 @@
       </div>
     </form> -->
     <!-- User -->
-    <ul class="navbar-nav align-items-center d-none d-md-flex">
+    <!-- <ul class="navbar-nav align-items-center d-none d-md-flex">
       <li class="nav-item" ngbDropdown placement="bottom-right">
         <a class="nav-link pr-0" role="button" ngbDropdownToggle>
           <div class="media align-items-center">
@@ -126,6 +127,6 @@
           </a>
         </div>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </nav>
