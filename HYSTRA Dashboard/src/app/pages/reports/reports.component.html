@@ -76,12 +76,17 @@
   <!-- Table -->
   <div class="row">
     <div class="col">
+      <h3 class="mb-0 text-center py-3 text-secondary">MIO Reports</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
-            <div class="col-2">
+            <!-- <div class="col-2">
               <h3 class="mb-0">MIO Reports</h3>
-            </div>
+            </div> -->
             <div class="col-2">
               <div ngbDropdown class="btn-group dropdown">
                 <button
@@ -91,6 +96,7 @@
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
+                  (click)="DownloadMIOReports()"
                 >
                   Download Report
                   <i class="ni ni-cloud-download-95 ml-1"></i>
@@ -253,10 +259,15 @@
   <!-- Table -->
   <div class="row">
     <div class="col">
+      <h3 class="mb-0 text-center py-3 text-secondary">Call Executed</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
-            <div class="col-2"><h3 class="mb-0">Call Executed</h3></div>
+            <!-- <div class="col-2"><h3 class="mb-0">Call Executed</h3></div> -->
             <div class="col-2">
               <div ngbDropdown class="btn-group dropdown">
                 <button
@@ -266,6 +277,7 @@
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
+                  (click)="DownloadCallExecutedReports()"
                 >
                   Download Report
                   <i class="ni ni-cloud-download-95 ml-1"></i>
@@ -302,6 +314,12 @@
                     class="dropdown-item"
                     (click)="SelectRawalpindi()"
                     >Rawalpindi</a
+                  >
+                  <a
+                    ngbDropdownItem
+                    class="dropdown-item"
+                    (click)="SelectIslamabad()"
+                    >Islamabad</a
                   >
                 </div>
               </div>
@@ -354,12 +372,13 @@
             </div> -->
             <div _ngcontent-crs-c122="" class="col-2">
               <div _ngcontent-crs-c122="" class="form-group mb-0">
-                <label
+                <!-- <label
                   _ngcontent-crs-c122=""
                   for="input-username"
                   class="form-control-label"
-                  >Select Year: </label
-                ><input
+                  >Select Year:
+                </label> -->
+                <input
                   _ngcontent-crs-c122=""
                   type="text"
                   class="form-control form-control-alternative"
@@ -369,12 +388,12 @@
               </div>
             </div>
             <div _ngcontent-crs-c122="" class="col-2">
-              <label
+              <!-- <label
                 _ngcontent-crs-c122=""
                 for="input-username"
                 class="form-control-label"
                 >Select Month:
-              </label>
+              </label> -->
               <div class="input-group">
                 <select
                   class="custom-select"
@@ -397,6 +416,15 @@
                 </select>
               </div>
             </div>
+            <div _ngcontent-crs-c122="" class="col-2">
+              <button
+                  type="button"
+                  class="btn btn-secondary"
+                  (click)="GetBusinessAPIData(year, monthId, monthName)"
+                >
+                  Search
+                </button>
+            </div>
           </div>
         </div>
         <div class="table-responsive">
@@ -413,7 +441,7 @@
                 <th scope="col">Index</th>
                 <th scope="col">District</th>
                 <th scope="col">Month</th>
-                <th scope="col">MIO Name</th>
+                <th scope="col">Name</th>
                 <th scope="col">Calls Planned</th>
                 <th scope="col">Planned</th>
                 <th scope="col">Unplanned</th>
@@ -439,9 +467,9 @@
               <!-- <tr *ngIf="KarachiSelected"> -->
               <tr>
                 <td>{{ i }}</td>
-                <td>----</td>
+                <td>{{ data.District }}</td>
                 <td>{{ data.Month }}</td>
-                <td>----</td>
+                <td>{{ data.Name }}</td>
                 <td>{{ data.CallsPlanned }}</td>
                 <td>{{ data.Planned }}</td>
                 <td>{{ data.CallsUnplanned }}</td>
@@ -504,12 +532,17 @@
   <!-- Table -->
   <div class="row">
     <div class="col">
+      <h3 class="mb-0 text-center py-3 text-secondary">MIO - M&P Monthly Sales</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
-            <div class="col-3">
+            <!-- <div class="col-3">
               <h3 class="mb-0">MIO - M&P Monthly Sales</h3>
-            </div>
+            </div> -->
             <div class="col-2">
               <div ngbDropdown class="btn-group dropdown">
                 <button

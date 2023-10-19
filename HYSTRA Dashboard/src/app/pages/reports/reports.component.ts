@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BusinessService } from '../../Services/Business/business.service';
 import { SalesService } from '../../Services/Sales/sales.service';
 import { NgxPaginationModule } from "ngx-pagination";
+import { ngxCsv } from 'ngx-csv/ngx-csv';
 
 @Component({
   selector: 'app-reports',
@@ -102,6 +103,7 @@ export class ReportsComponent implements OnInit {
   public IsMSS: boolean = false;
 
   public KarachiSelected: boolean = true;
+  public IslamabadSelected: boolean = true;
   public RawalpindiSelected: boolean = false;
   public AllDistrictsSelected: boolean = false;
 
@@ -120,6 +122,8 @@ export class ReportsComponent implements OnInit {
   public CallsExecutedData : any = [];
   public SalesSummaryData : any = [];
 
+  public Districts : any = [];
+  public Names : any = [];
   public CallsPlanned : any = [];
   public Planned : any = [];
   public CallsUnplanned : any = [];
@@ -140,8 +144,8 @@ export class ReportsComponent implements OnInit {
   public ActivePercentage : any = [];
   public MonthSales : any = [];
 
-  public year: any = "2022";
-  public monthId: any = "04";
+  public year: any = "";
+  public monthId: any = "";
   public monthName: any = "";
 
   public StartingDate: any = "";
@@ -155,7 +159,7 @@ export class ReportsComponent implements OnInit {
   ngOnInit(): void
   {
     // monthName = this.GetMonthNameFromMonthId(monthName, monthId) + " " + year;
-    // this.GetBusinessAPIData(this.year, this.monthId, this.monthName);
+    // this.GetBusinessAPIData(2023, 3, this.monthName);
 
     this.CallsExecutedData = [];
 
@@ -163,6 +167,40 @@ export class ReportsComponent implements OnInit {
     this.MIOBorder = "6px solid #f3603994";
     this.CallsBorder = "none";
     this.MMSBorder = "none";
+  }
+
+  public DownloadMIOReports(): void
+  {
+    let options = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: false,
+      showTitle: false,
+      title: 'Your title',
+      useBom: false,
+      noDownload: false,
+      headers: ['Date', 'ProviderCode', 'ProviderName', 'MIO', 'District', 'Category', 'PharmacyCode', 'TaggedPharmacy', 'MonthlySales']
+    };
+
+    new ngxCsv(this.MIOReportsRawalpindi, "MIOReportsRawalpindi", options);
+  }
+
+  public DownloadCallExecutedReports(): void
+  {
+    let options = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: false,
+      showTitle: false,
+      title: 'Your title',
+      useBom: false,
+      noDownload: false,
+      headers: [ 'Month', 'District', 'Name', 'CallsPlanned', 'Planned', 'CallsUnplanned', 'ActuallyVisited', 'NotVisited', 'PlannedPercentage', 'UnplannedPercentage', 'InRange', 'OutRange', 'GrandTotal', 'InRangePercent', 'OutRangePercent']
+    };
+
+    new ngxCsv(this.CallsExecutedData, "CallExecutedReport", options);
   }
 
   public OnClickMIOReports(): void
@@ -203,6 +241,16 @@ export class ReportsComponent implements OnInit {
     this.SelectedCity = "Karachi";
     this.KarachiSelected = true;
     this.RawalpindiSelected = false;
+    this.IslamabadSelected = false;
+    this.AllDistrictsSelected = false;
+  }
+
+  public SelectIslamabad(): void
+  {
+    this.SelectedCity = "Islamabad";
+    this.IslamabadSelected = true;
+    this.KarachiSelected = false;
+    this.RawalpindiSelected = false;
     this.AllDistrictsSelected = false;
   }
 
@@ -211,6 +259,7 @@ export class ReportsComponent implements OnInit {
     this.SelectedCity = "Rawalpindi";
     this.RawalpindiSelected = true;
     this.KarachiSelected = false;
+    this.IslamabadSelected = false;
     this.AllDistrictsSelected = false;
   }
 
@@ -219,6 +268,7 @@ export class ReportsComponent implements OnInit {
     this.SelectedCity = "All Districts";
     this.KarachiSelected = true;
     this.RawalpindiSelected = true;
+    this.IslamabadSelected = true;
     this.AllDistrictsSelected = true;
   }
 
@@ -349,56 +399,79 @@ export class ReportsComponent implements OnInit {
       }
       this.monthName = this.monthName + " " + this.year;
 
-      for(let i = 0; i < this.BusinessAPIData.length; i++)
-      {
-        this.BusinessAPIData[i].year = this.year;
-        this.BusinessAPIData[i].month = this.monthId;
-        this.CallsExecutedData[i].Month = this.monthName;
-      }
-      this.GetBusinessAPIData(this.year, this.monthId, this.monthName);
+      // for(let i = 0; i < this.BusinessAPIData.length; i++)
+      // {
+      //   this.BusinessAPIData[i].year = this.year;
+      //   this.BusinessAPIData[i].month = this.monthId;
+      //   this.CallsExecutedData[i].Month = this.monthName;
+      //   console.log(this.monthName);
+      // }
+      // this.GetBusinessAPIData(this.year, this.monthId, this.monthName);
     }
   }
 
   public GetBusinessAPIData(year: any, monthid: any, monthname: any): void
   {
-    this.businessService.GetBusinessData(year, monthid).subscribe((result) => {
-      this.BusinessAPIData = result;
-      this.CallsExecutedData = [];
-      console.log("Business API: ", result);
+    if(this.year != ""  && this.monthId != "")
+    {
+      this.businessService.GetBusinessData(year, monthid).subscribe((result) => {
+        this.BusinessAPIData = result;
+        this.CallsExecutedData = [];
+        console.log("Business API: ", result);
 
-      for(let i = 0; i < this.BusinessAPIData.length; i++)
-      {
-        this.CallsPlanned[i] = this.BusinessAPIData[i].doctors / this.BusinessAPIData[i].pdoctors;
-        this.Planned[i] = this.BusinessAPIData[i].calls / this.BusinessAPIData[i].pcalls;
-        this.ActuallyVisited[i] = this.BusinessAPIData[i].calls;
-        this.CallsUnplanned[i] = this.ActuallyVisited[i] - this.Planned[i];
-        this.NotVisited[i] = this.BusinessAPIData[i].doctors - this.BusinessAPIData[i].covered;
-        this.PlannedPercentage[i] = (this.BusinessAPIData[i].pcalls / this.BusinessAPIData[i].calls) * 100;
-        this.UnplannedPercentage[i] = 100 - this.Planned[i];
-        this.InRange[i] = this.BusinessAPIData[i].green;
-        this.OutRange[i] = this.BusinessAPIData[i].red;
-        this.GrandTotal[i] = this.InRange[i] + this.OutRange[i];
-        this.InRangePercent[i] = this.InRange[i] / this.GrandTotal[i] * 100;
-        this.OutRangePercent[i] = this.OutRange[i] / this.GrandTotal[i] * 100;
+        for(let i = 0; i < this.BusinessAPIData.length; i++)
+        {
+          if(this.BusinessAPIData[i].street.includes(this.SelectedType) && this.BusinessAPIData[i].city.includes(this.SelectedCity) && this.SelectedType != "All" && this.SelectedCity != "All Districts"
+             ||
+             this.BusinessAPIData[i].street.includes(this.SelectedType) && this.BusinessAPIData[i].city.includes(this.SelectedCity.toUpperCase()) && this.SelectedType != "All" && this.SelectedCity != "All Districts"
+             ||
+             this.BusinessAPIData[i].street.includes(this.SelectedType) && this.SelectedType != "All" && this.SelectedCity == "All Districts"
+             ||
+             this.BusinessAPIData[i].city.includes(this.SelectedCity.toUpperCase()) && this.SelectedType == "All" && this.SelectedCity != "All Districts"
+             ||
+             this.BusinessAPIData[i].city.includes(this.SelectedCity) && this.SelectedType == "All" && this.SelectedCity != "All Districts"
+             ||
+             this.SelectedType == "All" && this.SelectedCity == "All Districts"
+            )
+          {
+            this.Districts[i] = this.BusinessAPIData[i].city;
+            this.Names[i] = this.BusinessAPIData[i].tso;
+            this.CallsPlanned[i] = this.BusinessAPIData[i].doctors / this.BusinessAPIData[i].pdoctors;
+            this.Planned[i] = this.BusinessAPIData[i].calls / this.BusinessAPIData[i].pcalls;
+            this.ActuallyVisited[i] = this.BusinessAPIData[i].calls;
+            this.CallsUnplanned[i] = this.ActuallyVisited[i] - this.Planned[i];
+            this.NotVisited[i] = this.BusinessAPIData[i].doctors - this.BusinessAPIData[i].covered;
+            this.PlannedPercentage[i] = (this.BusinessAPIData[i].pcalls / this.BusinessAPIData[i].calls) * 100;
+            this.UnplannedPercentage[i] = 100 - this.Planned[i];
+            this.InRange[i] = this.BusinessAPIData[i].green;
+            this.OutRange[i] = this.BusinessAPIData[i].red;
+            this.GrandTotal[i] = this.InRange[i] + this.OutRange[i];
+            this.InRangePercent[i] = this.InRange[i] / this.GrandTotal[i] * 100;
+            this.OutRangePercent[i] = this.OutRange[i] / this.GrandTotal[i] * 100;
 
-        this.CallsExecutedData.push({
-          Month: monthname,
-          CallsPlanned: this.CallsPlanned[i],
-          Planned: this.Planned[i],
-          CallsUnplanned: this.CallsUnplanned[i],
-          ActuallyVisited: this.ActuallyVisited[i],
-          NotVisited: this.NotVisited[i],
-          PlannedPercentage: this.PlannedPercentage[i],
-          UnplannedPercentage: this.UnplannedPercentage[i],
-          InRange: this.InRange[i],
-          OutRange: this.OutRange[i],
-          GrandTotal: this.GrandTotal[i],
-          InRangePercent: this.InRangePercent[i],
-          OutRangePercent: this.OutRangePercent[i],
-        });
-      }
-      console.log("CallsExecutedData: ", this.CallsExecutedData);
-    });
+            this.CallsExecutedData.push({
+              Month: monthname,
+              District: this.Districts[i],
+              Name: this.Names[i],
+              CallsPlanned: parseFloat(this.CallsPlanned[i]).toFixed(2),
+              Planned: parseFloat(this.Planned[i]).toFixed(2),
+              CallsUnplanned: parseFloat(this.CallsUnplanned[i]).toFixed(2),
+              ActuallyVisited: this.ActuallyVisited[i],
+              NotVisited: this.NotVisited[i],
+              PlannedPercentage: parseFloat(this.PlannedPercentage[i]).toFixed(2),
+              UnplannedPercentage: parseFloat(this.UnplannedPercentage[i]).toFixed(2),
+              InRange: this.InRange[i],
+              OutRange: this.OutRange[i],
+              GrandTotal: this.GrandTotal[i],
+              InRangePercent: this.InRangePercent[i],
+              OutRangePercent: this.OutRangePercent[i],
+            });
+          }
+        }
+
+        console.log("CallsExecutedData: ", this.CallsExecutedData);
+      });
+    }
   }
 
 }
