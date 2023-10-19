@@ -203,6 +203,23 @@ export class ReportsComponent implements OnInit {
     new ngxCsv(this.CallsExecutedData, "CallExecutedReport", options);
   }
 
+  public DownloadMonthlySalesReports(): void
+  {
+    let options = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: false,
+      showTitle: false,
+      title: 'Your title',
+      useBom: false,
+      noDownload: false,
+      headers: ['PositionCode', 'EmployeeName', 'NumberOfDoctors', 'NumberOfProvidersActive', 'ActivePercentage', 'MonthSales']
+    };
+
+    new ngxCsv(this.SalesSummaryData, "MonthlySalesSummaryReport", options);
+  }
+
   public OnClickMIOReports(): void
   {
     this.IsMioReports = true;
