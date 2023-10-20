@@ -320,39 +320,6 @@ export class ReportsComponent implements OnInit {
   {
     this.EndingDate = value;
     console.log("EndingDate: " + value);
-
-    this.SalesSummaryData = [];
-
-    if(this.StartingDate != "" && this.EndingDate != "")
-    {
-      this.sales.GetSalesSummary(this.StartingDate, this.EndingDate).subscribe((result) =>
-      {
-        console.log(result);
-        var split = result.data.split(",");
-        for(let i = 0; i < split.length; i++)
-        {
-          var value = split[i].split(":", 2);
-          this.SalesSummary.push(value[1]);
-        }
-
-        console.log(split);
-        for(let i = 0; i < split.length; i+=5)
-        {
-          var monthSales = this.SalesSummary[i + 4].split("}");
-          console.log(monthSales);
-
-          this.SalesSummaryData.push({
-            PositionCode : this.SalesSummary[i + 0],
-            EmployeeName : this.SalesSummary[i + 1],
-            NumberOfDoctors : this.SalesSummary[i + 2],
-            NumberOfProvidersActive : this.SalesSummary[i + 3],
-            ActivePercentage : Math.round((this.SalesSummary[i + 3] / this.SalesSummary[i + 2]) * 100).toFixed(1),
-            MonthSales : monthSales[0],
-          })
-        }
-        console.log(this.SalesSummaryData);
-      })
-    }
   }
 
   public SelectYear(value: any): void
@@ -424,6 +391,62 @@ export class ReportsComponent implements OnInit {
       //   console.log(this.monthName);
       // }
       // this.GetBusinessAPIData(this.year, this.monthId, this.monthName);
+    }
+  }
+
+  public GetSalesSummaryData(): void
+  {
+    this.SalesSummaryData = [];
+    var selectedCity = "";
+
+    if(this.SelectedCity == "Karachi")
+    {
+      selectedCity = "KHI";
+    }
+    else if(this.SelectedCity == "Islamabad")
+    {
+      selectedCity = "ISB";
+    }
+
+    if(this.StartingDate != "" && this.EndingDate != "")
+    {
+      this.sales.GetSalesSummary(this.StartingDate, this.EndingDate).subscribe((result) =>
+      {
+        console.log(result);
+        var split = result.data.split(",");
+        for(let i = 0; i < split.length; i++)
+        {
+          var value = split[i].split(":", 2);
+          if(value[1] != undefined)
+          {
+            this.SalesSummary.push(value[1]);
+          }
+        }
+
+        console.log(this.SalesSummary);
+        console.log(split);
+        for(let i = 0; i < this.SalesSummary.length; i+=5)
+        {
+          if(this.SalesSummary[i].includes(selectedCity) && this.SelectedCity != "All Districts"
+             ||
+             this.SelectedCity == "All Districts"
+            )
+          {
+            var monthSales = this.SalesSummary[i + 4].split("}");
+            console.log(monthSales);
+
+            this.SalesSummaryData.push({
+              PositionCode : this.SalesSummary[i + 0],
+              EmployeeName : this.SalesSummary[i + 1],
+              NumberOfDoctors : this.SalesSummary[i + 2],
+              NumberOfProvidersActive : this.SalesSummary[i + 3],
+              ActivePercentage : Math.round((this.SalesSummary[i + 3] / this.SalesSummary[i + 2]) * 100).toFixed(1),
+              MonthSales : monthSales[0],
+            })
+          }
+        }
+        console.log(this.SalesSummaryData);
+      })
     }
   }
 

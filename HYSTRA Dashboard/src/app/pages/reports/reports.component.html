@@ -147,22 +147,27 @@
                 />
               </div>
             </div>
-            <div class="col-2">
-              <label for="from" class="mr-1">From:</label>
-              <input
-                type="date"
-                id="from"
-                name="from"
-                class="rounded form-control"
-              />
+            <div class="col-1 text-right">
+              <label for="from" class="mr--3 mb-0">From:</label>
             </div>
             <div class="col-2">
-              <label for="to" class="mr-1">To:</label>
+              <input
+              type="date"
+              id="from"
+              name="from"
+              class="rounded form-control"
+              />
+            </div>
+
+            <div class="col-1">
+              <label for="to" class="mb-0">To:</label>
+            </div>
+            <div class="col-2">
               <input
                 type="date"
                 id="to"
                 name="to"
-                class="rounded form-control"
+                class="rounded form-control ml--5"
               />
             </div>
           </div>
@@ -419,7 +424,7 @@
             <div _ngcontent-crs-c122="" class="col-2">
               <button
                   type="button"
-                  class="btn btn-secondary"
+                  class="btn btn-secondary text-primary"
                   (click)="GetBusinessAPIData(year, monthId, monthName)"
                 >
                   Search
@@ -587,31 +592,44 @@
                   <a
                     ngbDropdownItem
                     class="dropdown-item"
-                    (click)="SelectRawalpindi()"
-                    >Rawalpindi</a
+                    (click)="SelectIslamabad()"
+                    >Islamabad</a
                   >
                 </div>
               </div>
             </div>
+            <div class="col-1 text-right">
+              <label for="from" class="mr--3 mb-0">From:</label>
+            </div>
             <div class="col-2">
-              <label for="from" class="mr-1">From:</label>
               <input
-                type="date"
-                id="from"
-                name="from"
-                class="rounded form-control"
-                (change)="SelectStartingDate($event.target.value, i)"
-                />
-              </div>
-              <div class="col-2">
-                <label for="to" class="mr-1">To:</label>
-                <input
-                type="date"
-                id="to"
-                name="to"
-                class="rounded form-control"
-                (change)="SelectEndingDate($event.target.value, i)"
+              type="date"
+              id="from"
+              name="from"
+              class="rounded form-control"
+              (change)="SelectStartingDate($event.target.value, i)"
               />
+            </div>
+            <div class="col-1">
+              <label for="to" class="mb-0">To:</label>
+            </div>
+            <div class="col-2">
+              <input
+              type="date"
+              id="to"
+              name="to"
+              class="rounded form-control ml--5"
+              (change)="SelectEndingDate($event.target.value, i)"
+              />
+            </div>
+            <div _ngcontent-crs-c122="" class="col-2">
+              <button
+                  type="button"
+                  class="btn btn-secondary text-primary"
+                  (click)="GetSalesSummaryData()"
+                >
+                  Search
+                </button>
             </div>
           </div>
         </div>
