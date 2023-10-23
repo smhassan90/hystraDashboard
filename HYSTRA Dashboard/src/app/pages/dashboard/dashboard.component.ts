@@ -32,15 +32,19 @@ export class DashboardComponent implements OnInit {
   public SelectedCity: string = "Karachi";
   public SelectedPeriodFilter: string = "MTD";
 
-  public SalesTargetMIOValue: any;
-  public AchievementMIOValue: any;
+  public SalesTargetMIOValue: number;
+  public AchievementMIOValue: number;
+  public AchievementMIOPercentageValue: any;
   public TotalProvidersMIOValue: any;
   public ActiveProvidersMIOValue: any;
+  public ActiveProvidersMIOPercentageValue: any;
 
-  public SalesTargetCHOValue: any;
-  public AchievementCHOValue: any;
+  public SalesTargetCHOValue: number;
+  public AchievementCHOValue: number;
+  public AchievementCHOPercentageValue: any;
   public TotalProvidersCHOValue: any;
   public ActiveProvidersCHOValue: any;
+  public ActiveProvidersCHOPercentageValue: any;
 
   constructor(private sales: SalesService, private businessService: BusinessService) {}
 
@@ -115,6 +119,20 @@ export class DashboardComponent implements OnInit {
 
     this.GetDashboardDataMIO(this.SelectedCity, this.SelectedPeriodFilter);
     this.GetDashboardDataCHO(this.SelectedCity, this.SelectedPeriodFilter);
+
+    setTimeout(() => {
+      this.AchievementMIOPercentageValue = (this.AchievementMIOValue/this.SalesTargetMIOValue) * 100;
+      this.AchievementCHOPercentageValue = (this.AchievementCHOValue/this.SalesTargetCHOValue) * 100;
+
+      this.ActiveProvidersMIOPercentageValue = (this.ActiveProvidersMIOValue/this.TotalProvidersMIOValue) * 100;
+      this.ActiveProvidersCHOPercentageValue = (this.ActiveProvidersCHOValue/this.TotalProvidersCHOValue) * 100;
+
+      this.AchievementMIOPercentageValue = this.AchievementMIOPercentageValue.toFixed();
+      this.AchievementCHOPercentageValue = this.AchievementCHOPercentageValue.toFixed();
+
+      this.ActiveProvidersMIOPercentageValue = this.ActiveProvidersMIOPercentageValue.toFixed();
+      this.ActiveProvidersCHOPercentageValue = this.ActiveProvidersCHOPercentageValue.toFixed();
+    }, 5000);
 
     // this.sales.getCity.subscribe((result) =>
     // {
