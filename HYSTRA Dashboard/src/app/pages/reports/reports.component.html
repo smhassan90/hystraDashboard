@@ -564,7 +564,7 @@
                 </button>
               </div>
             </div>
-            <div class="col-2">
+            <div class="col-2 text-center">
               <div ngbDropdown class="btn-group dropdown">
                 <button
                   type="button"
@@ -598,10 +598,39 @@
                 </div>
               </div>
             </div>
-            <div class="col-1 text-right">
-              <label for="from" class="mr--3 mb-0">From:</label>
-            </div>
             <div class="col-2">
+              <div ngbDropdown class="btn-group dropdown">
+                <button
+                  type="button"
+                  ngbDropdownToggle
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {{ SelectedType }} <i class="ni ni-bold-down"></i>
+                </button>
+                <div ngbDropdownMenu class="dropdown-menu">
+                  <a
+                    ngbDropdownItem
+                    class="dropdown-item"
+                    (click)="SelectAllTypes()"
+                    >All</a
+                  >
+                  <a ngbDropdownItem class="dropdown-item" (click)="SelectCHO()"
+                    >CHO</a
+                  >
+                  <a ngbDropdownItem class="dropdown-item" (click)="SelectMIO()"
+                    >MIO</a
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-1 text-right">
+              <label for="from" class="mr--3 mb-0">From:</label>
+            </div> -->
+            <div class="col-2">
+              <label for="from" class="mb-0">From:</label>
               <input
               type="date"
               id="from"
@@ -610,15 +639,16 @@
               (change)="SelectStartingDate($event.target.value, i)"
               />
             </div>
-            <div class="col-1">
+            <!-- <div class="col-1">
               <label for="to" class="mb-0">To:</label>
-            </div>
+            </div> -->
             <div class="col-2">
+              <label for="to" class="mb-0">To:</label>
               <input
               type="date"
               id="to"
               name="to"
-              class="rounded form-control ml--5"
+              class="rounded form-control"
               (change)="SelectEndingDate($event.target.value, i)"
               />
             </div>

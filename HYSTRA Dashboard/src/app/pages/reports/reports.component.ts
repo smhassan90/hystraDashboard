@@ -410,6 +410,19 @@ export class ReportsComponent implements OnInit {
       selectedCity = "ISB";
     }
 
+    var splitStartDate = this.StartingDate.split("-");
+    var splitEndDate = this.EndingDate.split("-");
+
+    if(
+      splitStartDate[0] >  splitEndDate[0] ||
+      splitStartDate[0] == splitEndDate[0] && splitStartDate[1] >  splitEndDate[1] ||
+      splitStartDate[0] == splitEndDate[0] && splitStartDate[1] == splitEndDate[1] && splitStartDate[2] > splitEndDate[2]
+      )
+    {
+      alert("Starting Date Should Not Be Greater Than The Ending Date");
+      return;
+    }
+
     if(this.StartingDate != "" && this.EndingDate != "")
     {
       this.sales.GetSalesSummary(this.StartingDate, this.EndingDate).subscribe((result) =>
@@ -429,17 +442,23 @@ export class ReportsComponent implements OnInit {
         console.log(split);
         for(let i = 0; i < this.SalesSummary.length; i+=5)
         {
-          if(this.SalesSummary[i].includes(selectedCity) && this.SelectedCity != "All Districts"
-             ||
-             this.SelectedCity == "All Districts"
+          if(
+            this.SalesSummary[i].includes(selectedCity) && this.SalesSummary[i].includes(this.SelectedType) && this.SelectedCity != "All Districts" && this.SelectedType != "All"
+            ||
+            this.SelectedCity == "All Districts" && this.SalesSummary[i].includes(this.SelectedType)
+            ||
+            this.SalesSummary[i].includes(selectedCity) && this.SelectedType == "All"
+            ||
+            this.SelectedCity == "All Districts" && this.SelectedType == "All"
             )
           {
             var monthSales = this.SalesSummary[i + 4].split("}");
-            console.log(monthSales);
+            var posCode = this.SalesSummary[i + 0].split('"');
+            var empName = this.SalesSummary[i + 1].split('"');
 
             this.SalesSummaryData.push({
-              PositionCode : this.SalesSummary[i + 0],
-              EmployeeName : this.SalesSummary[i + 1],
+              PositionCode : posCode[1],
+              EmployeeName : empName[1],
               NumberOfDoctors : this.SalesSummary[i + 2],
               NumberOfProvidersActive : this.SalesSummary[i + 3],
               ActivePercentage : Math.round((this.SalesSummary[i + 3] / this.SalesSummary[i + 2]) * 100).toFixed(1),

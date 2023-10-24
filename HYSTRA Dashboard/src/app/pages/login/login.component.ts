@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.loginService.Login(username, pass).subscribe((result) => {
         console.log(result);
         let statusCode = result.statusCode;
-        
+
         if(statusCode == 404)
         {
           console.log("Invalid Username or Password");
