@@ -471,7 +471,7 @@
             >
               <!-- <tr *ngIf="KarachiSelected"> -->
               <tr>
-                <td>{{ i }}</td>
+                <td>{{ i + 1 }}</td>
                 <td>{{ data.District }}</td>
                 <td>{{ data.Month }}</td>
                 <td>{{ data.Name }}</td>
@@ -637,6 +637,7 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
+                <th scope="col">Index</th>
                 <th scope="col">Position Code</th>
                 <th scope="col">Employee Name</th>
                 <th scope="col">Number Of Doctors</th>
@@ -647,7 +648,8 @@
             </thead>
             <tbody>
               <!-- <tr *ngIf="KarachiSelected"> -->
-              <tr *ngFor="let data of SalesSummaryData">
+              <tr *ngFor="let data of SalesSummaryData; let i = index">
+                <td>{{i + 1}}</td>
                 <td>{{data.PositionCode}}</td>
                 <td>{{data.EmployeeName}}</td>
                 <td>{{data.NumberOfDoctors}}</td>

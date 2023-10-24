@@ -329,69 +329,71 @@ export class ReportsComponent implements OnInit {
 
   public SelectMonth(value: any): void
   {
-    if(value != "Select Month")
+    this.monthName = value;
+
+    if(this.monthName == "Select Month")
     {
-      this.monthName = value;
-
-      if(this.monthName == "January")
-      {
-        this.monthId = "01"
-      }
-      else if(this.monthName == "February")
-      {
-        this.monthId = "02"
-      }
-      else if(this.monthName == "March")
-      {
-        this.monthId = "03"
-      }
-      else if(this.monthName == "April")
-      {
-        this.monthId = "04"
-      }
-      else if(this.monthName == "May")
-      {
-        this.monthId = "05"
-      }
-      else if(this.monthName == "June")
-      {
-        this.monthId = "06"
-      }
-      else if(this.monthName == "July")
-      {
-        this.monthId = "07"
-      }
-      else if(this.monthName == "August")
-      {
-        this.monthId = "08"
-      }
-      else if(this.monthName == "September")
-      {
-        this.monthId = "09"
-      }
-      else if(this.monthName == "October")
-      {
-        this.monthId = "10"
-      }
-      else if(this.monthName == "November")
-      {
-        this.monthId = "11"
-      }
-      else if(this.monthName == "December")
-      {
-        this.monthId = "12"
-      }
-      this.monthName = this.monthName + " " + this.year;
-
-      // for(let i = 0; i < this.BusinessAPIData.length; i++)
-      // {
-      //   this.BusinessAPIData[i].year = this.year;
-      //   this.BusinessAPIData[i].month = this.monthId;
-      //   this.CallsExecutedData[i].Month = this.monthName;
-      //   console.log(this.monthName);
-      // }
-      // this.GetBusinessAPIData(this.year, this.monthId, this.monthName);
+      this.monthId = "0"
     }
+
+    else if(this.monthName == "January")
+    {
+      this.monthId = "01"
+    }
+    else if(this.monthName == "February")
+    {
+      this.monthId = "02"
+    }
+    else if(this.monthName == "March")
+    {
+      this.monthId = "03"
+    }
+    else if(this.monthName == "April")
+    {
+      this.monthId = "04"
+    }
+    else if(this.monthName == "May")
+    {
+      this.monthId = "05"
+    }
+    else if(this.monthName == "June")
+    {
+      this.monthId = "06"
+    }
+    else if(this.monthName == "July")
+    {
+      this.monthId = "07"
+    }
+    else if(this.monthName == "August")
+    {
+      this.monthId = "08"
+    }
+    else if(this.monthName == "September")
+    {
+      this.monthId = "09"
+    }
+    else if(this.monthName == "October")
+    {
+      this.monthId = "10"
+    }
+    else if(this.monthName == "November")
+    {
+      this.monthId = "11"
+    }
+    else if(this.monthName == "December")
+    {
+      this.monthId = "12"
+    }
+    this.monthName = this.monthName + " " + this.year;
+
+    // for(let i = 0; i < this.BusinessAPIData.length; i++)
+    // {
+    //   this.BusinessAPIData[i].year = this.year;
+    //   this.BusinessAPIData[i].month = this.monthId;
+    //   this.CallsExecutedData[i].Month = this.monthName;
+    //   console.log(this.monthName);
+    // }
+    // this.GetBusinessAPIData(this.year, this.monthId, this.monthName);
   }
 
   public GetSalesSummaryData(): void
@@ -452,7 +454,7 @@ export class ReportsComponent implements OnInit {
 
   public GetBusinessAPIData(year: any, monthid: any, monthname: any): void
   {
-    if(this.year != ""  && this.monthId != "")
+    if(this.year != "" && this.monthId != "0" && this.monthId != "")
     {
       this.businessService.GetBusinessData(year, monthid).subscribe((result) => {
         this.BusinessAPIData = result;
