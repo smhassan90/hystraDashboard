@@ -473,7 +473,11 @@ export class ReportsComponent implements OnInit {
 
   public GetBusinessAPIData(year: any, monthid: any, monthname: any): void
   {
-    if(this.year != "" && this.monthId != "0" && this.monthId != "")
+    if(this.year == "" || this.monthId == "0" || this.monthId == "")
+    {
+      this.CallsExecutedData = [];
+    }
+    else if(this.year != "" && this.monthId != "0" && this.monthId != "")
     {
       this.businessService.GetBusinessData(year, monthid).subscribe((result) => {
         this.BusinessAPIData = result;
