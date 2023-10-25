@@ -147,6 +147,7 @@ export class ReportsComponent implements OnInit {
   public year: any = "";
   public monthId: any = "";
   public monthName: any = "";
+  public yearMonthName: any = "";
 
   public StartingDate: any = "";
   public EndingDate: any = "";
@@ -325,6 +326,7 @@ export class ReportsComponent implements OnInit {
   public SelectYear(value: any): void
   {
     this.year = value;
+    this.yearMonthName = this.monthName + " " + this.year;
   }
 
   public SelectMonth(value: any): void
@@ -333,7 +335,7 @@ export class ReportsComponent implements OnInit {
 
     if(this.monthName == "Select Month")
     {
-      this.monthId = "0"
+      this.monthId = "00"
     }
 
     else if(this.monthName == "January")
@@ -384,7 +386,7 @@ export class ReportsComponent implements OnInit {
     {
       this.monthId = "12"
     }
-    this.monthName = this.monthName + " " + this.year;
+    this.yearMonthName = this.monthName + " " + this.year;
 
     // for(let i = 0; i < this.BusinessAPIData.length; i++)
     // {
@@ -467,17 +469,18 @@ export class ReportsComponent implements OnInit {
           }
         }
         console.log(this.SalesSummaryData);
+        console.log(this.SalesSummaryData.sort(function(a, b){return a-b}));
       })
     }
   }
 
-  public GetBusinessAPIData(year: any, monthid: any, monthname: any): void
+  public GetBusinessAPIData(year: any, monthid: any): void
   {
-    if(this.year == "" || this.monthId == "0" || this.monthId == "")
+    if(this.year == "" || this.monthId == "00" || this.monthId == "")
     {
       this.CallsExecutedData = [];
     }
-    else if(this.year != "" && this.monthId != "0" && this.monthId != "")
+    else if(this.year != "" && this.monthId != "00" && this.monthId != "")
     {
       this.businessService.GetBusinessData(year, monthid).subscribe((result) => {
         this.BusinessAPIData = result;
@@ -515,7 +518,7 @@ export class ReportsComponent implements OnInit {
             this.OutRangePercent[i] = this.OutRange[i] / this.GrandTotal[i] * 100;
 
             this.CallsExecutedData.push({
-              Month: monthname,
+              Month: this.yearMonthName,
               District: this.Districts[i],
               Name: this.Names[i],
               CallsPlanned: parseFloat(this.CallsPlanned[i]).toFixed(2),
