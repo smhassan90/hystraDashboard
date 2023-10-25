@@ -159,9 +159,6 @@ export class ReportsComponent implements OnInit {
 
   ngOnInit(): void
   {
-    // monthName = this.GetMonthNameFromMonthId(monthName, monthId) + " " + year;
-    // this.GetBusinessAPIData(2023, 3, this.monthName);
-
     this.CallsExecutedData = [];
 
     this.IsMioReports = true;
@@ -170,6 +167,7 @@ export class ReportsComponent implements OnInit {
     this.MMSBorder = "none";
   }
 
+  // --------------- Download Report Functions ----------------
   public DownloadMIOReports(): void
   {
     let options = {
@@ -220,7 +218,9 @@ export class ReportsComponent implements OnInit {
 
     new ngxCsv(this.SalesSummaryData, "MonthlySalesSummaryReport", options);
   }
+  // ====================================================================
 
+  // --------------- Select MIO or CHO ----------------
   public OnClickMIOReports(): void
   {
     this.IsMioReports = true;
@@ -254,6 +254,29 @@ export class ReportsComponent implements OnInit {
     this.MMSBorder = "6px solid #f3603994";
   }
 
+  public SelectAllTypes(): void
+  {
+    this.SelectedType = "All";
+    this.MIOSelected = true;
+    this.CHOSelected = true;
+  }
+
+  public SelectMIO(): void
+  {
+    this.SelectedType = "MIO";
+    this.MIOSelected = true;
+    this.CHOSelected = false;
+  }
+
+  public SelectCHO(): void
+  {
+    this.SelectedType = "CHO";
+    this.MIOSelected = false;
+    this.CHOSelected = true;
+  }
+  // ====================================================================
+
+  // --------------- Select District ----------------
   public SelectKarachi(): void
   {
     this.SelectedCity = "Karachi";
@@ -289,28 +312,9 @@ export class ReportsComponent implements OnInit {
     this.IslamabadSelected = true;
     this.AllDistrictsSelected = true;
   }
+  // ====================================================================
 
-  public SelectAllTypes(): void
-  {
-    this.SelectedType = "All";
-    this.MIOSelected = true;
-    this.CHOSelected = true;
-  }
-
-  public SelectMIO(): void
-  {
-    this.SelectedType = "MIO";
-    this.MIOSelected = true;
-    this.CHOSelected = false;
-  }
-
-  public SelectCHO(): void
-  {
-    this.SelectedType = "CHO";
-    this.MIOSelected = false;
-    this.CHOSelected = true;
-  }
-
+  // --------------- Select Date ----------------
   public SelectStartingDate(value: any): void
   {
     this.StartingDate = value;
@@ -387,87 +391,80 @@ export class ReportsComponent implements OnInit {
       this.monthId = "12"
     }
     this.yearMonthName = this.monthName + " " + this.year;
-
-    // for(let i = 0; i < this.BusinessAPIData.length; i++)
-    // {
-    //   this.BusinessAPIData[i].year = this.year;
-    //   this.BusinessAPIData[i].month = this.monthId;
-    //   this.CallsExecutedData[i].Month = this.monthName;
-    //   console.log(this.monthName);
-    // }
-    // this.GetBusinessAPIData(this.year, this.monthId, this.monthName);
   }
+    // ====================================================================
 
-  public GetSalesSummaryData(): void
-  {
-    this.SalesSummaryData = [];
-    var selectedCity = "";
-
-    if(this.SelectedCity == "Karachi")
+    // --------------- Call API Functions ----------------
+    public GetSalesSummaryData(): void
     {
-      selectedCity = "KHI";
-    }
-    else if(this.SelectedCity == "Islamabad")
-    {
-      selectedCity = "ISB";
-    }
+      this.SalesSummaryData = [];
+      var selectedCity = "";
 
-    var splitStartDate = this.StartingDate.split("-");
-    var splitEndDate = this.EndingDate.split("-");
-
-    if(
-      splitStartDate[0] >  splitEndDate[0] ||
-      splitStartDate[0] == splitEndDate[0] && splitStartDate[1] >  splitEndDate[1] ||
-      splitStartDate[0] == splitEndDate[0] && splitStartDate[1] == splitEndDate[1] && splitStartDate[2] > splitEndDate[2]
-      )
-    {
-      alert("Starting Date Should Not Be Greater Than The Ending Date");
-      return;
-    }
-
-    if(this.StartingDate != "" && this.EndingDate != "")
-    {
-      this.sales.GetSalesSummary(this.StartingDate, this.EndingDate).subscribe((result) =>
+      if(this.SelectedCity == "Karachi")
       {
-        console.log(result);
-        var split = result.data.split(",");
-        for(let i = 0; i < split.length; i++)
+        selectedCity = "KHI";
+      }
+      else if(this.SelectedCity == "Islamabad")
+      {
+        selectedCity = "ISB";
+      }
+
+      var splitStartDate = this.StartingDate.split("-");
+      var splitEndDate = this.EndingDate.split("-");
+
+      if(
+        splitStartDate[0] >  splitEndDate[0] ||
+        splitStartDate[0] == splitEndDate[0] && splitStartDate[1] >  splitEndDate[1] ||
+        splitStartDate[0] == splitEndDate[0] && splitStartDate[1] == splitEndDate[1] && splitStartDate[2] > splitEndDate[2]
+        )
         {
-          var value = split[i].split(":", 2);
-          if(value[1] != undefined)
-          {
-            this.SalesSummary.push(value[1]);
-          }
+          alert("Starting Date Should Not Be Greater Than The Ending Date");
+          return;
         }
 
-        console.log(this.SalesSummary);
-        console.log(split);
-        for(let i = 0; i < this.SalesSummary.length; i+=5)
+        if(this.StartingDate != "" && this.EndingDate != "")
         {
-          if(
-            this.SalesSummary[i].includes(selectedCity) && this.SalesSummary[i].includes(this.SelectedType) && this.SelectedCity != "All Districts" && this.SelectedType != "All"
-            ||
-            this.SelectedCity == "All Districts" && this.SalesSummary[i].includes(this.SelectedType)
-            ||
-            this.SalesSummary[i].includes(selectedCity) && this.SelectedType == "All"
-            ||
-            this.SelectedCity == "All Districts" && this.SelectedType == "All"
-            )
+        this.sales.GetSalesSummary(this.StartingDate, this.EndingDate).subscribe((result) =>
+        {
+          console.log(result);
+          var split = result.data.split(",");
+          for(let i = 0; i < split.length; i++)
           {
-            var monthSales = this.SalesSummary[i + 4].split("}");
-            var posCode = this.SalesSummary[i + 0].split('"');
-            var empName = this.SalesSummary[i + 1].split('"');
-
-            this.SalesSummaryData.push({
-              PositionCode : posCode[1],
-              EmployeeName : empName[1],
-              NumberOfDoctors : this.SalesSummary[i + 2],
-              NumberOfProvidersActive : this.SalesSummary[i + 3],
-              ActivePercentage : Math.round((this.SalesSummary[i + 3] / this.SalesSummary[i + 2]) * 100).toFixed(1),
-              MonthSales : monthSales[0],
-            })
+            var value = split[i].split(":", 2);
+            if(value[1] != undefined)
+            {
+              this.SalesSummary.push(value[1]);
+            }
           }
-        }
+
+          console.log(this.SalesSummary);
+          console.log(split);
+          for(let i = 0; i < this.SalesSummary.length; i+=5)
+          {
+            if(
+              this.SalesSummary[i].includes(selectedCity) && this.SalesSummary[i].includes(this.SelectedType) && this.SelectedCity != "All Districts" && this.SelectedType != "All"
+              ||
+              this.SelectedCity == "All Districts" && this.SalesSummary[i].includes(this.SelectedType)
+              ||
+              this.SalesSummary[i].includes(selectedCity) && this.SelectedType == "All"
+              ||
+              this.SelectedCity == "All Districts" && this.SelectedType == "All"
+              )
+              {
+                var monthSales = this.SalesSummary[i + 4].split("}");
+                var posCode = this.SalesSummary[i + 0].split('"');
+                var empName = this.SalesSummary[i + 1].split('"');
+
+                this.SalesSummaryData.push({
+                PositionCode : posCode[1],
+                EmployeeName : empName[1],
+                NumberOfDoctors : this.SalesSummary[i + 2],
+                NumberOfProvidersActive : this.SalesSummary[i + 3],
+                ActivePercentage : Math.round((this.SalesSummary[i + 3] / this.SalesSummary[i + 2]) * 100).toFixed(1),
+                MonthSales : monthSales[0],
+                })
+              }
+          }
         console.log(this.SalesSummaryData);
         console.log(this.SalesSummaryData.sort(function(a, b){return a-b}));
       })
@@ -489,19 +486,20 @@ export class ReportsComponent implements OnInit {
 
         for(let i = 0; i < this.BusinessAPIData.length; i++)
         {
-          if(this.BusinessAPIData[i].street.includes(this.SelectedType) && this.BusinessAPIData[i].city.includes(this.SelectedCity) && this.SelectedType != "All" && this.SelectedCity != "All Districts"
-             ||
-             this.BusinessAPIData[i].street.includes(this.SelectedType) && this.BusinessAPIData[i].city.includes(this.SelectedCity.toUpperCase()) && this.SelectedType != "All" && this.SelectedCity != "All Districts"
-             ||
-             this.BusinessAPIData[i].street.includes(this.SelectedType) && this.SelectedType != "All" && this.SelectedCity == "All Districts"
-             ||
-             this.BusinessAPIData[i].city.includes(this.SelectedCity.toUpperCase()) && this.SelectedType == "All" && this.SelectedCity != "All Districts"
-             ||
-             this.BusinessAPIData[i].city.includes(this.SelectedCity) && this.SelectedType == "All" && this.SelectedCity != "All Districts"
-             ||
-             this.SelectedType == "All" && this.SelectedCity == "All Districts"
+          if(
+            this.BusinessAPIData[i].street.includes(this.SelectedType) && this.BusinessAPIData[i].city.includes(this.SelectedCity) && this.SelectedType != "All" && this.SelectedCity != "All Districts"
+            ||
+            this.BusinessAPIData[i].street.includes(this.SelectedType) && this.BusinessAPIData[i].city.includes(this.SelectedCity.toUpperCase()) && this.SelectedType != "All" && this.SelectedCity != "All Districts"
+            ||
+            this.BusinessAPIData[i].street.includes(this.SelectedType) && this.SelectedType != "All" && this.SelectedCity == "All Districts"
+            ||
+            this.BusinessAPIData[i].city.includes(this.SelectedCity.toUpperCase()) && this.SelectedType == "All" && this.SelectedCity != "All Districts"
+            ||
+            this.BusinessAPIData[i].city.includes(this.SelectedCity) && this.SelectedType == "All" && this.SelectedCity != "All Districts"
+            ||
+            this.SelectedType == "All" && this.SelectedCity == "All Districts"
             )
-          {
+            {
             this.Districts[i] = this.BusinessAPIData[i].city;
             this.Names[i] = this.BusinessAPIData[i].tso;
             this.CallsPlanned[i] = this.BusinessAPIData[i].doctors / this.BusinessAPIData[i].pdoctors;
@@ -541,5 +539,6 @@ export class ReportsComponent implements OnInit {
       });
     }
   }
+  // ====================================================================
 
 }
