@@ -46,6 +46,9 @@ export class DashboardComponent implements OnInit {
   public ActiveProvidersCHOValue: any;
   public ActiveProvidersCHOPercentageValue: any;
 
+  public MIOBarChartLabels: any = [];
+  public MIOBarChartData: any = [];
+
   constructor(private sales: SalesService, private businessService: BusinessService) {}
 
   ngOnInit() {
@@ -56,19 +59,51 @@ export class DashboardComponent implements OnInit {
     ];
     this.data = this.datasets[0];
 
-    // MIO Wise Sales Bar Chart
-    var salesBarChartMIO = document.getElementById('MIO-WiseSales');
+    const mioData = {
+      labels: [],
+      datasets: [
+        {
+          label: "Sales",
+          data: [],
+          maxBarThickness: 10
+        }
+      ]
+    }
 
-    parseOptions(Chart, chartOptions());
+    this.sales.GetGraphData(2, "MIO").subscribe((result) => {
+      // console.log(result);
+      // console.log(result.data);
+      var data = JSON.parse(result.data);
+      console.log(data);
 
-    var salesChart = new Chart(salesBarChartMIO, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
+      for(var i = 0; i < data.length; i++)
+      {
+        var split = data[i].xAxis.split(",");
+        this.MIOBarChartLabels.push(split[0]);
+        this.MIOBarChartData.push(parseFloat(data[i].yAxis).toFixed(1));
+      }
+
+      mioData.labels = this.MIOBarChartLabels;
+      mioData.datasets[0].data = this.MIOBarChartData;
     });
+
+    // MIO Wise Sales Bar Chart
+
+    setTimeout(() => {
+      var salesBarChartMIO = document.getElementById('MIO-WiseSales');
+      parseOptions(Chart, chartOptions());
+
+      var salesChart = new Chart(salesBarChartMIO, {
+        type: 'bar',
+        options: chartExample2.options,
+        data: mioData
+      });
+    }, 5000);
+
     // --------------------------
 
     // Sales MIO Line Chart
+    setTimeout(() => {
     var lineChartSalesMIO = document.getElementById('chart-sales-MIO');
 
     chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
@@ -78,6 +113,7 @@ export class DashboardComponent implements OnInit {
       options: chartExample1.options,
       data: chartExample1.data
     });
+  }, 5000);
     // --------------------------
 
     // CHO Wise Sales Bar Chart
@@ -104,8 +140,8 @@ export class DashboardComponent implements OnInit {
     });
     // --------------------------
 
-    this.updateOptionsMIO();
-    this.updateOptionsCHO();
+    // this.updateOptionsMIO();
+    // this.updateOptionsCHO();
 
     // APIS Callback
 
@@ -116,6 +152,13 @@ export class DashboardComponent implements OnInit {
     this.sales.getPeriod.subscribe((result) => {
       this.SelectedPeriodFilter = result;
     });
+
+    // this.sales.GetMIOReprtData("CHO").subscribe((result) => {
+    //   console.log(result);
+    //   console.log(result.data);
+    //   var data = JSON.parse(result.data);
+    //   console.log(data);
+    // });
 
     this.GetDashboardDataMIO(this.SelectedCity, this.SelectedPeriodFilter);
     this.GetDashboardDataCHO(this.SelectedCity, this.SelectedPeriodFilter);

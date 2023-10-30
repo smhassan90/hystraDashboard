@@ -15,6 +15,9 @@ export class SalesService {
 
   public BaseURL: any = "https://hawk.greenstar.org.pk:8441/hystra/getSalesTarget?";
   public SalesSummaryURL: any = "https://hawk.greenstar.org.pk:8441/hystra/getMonthlySales?";
+  public DashboardGraphsURL: any = "https://hawk.greenstar.org.pk:8441/hystra/getGraphData?";
+  public MIOReprtsURL: any = "https://hawk.greenstar.org.pk:8441/hystra/getMIOReport?";
+
   public APIURL: any = "";
   public Token: any;
 
@@ -30,6 +33,8 @@ export class SalesService {
 
     this.BaseURL = this.BaseURL + "token=" + this.Token;
     this.SalesSummaryURL = this.SalesSummaryURL + "token=" + this.Token;
+    this.DashboardGraphsURL = this.DashboardGraphsURL + "token=" + this.Token;
+    this.MIOReprtsURL = this.MIOReprtsURL + "token=" + this.Token;
   }
 
   public SetCity(city: string) : void
@@ -54,5 +59,19 @@ export class SalesService {
     this.SalesSummaryURL = this.SalesSummaryURL + "&fromDate=" + fromDate + "&toDate=" + toDate;
     console.log("Sales Summary URL: " + this.SalesSummaryURL);
     return this.http.get<any>(this.SalesSummaryURL);
+  }
+
+  public GetGraphData(apiType: any, userType: any) : Observable<any>
+  {
+    this.DashboardGraphsURL = this.DashboardGraphsURL + "&type=" + apiType +"&positionCode=" + userType;
+    console.log("Dashboard Graphs URL: " + this.DashboardGraphsURL);
+    return this.http.get<any>(this.DashboardGraphsURL);
+  }
+
+  public GetMIOReprtData(team: any) : Observable<any>
+  {
+    this.MIOReprtsURL = this.MIOReprtsURL + "&team=" + team;
+    console.log("Dashboard Graphs URL: " + this.MIOReprtsURL);
+    return this.http.get<any>(this.MIOReprtsURL);
   }
 }
