@@ -147,10 +147,16 @@ export class DashboardComponent implements OnInit {
 
     this.sales.getCity.subscribe((result) => {
       this.SelectedCity = result;
+      console.log("City " + this.SelectedCity);
+      this.GetDashboardDataMIO(this.SelectedCity, this.SelectedPeriodFilter);
+      this.GetDashboardDataCHO(this.SelectedCity, this.SelectedPeriodFilter);
     });
 
     this.sales.getPeriod.subscribe((result) => {
       this.SelectedPeriodFilter = result;
+      console.log("Period " + this.SelectedPeriodFilter);
+      this.GetDashboardDataMIO(this.SelectedCity, this.SelectedPeriodFilter);
+      this.GetDashboardDataCHO(this.SelectedCity, this.SelectedPeriodFilter);
     });
 
     // this.sales.GetMIOReprtData("CHO").subscribe((result) => {
@@ -160,8 +166,8 @@ export class DashboardComponent implements OnInit {
     //   console.log(data);
     // });
 
-    this.GetDashboardDataMIO(this.SelectedCity, this.SelectedPeriodFilter);
-    this.GetDashboardDataCHO(this.SelectedCity, this.SelectedPeriodFilter);
+    // this.GetDashboardDataMIO(this.SelectedCity, this.SelectedPeriodFilter);
+    // this.GetDashboardDataCHO(this.SelectedCity, this.SelectedPeriodFilter);
 
     setTimeout(() => {
       this.AchievementMIOPercentageValue = (this.AchievementMIOValue/this.SalesTargetMIOValue) * 100;
