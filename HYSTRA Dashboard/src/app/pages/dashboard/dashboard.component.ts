@@ -159,13 +159,6 @@ export class DashboardComponent implements OnInit {
       this.GetDashboardDataCHO(this.SelectedCity, this.SelectedPeriodFilter);
     });
 
-    // this.sales.GetMIOReprtData("CHO").subscribe((result) => {
-    //   console.log(result);
-    //   console.log(result.data);
-    //   var data = JSON.parse(result.data);
-    //   console.log(data);
-    // });
-
     // this.GetDashboardDataMIO(this.SelectedCity, this.SelectedPeriodFilter);
     // this.GetDashboardDataCHO(this.SelectedCity, this.SelectedPeriodFilter);
 

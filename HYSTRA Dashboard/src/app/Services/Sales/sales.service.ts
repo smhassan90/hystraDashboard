@@ -13,10 +13,12 @@ export class SalesService {
 
   // public Header;
 
-  public BaseURL: any = "https://hawk.greenstar.org.pk:8441/hystra/getSalesTarget?";
-  public SalesSummaryURL: any = "https://hawk.greenstar.org.pk:8441/hystra/getMonthlySales?";
-  public DashboardGraphsURL: any = "https://hawk.greenstar.org.pk:8441/hystra/getGraphData?";
-  public MIOReprtsURL: any = "https://hawk.greenstar.org.pk:8441/hystra/getMIOReport?";
+  public BaseURL: any = "https://hawk.greenstar.org.pk:8441/hystra/";
+
+  public SalesTarget: any = "";
+  public SalesSummaryURL: any = "";
+  public DashboardGraphsURL: any = "";
+  public MIOReprtsURL: any = "";
 
   public APIURL: any = "";
   public Token: any;
@@ -31,10 +33,10 @@ export class SalesService {
     // this.Header = this.auth.Header();
     this.Token = auth.GetToken();
 
-    this.BaseURL = this.BaseURL + "token=" + this.Token;
-    this.SalesSummaryURL = this.SalesSummaryURL + "token=" + this.Token;
-    this.DashboardGraphsURL = this.DashboardGraphsURL + "token=" + this.Token;
-    this.MIOReprtsURL = this.MIOReprtsURL + "token=" + this.Token;
+    this.SalesTarget = this.BaseURL + "getSalesTarget?" + "token=" + this.Token;
+    this.SalesSummaryURL = this.BaseURL + "getMonthlySales?" + "token=" + this.Token;
+    this.DashboardGraphsURL = this.BaseURL + "getGraphData?" + "token=" + this.Token;
+    this.MIOReprtsURL = this.BaseURL + "getMIOReport?" + "token=" + this.Token;
   }
 
   public SetCity(city: string) : void
@@ -49,29 +51,29 @@ export class SalesService {
 
   public GetSalesTarget(city: any, apiType: any, userType: any, period: any) : Observable<any>
   {
-    this.APIURL = this.BaseURL + "&city=" + city + "&APItype=" + apiType +"&userType=" + userType + "&period=" + period;
-    console.log("API URL: " + this.APIURL);
+    this.APIURL = this.SalesTarget + "&city=" + city + "&APItype=" + apiType +"&userType=" + userType + "&period=" + period;
+    console.log("SalesTarget URL: " + this.APIURL);
     return this.http.get<any>(this.APIURL);
   }
 
   public GetSalesSummary(fromDate: any, toDate: any) : Observable<any>
   {
-    this.SalesSummaryURL = this.SalesSummaryURL + "&fromDate=" + fromDate + "&toDate=" + toDate;
-    console.log("Sales Summary URL: " + this.SalesSummaryURL);
-    return this.http.get<any>(this.SalesSummaryURL);
+    this.APIURL = this.SalesSummaryURL + "&fromDate=" + fromDate + "&toDate=" + toDate;
+    console.log("Sales Summary URL: " + this.APIURL);
+    return this.http.get<any>(this.APIURL);
   }
 
   public GetGraphData(apiType: any, userType: any) : Observable<any>
   {
-    this.DashboardGraphsURL = this.DashboardGraphsURL + "&type=" + apiType +"&positionCode=" + userType;
-    console.log("Dashboard Graphs URL: " + this.DashboardGraphsURL);
-    return this.http.get<any>(this.DashboardGraphsURL);
+    this.APIURL = this.DashboardGraphsURL + "&type=" + apiType +"&positionCode=" + userType;
+    console.log("Dashboard Graphs URL: " + this.APIURL);
+    return this.http.get<any>(this.APIURL);
   }
 
   public GetMIOReprtData(team: any) : Observable<any>
   {
-    this.MIOReprtsURL = this.MIOReprtsURL + "&team=" + team;
-    console.log("Dashboard Graphs URL: " + this.MIOReprtsURL);
-    return this.http.get<any>(this.MIOReprtsURL);
+    this.APIURL = this.MIOReprtsURL + "&team=" + team;
+    console.log("Dashboard Graphs URL: " + this.APIURL);
+    return this.http.get<any>(this.APIURL);
   }
 }
