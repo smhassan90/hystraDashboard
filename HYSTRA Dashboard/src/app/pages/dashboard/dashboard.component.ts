@@ -162,20 +162,6 @@ export class DashboardComponent implements OnInit {
     // this.GetDashboardDataMIO(this.SelectedCity, this.SelectedPeriodFilter);
     // this.GetDashboardDataCHO(this.SelectedCity, this.SelectedPeriodFilter);
 
-    setTimeout(() => {
-      this.AchievementMIOPercentageValue = (this.AchievementMIOValue/this.SalesTargetMIOValue) * 100;
-      this.AchievementCHOPercentageValue = (this.AchievementCHOValue/this.SalesTargetCHOValue) * 100;
-
-      this.ActiveProvidersMIOPercentageValue = (this.ActiveProvidersMIOValue/this.TotalProvidersMIOValue) * 100;
-      this.ActiveProvidersCHOPercentageValue = (this.ActiveProvidersCHOValue/this.TotalProvidersCHOValue) * 100;
-
-      this.AchievementMIOPercentageValue = this.AchievementMIOPercentageValue.toFixed();
-      this.AchievementCHOPercentageValue = this.AchievementCHOPercentageValue.toFixed();
-
-      this.ActiveProvidersMIOPercentageValue = this.ActiveProvidersMIOPercentageValue.toFixed();
-      this.ActiveProvidersCHOPercentageValue = this.ActiveProvidersCHOPercentageValue.toFixed();
-    }, 5000);
-
     // this.sales.getCity.subscribe((result) =>
     // {
     //   this.SelectedCity = result;
@@ -255,27 +241,42 @@ export class DashboardComponent implements OnInit {
 
   GetDashboardDataMIO(city: any, period: any) {
     console.log(city, period);
+
+    var salesTarget;
+    var achievement;
+    var activeProviders;
+    var totalProviders;
+
     setTimeout(() => {
 
       this.sales.GetSalesTarget(city, 1, "MIO", period).subscribe((result) => {
         console.log(result.data);
         var data = JSON.parse(result.data);
         console.log(data.number);
-        this.SalesTargetMIOValue = data.number;
+        this.SalesTargetMIOValue = data.number.toLocaleString();
+
+        salesTarget = data.number;
       });
 
       this.sales.GetSalesTarget(city, 2, "MIO", period).subscribe((result) => {
         console.log(result.data);
         var data = JSON.parse(result.data);
         console.log(data.number);
-        this.AchievementMIOValue = data.number;
+        this.AchievementMIOValue = data.number.toLocaleString();
+
+        achievement = data.number;
+        this.AchievementMIOPercentageValue = (achievement/salesTarget) * 100;
+        this.AchievementMIOPercentageValue = this.AchievementMIOPercentageValue.toFixed();
       });
+
 
       this.sales.GetSalesTarget(city, 3, "MIO", period).subscribe((result) => {
         console.log(result.data);
         var data = JSON.parse(result.data);
         console.log(data.number);
         this.TotalProvidersMIOValue = data.number;
+
+        totalProviders = data.number;
       });
 
       this.sales.GetSalesTarget(city, 4, "MIO", period).subscribe((result) => {
@@ -283,6 +284,10 @@ export class DashboardComponent implements OnInit {
         var data = JSON.parse(result.data);
         console.log(data.number);
         this.ActiveProvidersMIOValue = data.number;
+
+        activeProviders = data.number;
+        this.ActiveProvidersMIOPercentageValue = (activeProviders/totalProviders) * 100;
+        this.ActiveProvidersMIOPercentageValue = this.ActiveProvidersMIOPercentageValue.toFixed();
       });
 
     }, 1000);
@@ -290,20 +295,32 @@ export class DashboardComponent implements OnInit {
 
   GetDashboardDataCHO(city: any, period: any) {
     console.log(city, period);
+
+    var salesTarget;
+    var achievement;
+    var activeProviders;
+    var totalProviders;
+
     setTimeout(() => {
 
       this.sales.GetSalesTarget(city, 1, "CHO", period).subscribe((result) => {
         console.log(result.data);
         var data = JSON.parse(result.data);
         console.log(data.number);
-        this.SalesTargetCHOValue = data.number;
+        this.SalesTargetCHOValue = data.number.toLocaleString();
+
+        salesTarget = data.number;
       });
 
       this.sales.GetSalesTarget(city, 2, "CHO", period).subscribe((result) => {
         console.log(result.data);
         var data = JSON.parse(result.data);
         console.log(data.number);
-        this.AchievementCHOValue = data.number;
+        this.AchievementCHOValue = data.number.toLocaleString();
+
+        achievement = data.number;
+        this.AchievementCHOPercentageValue = (achievement/salesTarget) * 100;
+        this.AchievementCHOPercentageValue = this.AchievementCHOPercentageValue.toFixed();
       });
 
       this.sales.GetSalesTarget(city, 3, "CHO", period).subscribe((result) => {
@@ -311,6 +328,8 @@ export class DashboardComponent implements OnInit {
         var data = JSON.parse(result.data);
         console.log(data.number);
         this.TotalProvidersCHOValue = data.number;
+
+        totalProviders = data.number;
       });
 
       this.sales.GetSalesTarget(city, 4, "CHO", period).subscribe((result) => {
@@ -318,6 +337,10 @@ export class DashboardComponent implements OnInit {
         var data = JSON.parse(result.data);
         console.log(data.number);
         this.ActiveProvidersCHOValue = data.number;
+
+        activeProviders = data.number;
+        this.ActiveProvidersCHOPercentageValue = (activeProviders/totalProviders) * 100;
+        this.ActiveProvidersCHOPercentageValue = this.ActiveProvidersCHOPercentageValue.toFixed();
       });
 
     }, 1000);
