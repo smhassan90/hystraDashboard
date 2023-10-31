@@ -477,7 +477,7 @@ export class ReportsComponent implements OnInit {
 
       for(var i = 0; i < data.length; i++)
       {
-        if(data[i].district.includes(this.SelectedCity) && this.SelectedCity != "All Districts")
+        if(data[i].district.includes(this.SelectedCity) && this.SelectedCity != "All Districts" || this.SelectedCity == "All Districts")
         {
           index++;
           this.MIOReportsData.push({
