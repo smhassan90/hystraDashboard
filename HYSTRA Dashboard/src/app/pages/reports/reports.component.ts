@@ -435,6 +435,56 @@ export class ReportsComponent implements OnInit {
             this.InRangePercent[i] = this.InRange[i] / this.GrandTotal[i] * 100;
             this.OutRangePercent[i] = this.OutRange[i] / this.GrandTotal[i] * 100;
 
+
+            if(isNaN(this.CallsPlanned[i]) || !isFinite(this.CallsPlanned[i]))
+            {
+              this.CallsPlanned[i] = 0;
+            }
+            if(isNaN(this.Planned[i]) || !isFinite(this.Planned[i]))
+            {
+              this.Planned[i] = 0;
+            }
+            if(isNaN(this.ActuallyVisited[i]) || !isFinite(this.ActuallyVisited[i]))
+            {
+              this.ActuallyVisited[i] = 0;
+            }
+            if(isNaN(this.CallsUnplanned[i]) || !isFinite(this.CallsUnplanned[i]))
+            {
+              this.CallsUnplanned[i] = 0;
+            }
+            if(isNaN(this.NotVisited[i]) || !isFinite(this.NotVisited[i]))
+            {
+              this.NotVisited[i] = 0;
+            }
+            if(isNaN(this.PlannedPercentage[i]) || !isFinite(this.PlannedPercentage[i]))
+            {
+              this.PlannedPercentage[i] = 0;
+            }
+            if(isNaN(this.UnplannedPercentage[i]) || !isFinite(this.UnplannedPercentage[i]))
+            {
+              this.UnplannedPercentage[i] = 0;
+            }
+            if(isNaN(this.InRange[i]) || !isFinite(this.InRange[i]))
+            {
+              this.InRange[i] = 0;
+            }
+            if(isNaN(this.OutRange[i]) || !isFinite(this.OutRange[i]))
+            {
+              this.OutRange[i] = 0;
+            }
+            if(isNaN(this.GrandTotal[i]) || !isFinite(this.GrandTotal[i]))
+            {
+              this.GrandTotal[i] = 0;
+            }
+            if(isNaN(this.InRangePercent[i]) || !isFinite(this.InRangePercent[i]))
+            {
+              this.InRangePercent[i] = 0;
+            }
+            if(isNaN(this.OutRangePercent[i]) || !isFinite(this.OutRangePercent[i]))
+            {
+              this.OutRangePercent[i] = 0;
+            }
+
             this.CallsExecutedData.push({
               Month: this.yearMonthName,
               District: this.Districts[i],

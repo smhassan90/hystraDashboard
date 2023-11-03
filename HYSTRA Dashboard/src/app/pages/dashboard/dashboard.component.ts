@@ -262,6 +262,11 @@ export class DashboardComponent implements OnInit {
         achievement = data.number;
         this.AchievementMIOPercentageValue = (achievement/salesTarget) * 100;
         this.AchievementMIOPercentageValue = this.AchievementMIOPercentageValue.toFixed();
+
+        if(isNaN(this.AchievementMIOPercentageValue) || !isFinite(this.AchievementMIOPercentageValue))
+        {
+          this.AchievementMIOPercentageValue = 0;
+        }
       });
 
 
@@ -283,6 +288,11 @@ export class DashboardComponent implements OnInit {
         activeProviders = data.number;
         this.ActiveProvidersMIOPercentageValue = (activeProviders/totalProviders) * 100;
         this.ActiveProvidersMIOPercentageValue = this.ActiveProvidersMIOPercentageValue.toFixed();
+
+        if(isNaN(this.ActiveProvidersMIOPercentageValue) || !isFinite(this.ActiveProvidersMIOPercentageValue))
+        {
+          this.ActiveProvidersMIOPercentageValue = 0;
+        }
       });
 
     }, 1000);
@@ -316,6 +326,11 @@ export class DashboardComponent implements OnInit {
         achievement = data.number;
         this.AchievementCHOPercentageValue = (achievement/salesTarget) * 100;
         this.AchievementCHOPercentageValue = this.AchievementCHOPercentageValue.toFixed();
+
+        if(isNaN(this.AchievementCHOPercentageValue) || !isFinite(this.AchievementCHOPercentageValue))
+        {
+          this.AchievementCHOPercentageValue = 0;
+        }
       });
 
       this.sales.GetSalesTarget(city, 3, "CHO", period).subscribe((result) => {
@@ -336,6 +351,11 @@ export class DashboardComponent implements OnInit {
         activeProviders = data.number;
         this.ActiveProvidersCHOPercentageValue = (activeProviders/totalProviders) * 100;
         this.ActiveProvidersCHOPercentageValue = this.ActiveProvidersCHOPercentageValue.toFixed();
+
+        if(isNaN(this.ActiveProvidersCHOPercentageValue) || !isFinite(this.ActiveProvidersCHOPercentageValue))
+        {
+          this.ActiveProvidersCHOPercentageValue = 0;
+        }
       });
 
     }, 1000);
