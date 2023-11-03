@@ -422,13 +422,13 @@ export class ReportsComponent implements OnInit {
             {
             this.Districts[i] = this.BusinessAPIData[i].city;
             this.Names[i] = this.BusinessAPIData[i].tso;
-            this.CallsPlanned[i] = this.BusinessAPIData[i].doctors / this.BusinessAPIData[i].pdoctors;
-            this.Planned[i] = this.BusinessAPIData[i].calls / this.BusinessAPIData[i].pcalls;
+            this.CallsPlanned[i] = this.BusinessAPIData[i].pdoctors;
+            this.Planned[i] = this.BusinessAPIData[i].pcalls;
             this.ActuallyVisited[i] = this.BusinessAPIData[i].calls;
-            this.CallsUnplanned[i] = this.ActuallyVisited[i] - this.Planned[i];
+            this.CallsUnplanned[i] = this.BusinessAPIData[i].calls - this.BusinessAPIData[i].pcalls;
             this.NotVisited[i] = this.BusinessAPIData[i].doctors - this.BusinessAPIData[i].covered;
             this.PlannedPercentage[i] = (this.BusinessAPIData[i].pcalls / this.BusinessAPIData[i].calls) * 100;
-            this.UnplannedPercentage[i] = 100 - this.Planned[i];
+            this.UnplannedPercentage[i] = (this.CallsUnplanned[i] / this.BusinessAPIData[i].calls) * 100;
             this.InRange[i] = this.BusinessAPIData[i].green;
             this.OutRange[i] = this.BusinessAPIData[i].red;
             this.GrandTotal[i] = this.InRange[i] + this.OutRange[i];
@@ -439,9 +439,9 @@ export class ReportsComponent implements OnInit {
               Month: this.yearMonthName,
               District: this.Districts[i],
               Name: this.Names[i],
-              CallsPlanned: parseFloat(this.CallsPlanned[i]).toFixed(2),
-              Planned: parseFloat(this.Planned[i]).toFixed(2),
-              CallsUnplanned: parseFloat(this.CallsUnplanned[i]).toFixed(2),
+              CallsPlanned: parseFloat(this.CallsPlanned[i]),
+              Planned: parseFloat(this.Planned[i]),
+              CallsUnplanned: parseFloat(this.CallsUnplanned[i]),
               ActuallyVisited: this.ActuallyVisited[i],
               NotVisited: this.NotVisited[i],
               PlannedPercentage: parseFloat(this.PlannedPercentage[i]).toFixed(2),

@@ -4,12 +4,7 @@ import { SalesService } from '../../Services/Sales/sales.service';
 import { BusinessService } from '../../Services/Business/business.service';
 
 // core components
-import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2
-} from "../../variables/charts";
+import { chartOptions, parseOptions, chartExample1, chartExample2 } from "../../variables/charts";
 import { importExpr } from '@angular/compiler/src/output/output_ast';
 
 @Component({
