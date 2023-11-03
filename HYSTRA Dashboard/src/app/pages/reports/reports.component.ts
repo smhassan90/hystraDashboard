@@ -484,10 +484,10 @@ export class ReportsComponent implements OnInit {
             Index: index,
             Date: data[i].transactionDate,
             ProviderCode: data[i].providerCode,
-            ProviderName: "",
+            ProviderName: "-",
             MIO: data[i].MIO,
             District: data[i].district,
-            Category: "",
+            Category: "-",
             PharmacyCode: data[i].pharmacyCode,
             TaggedPharmacy: data[i].taggedPharmacy,
             MonthlySales: data[i].sales
