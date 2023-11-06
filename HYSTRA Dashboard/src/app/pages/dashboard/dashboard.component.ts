@@ -6,6 +6,8 @@ import { BusinessService } from '../../Services/Business/business.service';
 // core components
 import { chartOptions, parseOptions, chartExample1, chartExample2 } from "../../variables/charts";
 import { importExpr } from '@angular/compiler/src/output/output_ast';
+import { AuthenticationService } from 'src/app/Services/Auth/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +23,7 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
-  public BusinessAPIData : any = [];
+  public BusinessAPIData: any = [];
   // public Values : any = [];
 
   public SelectedCity: string = "Karachi";
@@ -44,7 +46,12 @@ export class DashboardComponent implements OnInit {
   public MIOBarChartLabels: any = [];
   public MIOBarChartData: any = [];
 
-  constructor(private sales: SalesService, private businessService: BusinessService) {}
+  constructor(private sales: SalesService, private businessService: BusinessService, private auth: AuthenticationService, private router: Router) {
+    console.log("Is LoggedIn: ", this.auth.IsLoggedIn());
+    if (!this.auth.IsLoggedIn()) {
+      this.router.navigateByUrl('/login');
+    }
+  }
 
   ngOnInit() {
 
@@ -71,8 +78,7 @@ export class DashboardComponent implements OnInit {
       var data = JSON.parse(result.data);
       console.log(data);
 
-      for(var i = 0; i < data.length; i++)
-      {
+      for (var i = 0; i < data.length; i++) {
         var split = data[i].xAxis.split(",");
         this.MIOBarChartLabels.push(split[0]);
         this.MIOBarChartData.push(parseFloat(data[i].yAxis).toFixed(1));
@@ -99,16 +105,16 @@ export class DashboardComponent implements OnInit {
 
     // Sales MIO Line Chart
     setTimeout(() => {
-    var lineChartSalesMIO = document.getElementById('chart-sales-MIO');
+      var lineChartSalesMIO = document.getElementById('chart-sales-MIO');
 
-    chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
+      chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
 
-    this.salesLineChartMIO = new Chart(lineChartSalesMIO, {
-      type: 'line',
-      options: chartExample1.options,
-      data: chartExample1.data
-    });
-  }, 5000);
+      this.salesLineChartMIO = new Chart(lineChartSalesMIO, {
+        type: 'line',
+        options: chartExample1.options,
+        data: chartExample1.data
+      });
+    }, 5000);
     // --------------------------
 
     // CHO Wise Sales Bar Chart
@@ -260,11 +266,10 @@ export class DashboardComponent implements OnInit {
         this.AchievementMIOValue = data.number.toLocaleString();
 
         achievement = data.number;
-        this.AchievementMIOPercentageValue = (achievement/salesTarget) * 100;
+        this.AchievementMIOPercentageValue = (achievement / salesTarget) * 100;
         this.AchievementMIOPercentageValue = this.AchievementMIOPercentageValue.toFixed();
 
-        if(isNaN(this.AchievementMIOPercentageValue) || !isFinite(this.AchievementMIOPercentageValue))
-        {
+        if (isNaN(this.AchievementMIOPercentageValue) || !isFinite(this.AchievementMIOPercentageValue)) {
           this.AchievementMIOPercentageValue = 0;
         }
       });
@@ -286,11 +291,10 @@ export class DashboardComponent implements OnInit {
         this.ActiveProvidersMIOValue = data.number;
 
         activeProviders = data.number;
-        this.ActiveProvidersMIOPercentageValue = (activeProviders/totalProviders) * 100;
+        this.ActiveProvidersMIOPercentageValue = (activeProviders / totalProviders) * 100;
         this.ActiveProvidersMIOPercentageValue = this.ActiveProvidersMIOPercentageValue.toFixed();
 
-        if(isNaN(this.ActiveProvidersMIOPercentageValue) || !isFinite(this.ActiveProvidersMIOPercentageValue))
-        {
+        if (isNaN(this.ActiveProvidersMIOPercentageValue) || !isFinite(this.ActiveProvidersMIOPercentageValue)) {
           this.ActiveProvidersMIOPercentageValue = 0;
         }
       });
@@ -324,11 +328,10 @@ export class DashboardComponent implements OnInit {
         this.AchievementCHOValue = data.number.toLocaleString();
 
         achievement = data.number;
-        this.AchievementCHOPercentageValue = (achievement/salesTarget) * 100;
+        this.AchievementCHOPercentageValue = (achievement / salesTarget) * 100;
         this.AchievementCHOPercentageValue = this.AchievementCHOPercentageValue.toFixed();
 
-        if(isNaN(this.AchievementCHOPercentageValue) || !isFinite(this.AchievementCHOPercentageValue))
-        {
+        if (isNaN(this.AchievementCHOPercentageValue) || !isFinite(this.AchievementCHOPercentageValue)) {
           this.AchievementCHOPercentageValue = 0;
         }
       });
@@ -349,11 +352,10 @@ export class DashboardComponent implements OnInit {
         this.ActiveProvidersCHOValue = data.number;
 
         activeProviders = data.number;
-        this.ActiveProvidersCHOPercentageValue = (activeProviders/totalProviders) * 100;
+        this.ActiveProvidersCHOPercentageValue = (activeProviders / totalProviders) * 100;
         this.ActiveProvidersCHOPercentageValue = this.ActiveProvidersCHOPercentageValue.toFixed();
 
-        if(isNaN(this.ActiveProvidersCHOPercentageValue) || !isFinite(this.ActiveProvidersCHOPercentageValue))
-        {
+        if (isNaN(this.ActiveProvidersCHOPercentageValue) || !isFinite(this.ActiveProvidersCHOPercentageValue)) {
           this.ActiveProvidersCHOPercentageValue = 0;
         }
       });

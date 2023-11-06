@@ -14,7 +14,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   public LoginForm: FormGroup;
   public Submitted: boolean = false;
 
-  constructor(private router: Router, private loginService: LoginService, private auth: AuthenticationService) { }
+  constructor(private router: Router, private loginService: LoginService, private auth: AuthenticationService) {
+    if (this.auth.IsLoggedIn()) {
+      this.router.navigateByUrl('/dashboard');
+    }
+    // else {
+    //   this.router.navigateByUrl('/login');
+    // }
+  }
 
   ngOnInit() {
     this.LoginForm = new FormGroup({
@@ -37,18 +44,17 @@ export class LoginComponent implements OnInit, OnDestroy {
         console.log(result);
         let statusCode = result.statusCode;
 
-        if(statusCode == 404)
-        {
+        if (statusCode == 404) {
           console.log("Invalid Username or Password");
           alert("Invalid Username or Password");
         }
         else
-        if(statusCode == 200)
-        {
-          let token = result.token;
-          this.auth.SaveToken(token);
-          this.router.navigateByUrl("/dashboard");
-        }
+          if (statusCode == 200) {
+            let token = result.token;
+            this.auth.SaveToken(token);
+            this.auth.SaveLogin('true');
+            this.router.navigateByUrl("/dashboard");
+          }
       });
       // if (email == 'admin' && pass == 'admin') {
       //   this.router.navigateByUrl("/dashboard");
