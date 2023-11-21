@@ -540,7 +540,7 @@ export class ReportsComponent implements OnInit {
             Category: "-",
             PharmacyCode: data[i].pharmacyCode,
             TaggedPharmacy: data[i].taggedPharmacy,
-            MonthlySales: data[i].sales
+            MonthlySales: parseFloat(data[i].sales).toFixed(2)
           });
         }
       }

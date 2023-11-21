@@ -179,7 +179,7 @@ export class DashboardComponent implements OnInit {
       var salesChart = new Chart(salesBarChartMIO, {
         type: 'bar',
         options: chartExample2.options,
-        data: mioBarData
+        data: mioLineData
       });
     }, 5000);
 
@@ -194,7 +194,7 @@ export class DashboardComponent implements OnInit {
       this.salesLineChartMIO = new Chart(lineChartSalesMIO, {
         type: 'line',
         options: chartExample1.options,
-        data: mioLineData
+        data: mioBarData
       });
     }, 5000);
     // --------------------------
@@ -208,7 +208,7 @@ export class DashboardComponent implements OnInit {
       var salesChart = new Chart(salesBarChartMIO, {
         type: 'bar',
         options: chartExample2.options,
-        data: choBarData
+        data: choLineData
       });
     }, 5000);
     // --------------------------
@@ -222,7 +222,7 @@ export class DashboardComponent implements OnInit {
       this.salesLineChartCHO = new Chart(lineChartSalesCHO, {
         type: 'line',
         options: chartExample1.options,
-        data: choLineData
+        data: choBarData
       });
     }, 5000);
     // --------------------------
