@@ -99,7 +99,7 @@ export class ReportsComponent implements OnInit {
       title: 'Your title',
       useBom: false,
       noDownload: false,
-      headers: ['Date', 'ProviderCode', 'ProviderName', 'MIO', 'District', 'Category', 'PharmacyCode', 'TaggedPharmacy', 'MonthlySales']
+      headers: ['Index', 'Date', 'ProviderCode', 'ProviderName', 'MIO', 'District', 'Category', 'PharmacyCode', 'TaggedPharmacy', 'MonthlySales']
     };
 
     new ngxCsv(this.MIOReportsData, "MIOReportsData", options);
