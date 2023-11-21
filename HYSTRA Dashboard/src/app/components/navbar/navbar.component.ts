@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
 
   public KarachiSelected: boolean = true;
   public IslamabadSelected: boolean = false;
+  public RawalpindiSelected: boolean = false;
   public AllDistrictsSelected: boolean = false;
 
   public MTDSelected: boolean = true;
@@ -51,6 +52,7 @@ export class NavbarComponent implements OnInit {
     this.SelectedCity = "Karachi";
     this.KarachiSelected = true;
     this.IslamabadSelected = false;
+    this.RawalpindiSelected = false;
     this.AllDistrictsSelected = false;
 
     this.sales.SetCity(this.SelectedCity);
@@ -60,6 +62,18 @@ export class NavbarComponent implements OnInit {
   {
     this.SelectedCity = "Islamabad";
     this.IslamabadSelected = true;
+    this.KarachiSelected = false;
+    this.RawalpindiSelected = false;
+    this.AllDistrictsSelected = false;
+
+    this.sales.SetCity(this.SelectedCity);
+  }
+
+  public SelectRawalpindi(): void
+  {
+    this.SelectedCity = "Rawalpindi";
+    this.RawalpindiSelected = true;
+    this.IslamabadSelected = false;
     this.KarachiSelected = false;
     this.AllDistrictsSelected = false;
 
@@ -71,6 +85,7 @@ export class NavbarComponent implements OnInit {
     this.SelectedCity = "All Districts";
     this.KarachiSelected = true;
     this.IslamabadSelected = true;
+    this.RawalpindiSelected = true;
     this.AllDistrictsSelected = true;
 
     this.sales.SetCity("ALL");

@@ -23,7 +23,6 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
-  public BusinessAPIData: any = [];
   // public Values : any = [];
 
   public SelectedCity: string = "Karachi";
@@ -53,6 +52,24 @@ export class DashboardComponent implements OnInit {
   public CHOBarChartLabels: any = [];
   public CHOBarChartData: any = [];
 
+  public IKONMIOData : any = [];
+  public IKONCHOData : any = [];
+
+  public CallPlannedMIO: number = 0;
+  public TotalVisitMIO: number = 0;
+
+  public CallPlannedCHO: number = 0;
+  public TotalVisitCHO: number = 0;
+
+  public CallPlanMIO : any = [];
+  public TotalVisitedMIO : any = [];
+
+  public CallPlanCHO : any = [];
+  public TotalVisitedCHO : any = [];
+
+  public currentYear;
+  public currentMonth;
+
   constructor(private sales: SalesService, private businessService: BusinessService, private auth: AuthenticationService, private router: Router) {
     console.log("Is LoggedIn: ", this.auth.IsLoggedIn());
     if (!this.auth.IsLoggedIn()) {
@@ -61,6 +78,13 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    const date = new Date();
+
+    this.currentYear = date.getFullYear();
+    this.currentMonth = date.getMonth() + 1;
+    this.GetIKONAPIMIOData();
+    this.GetIKONAPICHOData();
 
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
@@ -237,6 +261,9 @@ export class DashboardComponent implements OnInit {
       console.log("City " + this.SelectedCity);
       this.GetDashboardDataMIO(this.SelectedCity, this.SelectedPeriodFilter);
       this.GetDashboardDataCHO(this.SelectedCity, this.SelectedPeriodFilter);
+
+      this.GetIKONAPIMIOData();
+      this.GetIKONAPICHOData();
     });
 
     this.sales.getPeriod.subscribe((result) => {
@@ -319,10 +346,83 @@ export class DashboardComponent implements OnInit {
     //     }
     //   });
     // });
+  }
 
-    this.businessService.GetBusinessData("2022", "01").subscribe((result) => {
-      this.BusinessAPIData = result;
-      console.log("Business API: ", this.BusinessAPIData);
+  GetIKONAPIMIOData() {
+    this.businessService.GetBusinessData(this.currentYear, this.currentMonth).subscribe((result) => {
+      console.log(result);
+      this.IKONMIOData = result;
+
+      this.CallPlanMIO = [];
+      this.TotalVisitedMIO = [];
+
+      this.CallPlannedMIO = 0;
+      this.TotalVisitMIO = 0;
+
+      for(let i = 0; i < this.IKONMIOData.length; i++)
+      {
+        if(
+          this.IKONMIOData[i].street.includes("MIO") && this.IKONMIOData[i].city.includes(this.SelectedCity) && this.SelectedCity != "All Districts"
+          ||
+          this.IKONMIOData[i].street.includes("MIO") && this.IKONMIOData[i].city.includes(this.SelectedCity.toUpperCase()) && this.SelectedCity != "All Districts"
+          ||
+          this.IKONMIOData[i].street.includes("MIO") && this.SelectedCity == "All Districts"
+          )
+          {
+            this.CallPlanMIO.push(this.IKONMIOData[i].calls);
+            this.TotalVisitedMIO.push(this.IKONMIOData[i].pcalls);
+          }
+      }
+      console.log("CallPlanMIO: " + this.CallPlanMIO);
+      console.log("TotalVisitedMIO: " + this.TotalVisitedMIO);
+
+      for(let i = 0; i < this.CallPlanMIO.length; i++)
+      {
+        this.CallPlannedMIO += parseFloat(this.CallPlanMIO[i]);
+      }
+      for(let i = 0; i < this.TotalVisitedMIO.length; i++)
+      {
+        this.TotalVisitMIO += parseFloat(this.TotalVisitedMIO[i]);
+      }
+    });
+  }
+
+  GetIKONAPICHOData() {
+    this.businessService.GetBusinessData(this.currentYear, this.currentMonth).subscribe((result) => {
+      console.log(result);
+      this.IKONCHOData = result;
+
+      this.CallPlanCHO = [];
+      this.TotalVisitedCHO = [];
+
+      this.CallPlannedCHO = 0;
+      this.TotalVisitCHO = 0;
+
+      for(let i = 0; i < this.IKONCHOData.length; i++)
+      {
+        if(
+          this.IKONCHOData[i].street.includes("MIO") && this.IKONCHOData[i].city.includes(this.SelectedCity) && this.SelectedCity != "All Districts"
+          ||
+          this.IKONCHOData[i].street.includes("MIO") && this.IKONCHOData[i].city.includes(this.SelectedCity.toUpperCase()) && this.SelectedCity != "All Districts"
+          ||
+          this.IKONCHOData[i].street.includes("MIO") && this.SelectedCity == "All Districts"
+          )
+          {
+            this.CallPlanCHO.push(this.IKONCHOData[i].calls);
+            this.TotalVisitedCHO.push(this.IKONCHOData[i].pcalls);
+          }
+      }
+      console.log("CallPlanCHO: " + this.CallPlanCHO);
+      console.log("TotalVisitedCHO: " + this.TotalVisitedCHO);
+
+      for(let i = 0; i < this.CallPlanCHO.length; i++)
+      {
+        this.CallPlannedCHO += parseFloat(this.CallPlanCHO[i]);
+      }
+      for(let i = 0; i < this.TotalVisitedCHO.length; i++)
+      {
+        this.TotalVisitCHO += parseFloat(this.TotalVisitedCHO[i]);
+      }
     });
   }
 
@@ -483,3 +583,17 @@ export class DashboardComponent implements OnInit {
   }
 
 }
+
+// if(
+//   this.IKONAPIData[i].street.includes("MIO") && this.IKONAPIData[i].city.includes(this.SelectedCity) && this.SelectedCity != "All Districts"
+//   ||
+//   this.IKONAPIData[i].street.includes("MIO") && this.IKONAPIData[i].city.includes(this.SelectedCity.toUpperCase()) && this.SelectedCity != "All Districts"
+//   ||
+//   this.IKONAPIData[i].street.includes("MIO") && this.SelectedCity == "All Districts"
+//   ||
+//   this.IKONAPIData[i].city.includes(this.SelectedCity.toUpperCase()) && this.SelectedCity != "All Districts"
+//   ||
+//   this.IKONAPIData[i].city.includes(this.SelectedCity) && this.SelectedCity != "All Districts"
+//   ||
+//   this.SelectedCity == "All Districts"
+//   )
