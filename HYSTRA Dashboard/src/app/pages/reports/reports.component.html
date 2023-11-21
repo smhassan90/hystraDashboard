@@ -173,14 +173,15 @@
               </div>
             </div>
 
-            <div _ngcontent-crs-c122="" class="col-2">
-              <button
-                  type="button"
-                  class="btn btn-secondary text-primary"
-                  (click)="GetMIOReportsData()"
-                >
-                  Search
-                </button>
+            <div class="col-2">
+              <div class="form-group mb-0">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search..."
+                  [(ngModel)]="filterProviderCode"
+                />
+              </div>
             </div>
 
             <!-- <div class="col-2">
@@ -202,16 +203,14 @@
                 class="rounded form-control"
               />
             </div> -->
-
-            <div class="col-2">
-              <div class="form-group mb-0">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Search..."
-                  [(ngModel)]="filterProviderCode"
-                />
-              </div>
+            <div _ngcontent-crs-c122="" class="col-2">
+              <button
+                  type="button"
+                  class="btn btn-secondary text-primary"
+                  (click)="GetMIOReportsData()"
+                >
+                  Search
+                </button>
             </div>
 
           </div>
@@ -683,7 +682,7 @@
                 <th scope="col">Number Of Doctors</th>
                 <th scope="col">No of Providers Active</th>
                 <th scope="col">Active %</th>
-                <th scope="col">Jan-23 - Sales</th>
+                <th scope="col">Sales</th>
               </tr>
             </thead>
             <tbody>

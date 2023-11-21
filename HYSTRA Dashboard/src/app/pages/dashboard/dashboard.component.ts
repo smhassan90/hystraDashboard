@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   // public Values : any = [];
 
   public SelectedCity: string = "Karachi";
-  public SelectedPeriodFilter: string = "MTD";
+  public SelectedPeriodFilter: string = "mtd";
 
   public SalesTargetMIOValue: number;
   public AchievementMIOValue: number;
@@ -43,8 +43,15 @@ export class DashboardComponent implements OnInit {
   public ActiveProvidersCHOValue: any;
   public ActiveProvidersCHOPercentageValue: any;
 
+  public MIOLineGraphLabels: any = [];
+  public MIOLineGraphData: any = [];
   public MIOBarChartLabels: any = [];
   public MIOBarChartData: any = [];
+
+  public CHOLineGraphLabels: any = [];
+  public CHOLineGraphData: any = [];
+  public CHOBarChartLabels: any = [];
+  public CHOBarChartData: any = [];
 
   constructor(private sales: SalesService, private businessService: BusinessService, private auth: AuthenticationService, private router: Router) {
     console.log("Is LoggedIn: ", this.auth.IsLoggedIn());
@@ -61,7 +68,7 @@ export class DashboardComponent implements OnInit {
     ];
     this.data = this.datasets[0];
 
-    const mioData = {
+    const mioBarData = {
       labels: [],
       datasets: [
         {
@@ -71,6 +78,49 @@ export class DashboardComponent implements OnInit {
         }
       ]
     }
+
+    const mioLineData = {
+      labels: [],
+      datasets: [{
+        label: 'Performance',
+        data: []
+      }]
+    }
+
+    const choBarData = {
+      labels: [],
+      datasets: [
+        {
+          label: "Sales",
+          data: [],
+          maxBarThickness: 10
+        }
+      ]
+    }
+
+    const choLineData = {
+      labels: [],
+      datasets: [{
+        label: 'Performance',
+        data: []
+      }]
+    }
+
+    this.sales.GetGraphData(1, "MIO").subscribe((result) => {
+      // console.log(result);
+      // console.log(result.data);
+      var data = JSON.parse(result.data);
+      console.log(data);
+
+      for (var i = 0; i < data.length; i++) {
+        var split = data[i].xAxis.split(",");
+        this.MIOLineGraphLabels.push(split[0]);
+        this.MIOLineGraphData.push(parseFloat(data[i].yAxis).toFixed(1));
+      }
+
+      mioLineData.labels = this.MIOLineGraphLabels;
+      mioLineData.datasets[0].data = this.MIOLineGraphData;
+    });
 
     this.sales.GetGraphData(2, "MIO").subscribe((result) => {
       // console.log(result);
@@ -84,8 +134,40 @@ export class DashboardComponent implements OnInit {
         this.MIOBarChartData.push(parseFloat(data[i].yAxis).toFixed(1));
       }
 
-      mioData.labels = this.MIOBarChartLabels;
-      mioData.datasets[0].data = this.MIOBarChartData;
+      mioBarData.labels = this.MIOBarChartLabels;
+      mioBarData.datasets[0].data = this.MIOBarChartData;
+    });
+
+    this.sales.GetGraphData(1, "CHO").subscribe((result) => {
+      // console.log(result);
+      // console.log(result.data);
+      var data = JSON.parse(result.data);
+      console.log(data);
+
+      for (var i = 0; i < data.length; i++) {
+        var split = data[i].xAxis.split(",");
+        this.CHOLineGraphLabels.push(split[0]);
+        this.CHOLineGraphData.push(parseFloat(data[i].yAxis).toFixed(1));
+      }
+
+      choLineData.labels = this.CHOLineGraphLabels;
+      choLineData.datasets[0].data = this.CHOLineGraphData;
+    });
+
+    this.sales.GetGraphData(2, "CHO").subscribe((result) => {
+      // console.log(result);
+      // console.log(result.data);
+      var data = JSON.parse(result.data);
+      console.log(data);
+
+      for (var i = 0; i < data.length; i++) {
+        var split = data[i].xAxis.split(",");
+        this.CHOBarChartLabels.push(split[0]);
+        this.CHOBarChartData.push(parseFloat(data[i].yAxis).toFixed(1));
+      }
+
+      choBarData.labels = this.CHOBarChartLabels;
+      choBarData.datasets[0].data = this.CHOBarChartData;
     });
 
     // MIO Wise Sales Bar Chart
@@ -97,7 +179,7 @@ export class DashboardComponent implements OnInit {
       var salesChart = new Chart(salesBarChartMIO, {
         type: 'bar',
         options: chartExample2.options,
-        data: mioData
+        data: mioBarData
       });
     }, 5000);
 
@@ -112,33 +194,37 @@ export class DashboardComponent implements OnInit {
       this.salesLineChartMIO = new Chart(lineChartSalesMIO, {
         type: 'line',
         options: chartExample1.options,
-        data: chartExample1.data
+        data: mioLineData
       });
     }, 5000);
     // --------------------------
 
     // CHO Wise Sales Bar Chart
-    var salesBarChartMIO = document.getElementById('CHO-WiseSales');
+    setTimeout(() => {
+      var salesBarChartMIO = document.getElementById('CHO-WiseSales');
 
-    parseOptions(Chart, chartOptions());
+      parseOptions(Chart, chartOptions());
 
-    var salesChart = new Chart(salesBarChartMIO, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
+      var salesChart = new Chart(salesBarChartMIO, {
+        type: 'bar',
+        options: chartExample2.options,
+        data: choBarData
+      });
+    }, 5000);
     // --------------------------
 
     // Sales CHO Line Chart
-    var lineChartSalesCHO = document.getElementById('chart-sales-CHO');
+    setTimeout(() => {
+      var lineChartSalesCHO = document.getElementById('chart-sales-CHO');
 
-    chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
+      chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
 
-    this.salesLineChartCHO = new Chart(lineChartSalesCHO, {
-      type: 'line',
-      options: chartExample1.options,
-      data: chartExample1.data
-    });
+      this.salesLineChartCHO = new Chart(lineChartSalesCHO, {
+        type: 'line',
+        options: chartExample1.options,
+        data: choLineData
+      });
+    }, 5000);
     // --------------------------
 
     // this.updateOptionsMIO();

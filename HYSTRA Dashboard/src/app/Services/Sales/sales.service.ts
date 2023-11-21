@@ -26,7 +26,7 @@ export class SalesService {
   private City = new BehaviorSubject('Karachi');
   getCity = this.City.asObservable();
 
-  private Period = new BehaviorSubject('MTD');
+  private Period = new BehaviorSubject('mtd');
   getPeriod = this.Period.asObservable();
 
   constructor(private router: Router, private http: HttpClient, private auth: AuthenticationService) {
