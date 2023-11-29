@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
 
   public SelectedCity: string = "Karachi";
   public SelectedPeriodFilter: string = "mtd";
+  public SelectedPeriodFilterDisplayText: string = "MTD";
 
   public focus;
   public listTitles: any[];
@@ -94,6 +95,7 @@ export class NavbarComponent implements OnInit {
   public SelectMTD(): void
   {
     this.SelectedPeriodFilter = "mtd";
+    this.SelectedPeriodFilterDisplayText = "MTD";
     this.MTDSelected = true;
     this.YTDSelected = false;
     this.PTDSelected = false;
@@ -104,6 +106,7 @@ export class NavbarComponent implements OnInit {
   public SelectYTD(): void
   {
     this.SelectedPeriodFilter = "ytd";
+    this.SelectedPeriodFilterDisplayText = "YTD";
     this.YTDSelected = true;
     this.PTDSelected = false;
     this.MTDSelected = false;
@@ -114,6 +117,7 @@ export class NavbarComponent implements OnInit {
   public SelectPTD(): void
   {
     this.SelectedPeriodFilter = "ptd";
+    this.SelectedPeriodFilterDisplayText = "PTD";
     this.PTDSelected = true;
     this.MTDSelected = false;
     this.YTDSelected = false;
