@@ -42,6 +42,9 @@ export class DashboardComponent implements OnInit {
   public ActiveProvidersCHOValue: any;
   public ActiveProvidersCHOPercentageValue: any;
 
+  public TotalVisitedMIOPercentageValue: any;
+  public TotalVisitedCHOPercentageValue: any;
+
   public MIOLineGraphLabels: any = [];
   public MIOLineGraphData: any = [];
   public MIOBarChartLabels: any = [];
@@ -384,6 +387,12 @@ export class DashboardComponent implements OnInit {
       {
         this.TotalVisitMIO += parseFloat(this.TotalVisitedMIO[i]);
       }
+
+      this.TotalVisitedMIOPercentageValue = (this.TotalVisitMIO / this.CallPlannedMIO) * 100;
+      this.TotalVisitedMIOPercentageValue = this.TotalVisitedMIOPercentageValue.toFixed(2);
+      if (isNaN(this.TotalVisitedMIOPercentageValue) || !isFinite(this.TotalVisitedMIOPercentageValue)) {
+        this.TotalVisitedMIOPercentageValue = "-";
+      }
     });
   }
 
@@ -422,6 +431,12 @@ export class DashboardComponent implements OnInit {
       for(let i = 0; i < this.TotalVisitedCHO.length; i++)
       {
         this.TotalVisitCHO += parseFloat(this.TotalVisitedCHO[i]);
+      }
+
+      this.TotalVisitedCHOPercentageValue = (this.TotalVisitCHO / this.CallPlannedCHO) * 100;
+      this.TotalVisitedCHOPercentageValue = this.TotalVisitedCHOPercentageValue.toFixed(2);
+      if (isNaN(this.TotalVisitedCHOPercentageValue) || !isFinite(this.TotalVisitedCHOPercentageValue)) {
+        this.TotalVisitedCHOPercentageValue = "-";
       }
     });
   }
