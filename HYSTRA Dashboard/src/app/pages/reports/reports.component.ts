@@ -494,13 +494,13 @@ export class ReportsComponent implements OnInit {
               CallsUnplanned: parseFloat(this.CallsUnplanned[i]),
               ActuallyVisited: this.ActuallyVisited[i],
               NotVisited: this.NotVisited[i],
-              PlannedPercentage: parseFloat(this.PlannedPercentage[i]).toFixed(2),
-              UnplannedPercentage: parseFloat(this.UnplannedPercentage[i]).toFixed(2),
+              PlannedPercentage: parseFloat(this.PlannedPercentage[i]).toFixed(),
+              UnplannedPercentage: parseFloat(this.UnplannedPercentage[i]).toFixed(),
               InRange: this.InRange[i],
               OutRange: this.OutRange[i],
-              GrandTotal: this.GrandTotal[i],
-              InRangePercent: this.InRangePercent[i],
-              OutRangePercent: this.OutRangePercent[i],
+              GrandTotal: parseFloat(this.GrandTotal[i]).toFixed(),
+              InRangePercent: parseFloat(this.InRangePercent[i]).toFixed(),
+              OutRangePercent: parseFloat(this.OutRangePercent[i]).toFixed(),
             });
           }
         }
@@ -518,6 +518,7 @@ export class ReportsComponent implements OnInit {
     this.p = 1;
 
     this.sales.GetMIOReprtData(this.SelectedType).subscribe((result) => {
+      console.log(this.SelectedType);
       console.log(result);
       console.log(result.data);
       var data = JSON.parse(result.data);

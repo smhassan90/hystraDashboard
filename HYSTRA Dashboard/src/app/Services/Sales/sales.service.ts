@@ -73,7 +73,7 @@ export class SalesService {
   public GetMIOReprtData(team: any) : Observable<any>
   {
     this.APIURL = this.MIOReprtsURL + "&team=" + team;
-    console.log("Dashboard Graphs URL: " + this.APIURL);
+    console.log("MIO Reprts URL: " + this.APIURL);
     return this.http.get<any>(this.APIURL);
   }
 }
