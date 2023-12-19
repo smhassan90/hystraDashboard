@@ -427,8 +427,8 @@ export class ReportsComponent implements OnInit {
             this.ActuallyVisited[i] = this.BusinessAPIData[i].calls;
             this.CallsUnplanned[i] = this.BusinessAPIData[i].calls - this.BusinessAPIData[i].pcalls;
             this.NotVisited[i] = this.BusinessAPIData[i].doctors - this.BusinessAPIData[i].covered;
-            this.PlannedPercentage[i] = (this.BusinessAPIData[i].pcalls / this.BusinessAPIData[i].calls) * 100;
-            this.UnplannedPercentage[i] = (this.CallsUnplanned[i] / this.BusinessAPIData[i].calls) * 100;
+            this.PlannedPercentage[i] = (this.Planned[i] / this.CallsPlanned[i]) * 100;
+            this.UnplannedPercentage[i] = (this.CallsUnplanned[i] / this.CallsPlanned[i]) * 100;
             this.InRange[i] = this.BusinessAPIData[i].green;
             this.OutRange[i] = this.BusinessAPIData[i].red;
             this.GrandTotal[i] = this.InRange[i] + this.OutRange[i];
