@@ -516,8 +516,13 @@ export class ReportsComponent implements OnInit {
 
     // Set Pagination To First Page
     this.p = 1;
+    var type = this.SelectedType;
 
-    this.sales.GetMIOReprtData(this.SelectedType).subscribe((result) => {
+    if(this.SelectedType == "All")
+    {
+      type = "";
+    }
+    this.sales.GetMIOReprtData(type).subscribe((result) => {
       console.log(this.SelectedType);
       console.log(result);
       console.log(result.data);
