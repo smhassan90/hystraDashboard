@@ -318,6 +318,8 @@ export class ReportsComponent implements OnInit {
     public GetSalesSummaryData(): void
     {
       this.SalesSummaryData = [];
+      this.SalesSummary = [];
+
       var selectedCity = "";
 
       if(this.SelectedCity == "Karachi")

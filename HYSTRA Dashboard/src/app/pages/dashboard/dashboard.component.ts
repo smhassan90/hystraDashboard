@@ -150,7 +150,7 @@ export class DashboardComponent implements OnInit {
     });
 
     this.sales.GetGraphData(2, "MIO").subscribe((result) => {
-      // console.log(result);
+      console.log(result);
       // console.log(result.data);
       var data = JSON.parse(result.data);
       console.log(data);
