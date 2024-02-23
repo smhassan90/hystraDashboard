@@ -136,65 +136,77 @@ export class DashboardComponent implements OnInit {
     this.sales.GetGraphData(1, "MIO").subscribe((result) => {
       // console.log(result);
       // console.log(result.data);
-      var data = JSON.parse(result.data);
-      console.log(data);
+      if(result.data != null)
+      {
+        var data = JSON.parse(result.data);
+        console.log(data);
 
-      for (var i = 0; i < data.length; i++) {
-        var split = data[i].xAxis.split(",");
-        this.MIOLineGraphLabels.push(split[0]);
-        this.MIOLineGraphData.push(parseFloat(data[i].yAxis).toFixed(1));
+        for (var i = 0; i < data.length; i++) {
+          var split = data[i].xAxis.split(",");
+          this.MIOLineGraphLabels.push(split[0]);
+          this.MIOLineGraphData.push(parseFloat(data[i].yAxis).toFixed(1));
+        }
+
+        mioLineData.labels = this.MIOLineGraphLabels;
+        mioLineData.datasets[0].data = this.MIOLineGraphData;
       }
-
-      mioLineData.labels = this.MIOLineGraphLabels;
-      mioLineData.datasets[0].data = this.MIOLineGraphData;
     });
 
     this.sales.GetGraphData(2, "MIO").subscribe((result) => {
       console.log(result);
       // console.log(result.data);
-      var data = JSON.parse(result.data);
-      console.log(data);
+      if(result.data != null)
+      {
+        var data = JSON.parse(result.data);
+        console.log(data);
 
-      for (var i = 0; i < data.length; i++) {
-        var split = data[i].xAxis.split(",");
-        this.MIOBarChartLabels.push(split[0]);
-        this.MIOBarChartData.push(parseFloat(data[i].yAxis).toFixed(1));
+        for (var i = 0; i < data.length; i++) {
+          var split = data[i].xAxis.split(",");
+          this.MIOBarChartLabels.push(split[0]);
+          this.MIOBarChartData.push(parseFloat(data[i].yAxis).toFixed(1));
+        }
+
+        mioBarData.labels = this.MIOBarChartLabels;
+        mioBarData.datasets[0].data = this.MIOBarChartData;
       }
-
-      mioBarData.labels = this.MIOBarChartLabels;
-      mioBarData.datasets[0].data = this.MIOBarChartData;
     });
 
     this.sales.GetGraphData(1, "CHO").subscribe((result) => {
       // console.log(result);
       // console.log(result.data);
-      var data = JSON.parse(result.data);
-      console.log(data);
+      if(result.data != null)
+      {
+        var data = JSON.parse(result.data);
+        console.log(data);
 
-      for (var i = 0; i < data.length; i++) {
-        var split = data[i].xAxis.split(",");
-        this.CHOLineGraphLabels.push(split[0]);
-        this.CHOLineGraphData.push(parseFloat(data[i].yAxis).toFixed(1));
+        for (var i = 0; i < data.length; i++) {
+          var split = data[i].xAxis.split(",");
+          this.CHOLineGraphLabels.push(split[0]);
+          this.CHOLineGraphData.push(parseFloat(data[i].yAxis).toFixed(1));
+        }
+
+        choLineData.labels = this.CHOLineGraphLabels;
+        choLineData.datasets[0].data = this.CHOLineGraphData;
       }
-
-      choLineData.labels = this.CHOLineGraphLabels;
-      choLineData.datasets[0].data = this.CHOLineGraphData;
     });
 
     this.sales.GetGraphData(2, "CHO").subscribe((result) => {
       // console.log(result);
       // console.log(result.data);
-      var data = JSON.parse(result.data);
-      console.log(data);
+      if(result.data != null)
+      {
+        var data = JSON.parse(result.data);
+        console.log(data);
 
-      for (var i = 0; i < data.length; i++) {
-        var split = data[i].xAxis.split(",");
-        this.CHOBarChartLabels.push(split[0]);
-        this.CHOBarChartData.push(parseFloat(data[i].yAxis).toFixed(1));
+        for (var i = 0; i < data.length; i++) {
+          var split = data[i].xAxis.split(",");
+          this.CHOBarChartLabels.push(split[0]);
+          this.CHOBarChartData.push(parseFloat(data[i].yAxis).toFixed(1));
+        }
+
+        choBarData.labels = this.CHOBarChartLabels;
+        choBarData.datasets[0].data = this.CHOBarChartData;
       }
-
-      choBarData.labels = this.CHOBarChartLabels;
-      choBarData.datasets[0].data = this.CHOBarChartData;
     });
 
     // MIO Wise Sales Bar Chart
