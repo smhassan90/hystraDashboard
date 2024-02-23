@@ -206,21 +206,21 @@ export class ReportsComponent implements OnInit {
     this.AllDistrictsSelected = false;
   }
 
-  public SelectIslamabad(): void
-  {
-    this.SelectedCity = "Islamabad";
-    this.IslamabadSelected = true;
-    this.KarachiSelected = false;
-    this.RawalpindiSelected = false;
-    this.AllDistrictsSelected = false;
-  }
+  // public SelectIslamabad(): void
+  // {
+  //   this.SelectedCity = "Islamabad";
+  //   this.IslamabadSelected = true;
+  //   this.KarachiSelected = false;
+  //   this.RawalpindiSelected = false;
+  //   this.AllDistrictsSelected = false;
+  // }
 
   public SelectRawalpindi(): void
   {
     this.SelectedCity = "Rawalpindi";
     this.RawalpindiSelected = true;
     this.KarachiSelected = false;
-    this.IslamabadSelected = false;
+    this.IslamabadSelected = true;
     this.AllDistrictsSelected = false;
   }
 

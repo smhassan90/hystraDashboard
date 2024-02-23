@@ -59,22 +59,22 @@ export class NavbarComponent implements OnInit {
     this.sales.SetCity(this.SelectedCity);
   }
 
-  public SelectIslamabad(): void
-  {
-    this.SelectedCity = "Islamabad";
-    this.IslamabadSelected = true;
-    this.KarachiSelected = false;
-    this.RawalpindiSelected = false;
-    this.AllDistrictsSelected = false;
+  // public SelectIslamabad(): void
+  // {
+  //   this.SelectedCity = "Islamabad";
+  //   this.IslamabadSelected = true;
+  //   this.KarachiSelected = false;
+  //   this.RawalpindiSelected = false;
+  //   this.AllDistrictsSelected = false;
 
-    this.sales.SetCity(this.SelectedCity);
-  }
+  //   this.sales.SetCity(this.SelectedCity);
+  // }
 
   public SelectRawalpindi(): void
   {
     this.SelectedCity = "Rawalpindi";
     this.RawalpindiSelected = true;
-    this.IslamabadSelected = false;
+    this.IslamabadSelected = true;
     this.KarachiSelected = false;
     this.AllDistrictsSelected = false;
 
