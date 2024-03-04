@@ -133,12 +133,14 @@ export class DashboardComponent implements OnInit {
       }]
     }
 
+    // MIO Line Data
     this.sales.GetGraphData(1, "MIO").subscribe((result) => {
       // console.log(result);
       // console.log(result.data);
       if(result.data != null)
       {
         var data = JSON.parse(result.data);
+        console.log("MIO Line Data: ");
         console.log(data);
 
         for (var i = 0; i < data.length; i++) {
@@ -149,15 +151,27 @@ export class DashboardComponent implements OnInit {
 
         mioLineData.labels = this.MIOLineGraphLabels;
         mioLineData.datasets[0].data = this.MIOLineGraphData;
+
+        // ============
+        var salesBarChartMIO = document.getElementById('MIO-WiseSales');
+
+        parseOptions(Chart, chartOptions());
+        var salesChart = new Chart(salesBarChartMIO, {
+          type: 'bar',
+          options: chartExample2.options,
+          data: mioLineData
+        });
       }
     });
 
+    // MIO Bar Data
     this.sales.GetGraphData(2, "MIO").subscribe((result) => {
-      console.log(result);
+      // console.log(result);
       // console.log(result.data);
       if(result.data != null)
       {
         var data = JSON.parse(result.data);
+        console.log("MIO Bar Data: ");
         console.log(data);
 
         for (var i = 0; i < data.length; i++) {
@@ -168,15 +182,27 @@ export class DashboardComponent implements OnInit {
 
         mioBarData.labels = this.MIOBarChartLabels;
         mioBarData.datasets[0].data = this.MIOBarChartData;
+
+        // ===================
+        var lineChartSalesMIO = document.getElementById('chart-sales-MIO');
+
+        chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
+        this.salesLineChartMIO = new Chart(lineChartSalesMIO, {
+          type: 'line',
+          options: chartExample1.options,
+          data: mioBarData
+        });
       }
     });
 
+    // CHO Line Data
     this.sales.GetGraphData(1, "CHO").subscribe((result) => {
       // console.log(result);
       // console.log(result.data);
       if(result.data != null)
       {
         var data = JSON.parse(result.data);
+        console.log("CHO Line Data: ");
         console.log(data);
 
         for (var i = 0; i < data.length; i++) {
@@ -187,15 +213,27 @@ export class DashboardComponent implements OnInit {
 
         choLineData.labels = this.CHOLineGraphLabels;
         choLineData.datasets[0].data = this.CHOLineGraphData;
+
+        // =====================
+        var salesBarChartMIO = document.getElementById('CHO-WiseSales');
+
+        parseOptions(Chart, chartOptions());
+        var salesChart = new Chart(salesBarChartMIO, {
+          type: 'bar',
+          options: chartExample2.options,
+          data: choLineData
+        });
       }
     });
 
+    // CHO Bar Data
     this.sales.GetGraphData(2, "CHO").subscribe((result) => {
       // console.log(result);
       // console.log(result.data);
       if(result.data != null)
       {
         var data = JSON.parse(result.data);
+        console.log("CHO Bar Data: ");
         console.log(data);
 
         for (var i = 0; i < data.length; i++) {
@@ -206,65 +244,18 @@ export class DashboardComponent implements OnInit {
 
         choBarData.labels = this.CHOBarChartLabels;
         choBarData.datasets[0].data = this.CHOBarChartData;
+
+        // ===============
+        var lineChartSalesCHO = document.getElementById('chart-sales-CHO');
+
+        chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
+        this.salesLineChartCHO = new Chart(lineChartSalesCHO, {
+          type: 'line',
+          options: chartExample1.options,
+          data: choBarData
+        });
       }
     });
-
-    // MIO Wise Sales Bar Chart
-
-    setTimeout(() => {
-      var salesBarChartMIO = document.getElementById('MIO-WiseSales');
-      parseOptions(Chart, chartOptions());
-
-      var salesChart = new Chart(salesBarChartMIO, {
-        type: 'bar',
-        options: chartExample2.options,
-        data: mioLineData
-      });
-    }, 5000);
-
-    // --------------------------
-
-    // Sales MIO Line Chart
-    setTimeout(() => {
-      var lineChartSalesMIO = document.getElementById('chart-sales-MIO');
-
-      chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
-
-      this.salesLineChartMIO = new Chart(lineChartSalesMIO, {
-        type: 'line',
-        options: chartExample1.options,
-        data: mioBarData
-      });
-    }, 5000);
-    // --------------------------
-
-    // CHO Wise Sales Bar Chart
-    setTimeout(() => {
-      var salesBarChartMIO = document.getElementById('CHO-WiseSales');
-
-      parseOptions(Chart, chartOptions());
-
-      var salesChart = new Chart(salesBarChartMIO, {
-        type: 'bar',
-        options: chartExample2.options,
-        data: choLineData
-      });
-    }, 5000);
-    // --------------------------
-
-    // Sales CHO Line Chart
-    setTimeout(() => {
-      var lineChartSalesCHO = document.getElementById('chart-sales-CHO');
-
-      chartExample1.data.labels = ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
-
-      this.salesLineChartCHO = new Chart(lineChartSalesCHO, {
-        type: 'line',
-        options: chartExample1.options,
-        data: choBarData
-      });
-    }, 5000);
-    // --------------------------
 
     // this.updateOptionsMIO();
     // this.updateOptionsCHO();
